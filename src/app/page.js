@@ -39,7 +39,7 @@ export default function Home() {
             </Suspense>
           </div>
         </section>
-        <section className='px-4 md:px-14 mt-40'>
+        <section className='px-0 gap-3 md:px-14 flex flex-col mt-40'>
           <CardGrid />
         </section>
       </div>
