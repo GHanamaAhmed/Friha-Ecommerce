@@ -1,3 +1,4 @@
+"use client"
 import Navbar from './component/header/navbar'
 import Swipers from './component/swipers/swiper'
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -8,8 +9,8 @@ import TitleSection from '../../components/titleSection/titleSection';
 import TitleSectionLoading from '../../components/titleSection/titleSectionLoading';
 import Steps from './component/steps/steps';
 import StepsLoading from './component/steps/stepsLoading';
-import CardGrid from './component/grid/CardGrid';
-// import Swiper and modules styles
+import CardGrid from './component/grid/cardGrid';
+
 export default function Home() {
   return (
     <>
@@ -39,12 +40,6 @@ export default function Home() {
           </div>
         </section>
         <section className='px-4 md:px-14 mt-40'>
-          <TitleSection className={"w-full flex flex-col"} title={"المنتجات"} subtitle={"تشكيلة متنوعة من المنتجات ذات الجودة العالية"}>
-            <div className='gap-7 md:flex'>
-              <button className='prevEl'><BsFillArrowRightCircleFill fill='white' size={35} /></button>
-              <button className='nextEl'><BsFillArrowLeftCircleFill fill='white' size={35} /></button>
-            </div>
-          </TitleSection>
           <CardGrid />
         </section>
       </div>
