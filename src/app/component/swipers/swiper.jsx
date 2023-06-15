@@ -1,9 +1,12 @@
 "use client"
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { A11y, Navigation, Pagination, FreeMode } from "swiper"
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Swiper , SwiperSlide } from 'swiper/react';
+// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import { useEffect, useState } from 'react';
 import Short from './short';
 import { selep } from '../../../../lib/sleep';
@@ -18,7 +21,7 @@ function SwiperComponent() {
     }, [])
     return (
         <Swiper
-            modules={[A11y, Navigation, Pagination, FreeMode]}
+            modules={[A11y, Navigation, Pagination]}
             spaceBetween={50}
             slidesPerView={width > 1280 ? 4.5 : width > 767 ? 3.5 : width < 640 ? 1.5 : 2.5}
             scrollbar={{ draggable: true }}
@@ -29,9 +32,10 @@ function SwiperComponent() {
                     prevEl: ".prevEl"
                 }
             }
+            watchOverflow={true}
         >
-            <SwiperSlide > <Short /></SwiperSlide>
-            <SwiperSlide > <Short /></SwiperSlide>
+            {[...Array(10)].map((e,i)=> <SwiperSlide  key={i}> <Short/></SwiperSlide>)}
+           
         </Swiper>
     )
 }

@@ -38,7 +38,7 @@ function NavbarComponent() {
 }
 
 export default async function Navbar() {
-    await selep()
+    await selep(300)
     return <NavbarComponent />
 }
 

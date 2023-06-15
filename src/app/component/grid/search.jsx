@@ -6,7 +6,7 @@ import InputBar from './input';
 export default function Search() {
 
     return (
-        <TitleSection className={"w-full gap-3 items-center flex flex-col md:flex-row justify-between"} title={"المنتجات"} subtitle={"تشكيلة متنوعة من المنتجات ذات الجودة العالية"}>
+        <TitleSection className={"w-full gap-3 items-start flex flex-col md:flex-row justify-between"} title={"المنتجات"} subtitle={"تشكيلة متنوعة من المنتجات ذات الجودة العالية"}>
             <div className='gap-3 flex items-center'>
                <InputBar/>
             </div>
