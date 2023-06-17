@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import MdAddShoppingCart from "react-icons/md";
 import img from "../../../../public/res/basket.svg";
-export default function InputBar() {
+export default function InputBarX() {
 	return (
 		<div className="flex flex-row justify-apart w-full items-center px-2 ">
 			<div className="flex flex-row w-full justify-start items-center ">
