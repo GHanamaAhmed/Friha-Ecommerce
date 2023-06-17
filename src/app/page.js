@@ -42,11 +42,11 @@ export default function Home() {
           </div>
         </section>
         <section className='gap-3 md:px-14  px-4 flex w-full flex-col mt-40'>
-         <Suspense fallback={<CardGridLoading/>}>
-         <CardGrid />
-         </Suspense>
+          <Suspense fallback={<CardGridLoading />}>
+            <CardGrid />
+          </Suspense>
         </section>
-        <Footer/>
+        <Footer />
       </div>
     </>
   )

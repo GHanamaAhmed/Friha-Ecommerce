@@ -20,3 +20,18 @@ body {
 .subtitle {
     color: #cccccc !important;
 }
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent !important;
+}
+.text-overflow-clamp {
+    width: 100%;
+    /* this code clamps based on specified lines */
+    overflow: hidden;
+   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+ }
