@@ -60,10 +60,12 @@ const data = [
 
 export default function Comments() {
     return (
-        <div className="w-full justify-start gap-3 flex flex-col">
-            {data.map((e, i) => {
-                return <Comment key={i} className={"w-full"} createAt={e?.createAt} imgUser={"/res/basket.svg"} nameUser={e?.nameUser} textUser={e?.textUser} replies={e?.replies} replyTo={e?.replyTo} />
-            })}
+        <div className="w-11/12 py-4 overflow-y-auto flex flex-col">
+            <div className="w-full justify-start gap-3 flex flex-col">
+                {data.map((e, i) => {
+                    return <Comment key={i} className={"w-full"} createAt={e?.createAt} imgUser={"/res/basket.svg"} nameUser={e?.nameUser} textUser={e?.textUser} replies={e?.replies} replyTo={e?.replyTo} />
+                })}
+            </div>
         </div>
     )
 }

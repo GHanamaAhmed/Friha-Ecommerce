@@ -3,7 +3,7 @@ import { AiFillLike } from "react-icons/ai"
 import { ShoppingCart } from "../img/img"
 import { FaComment, FaShare } from "react-icons/fa"
 import Link from "next/link"
-import {  useReducer } from "react"
+import { useReducer } from "react"
 import { RiCloseFill } from "react-icons/ri"
 import { usePathname } from "next/navigation";
 import Comments from "../comments/comments"
@@ -32,9 +32,9 @@ const reducer = (state, { type }) => {
             return { ...state, isShowComments }
     }
 }
-export default function Video({video, likes, comments, name, price, link, swiper }) {
+export default function Video({ video, likes, comments, name, price, link, swiper }) {
     const [state, dispatch] = useReducer(reducer, initialState(likes, comments))
-    const pathName=usePathname()
+    const pathName = usePathname()
     const hanldeClickLike = (e) => {
         e.preventDefault()
         dispatch({ type: "toggleClickLike" })
@@ -63,6 +63,9 @@ export default function Video({video, likes, comments, name, price, link, swiper
         } else {
             alert("Browser doesn't support this API !");
         }
+    }
+    const postComment=(e)=>{
+        e.preventDefault()
     }
     return (
         <div className='w-full h-full relative overflow-hidden'>
@@ -103,10 +106,25 @@ export default function Video({video, likes, comments, name, price, link, swiper
                     <p className="text-2xl">التعليقات</p>
                     <button onClick={handleShowComments}>  <RiCloseFill color="white" size={35} /></button>
                 </div>
-                <div className="w-full h-px bg-card2 my-1.5"></div>
-                <div className="w-11/12 py-4 overflow-y-auto flex flex-col">
-                    <Comments />
+                <div className="w-11/12 gap-2 py-2 items-center flex justify-between">
+                    <div className="w-full p-0 m-0 relative bg-transparent">
+                        <textarea
+                            className="peer resize-none text-lightContent w-full h-10 rounded-md bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            placeholder=" "
+                        />
+                        <label className="before:content[' '] bg-transparent after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full text-lightContent select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-blue-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-blue-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            اكتب تعليق
+                        </label>
+                    </div>
+                    <button
+                    onClick={postComment}
+                        className="py-2.5 mb-1.5 px-4 h-fit none center rounded-lg border border-lightContent font-sans text-xs font-bold uppercase text-lightContent transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                        نشر
+                    </button>
                 </div>
+                <div className="w-full h-px bg-card2 mb-1.5"></div>
+                <Comments />
             </div>
         </div>
     )
