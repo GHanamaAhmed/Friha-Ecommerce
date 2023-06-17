@@ -6,7 +6,7 @@ function SwiperLoadingComponent() {
       <div className='flex gap-3 flex-nowrap overflow-auto md:overflow-hidden'>
         {[...Array(nItems)].map((e, i) => (
           <div
-            ref={i}
+            key={i}
             role="status"
             className="space-y-8 relative animate-pulse p-0 md:space-y-0 md:space-x-8 md:flex md:items-center"
           >

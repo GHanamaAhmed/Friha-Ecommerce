@@ -10,6 +10,8 @@ import TitleSectionLoading from '../../components/titleSection/titleSectionLoadi
 import Steps from './component/steps/steps';
 import StepsLoading from './component/steps/stepsLoading';
 import CardGrid from './component/grid/cardGrid';
+import Footer from './component/footer/footer';
+import CardGridLoading from './component/grid/cardGridLoading';
 
 export default function Home() {
   return (
@@ -17,7 +19,7 @@ export default function Home() {
       <Suspense fallback={<NavBarLoading />}>
         <Navbar />
       </Suspense>
-      <div className='w-full'>
+      <div className='w-full pb-8'>
         <section className='px-4 md:px-14 mt-20'>
           <TitleSection className={"w-full flex justify-between items-center"} title={"مقاطع صغيرة"} subtitle={"شاهد مقاطع قصيرة مثيرة تعرض مجموعة متنوعة من الملابس"}>
             <div className='gap-7 hidden md:flex'>
@@ -39,9 +41,12 @@ export default function Home() {
             </Suspense>
           </div>
         </section>
-        <section className='px-4 md:px-14 mt-40'>
-          <CardGrid />
+        <section className='gap-3 md:px-14  px-4 flex w-full flex-col mt-40'>
+         <Suspense fallback={<CardGridLoading/>}>
+         <CardGrid />
+         </Suspense>
         </section>
+        <Footer/>
       </div>
     </>
   )
