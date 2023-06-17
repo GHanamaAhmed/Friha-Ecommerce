@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs'
 import { useSwiperSlide } from 'swiper/react'
 export default function VideoPlayers({ video }) {
@@ -7,7 +7,9 @@ export default function VideoPlayers({ video }) {
   const interval = useRef()
   const slide = useSwiperSlide()
   const [progress, setProgress] = useState(0)
-  const checkSlide = (slide.isNext || slide.isPrev || slide.isActive)
+  const checkSlide = useMemo(()=>{
+    return (slide.isNext || slide.isPrev || slide.isActive)
+  },[slide])
   useEffect(() => {
     if (checkSlide) {
       interval.current = setInterval(() => {
@@ -15,7 +17,7 @@ export default function VideoPlayers({ video }) {
       }, 1000)
       return () => { clearInterval(interval.current) }
     }
-  }, [])
+  }, [slide])
   useEffect(() => {
     if (checkSlide) {
       if (slide.isActive) {
@@ -26,7 +28,7 @@ export default function VideoPlayers({ video }) {
         setIsPlay(false)
       }
     }
-  }, [slide.isActive])
+  }, [slide])
   const videoHandler = (e) => {
     if (checkSlide) {
       e?.preventDefault()
