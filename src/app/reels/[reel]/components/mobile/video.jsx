@@ -3,10 +3,12 @@ import { AiFillLike } from "react-icons/ai"
 import { ShoppingCart } from "../img/img"
 import { FaComment, FaShare } from "react-icons/fa"
 import Link from "next/link"
-import { useReducer } from "react"
+import {  useReducer } from "react"
 import { RiCloseFill } from "react-icons/ri"
-import Comment from "../comments/comment"
+import { usePathname } from "next/navigation";
 import Comments from "../comments/comments"
+import VideoPlayers from "./videoPlayers"
+
 const initialState = (likes, comments) => {
     return {
         isClickLike: false,
@@ -30,9 +32,9 @@ const reducer = (state, { type }) => {
             return { ...state, isShowComments }
     }
 }
-
-export default function Video({ video, likes, comments, name, price, link, swiper }) {
+export default function Video({video, likes, comments, name, price, link, swiper }) {
     const [state, dispatch] = useReducer(reducer, initialState(likes, comments))
+    const pathName=usePathname()
     const hanldeClickLike = (e) => {
         e.preventDefault()
         dispatch({ type: "toggleClickLike" })
@@ -43,12 +45,28 @@ export default function Video({ video, likes, comments, name, price, link, swipe
     }
     const handleShowComments = (e) => {
         e.preventDefault()
-       state.isShowComments?swiper.current.enable() :swiper.current.disable()
+        state.isShowComments ? swiper.current.enable() : swiper.current.disable()
         dispatch({ type: "toggleShowComment" })
+    }
+    const share = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: 'FrihaClothes',
+                url: pathName
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch(err => {
+                console.log(
+                    "Error while using Web share API:");
+                console.log(err);
+            });
+        } else {
+            alert("Browser doesn't support this API !");
+        }
     }
     return (
         <div className='w-full h-full relative overflow-hidden'>
-            <video autoPlay src={video} className='w-full h-full'></video>
+            <VideoPlayers video={video} />
             <div className='absolute right-5 bottom-8 h-full grid grid-rows-6 gap-10'>
                 <div className="row-start-4 row-end-7 h-full flex flex-col items-center justify-between">
                     <div className="flex flex-col items-center gap-3">
@@ -64,7 +82,7 @@ export default function Video({ video, likes, comments, name, price, link, swipe
                         <p>{state.comments}</p>
                     </div>
                     <div className="flex flex-col items-center gap-2">
-                        <button><FaShare size={37} color="white" /></button>
+                        <button onClick={share}><FaShare size={37} color="white" /></button>
                         <p className="text-white">مشاركة</p>
                     </div>
                 </div>
@@ -83,11 +101,11 @@ export default function Video({ video, likes, comments, name, price, link, swipe
                 </div>
                 <div className="flex w-11/12 justify-between">
                     <p className="text-2xl">التعليقات</p>
-                  <button onClick={handleShowComments}>  <RiCloseFill color="white" size={35} /></button>
+                    <button onClick={handleShowComments}>  <RiCloseFill color="white" size={35} /></button>
                 </div>
                 <div className="w-full h-px bg-card2 my-1.5"></div>
                 <div className="w-11/12 py-4 overflow-y-auto flex flex-col">
-                    <Comments/>
+                    <Comments />
                 </div>
             </div>
         </div>

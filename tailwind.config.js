@@ -7,6 +7,12 @@ module.exports ={
   ],
   theme: {
     extend: {
+      keyframes: {
+        wiggle: {
+          '0%': { opacity:"100%" },
+          '100%': { opacity: '0%' },
+        }
+      },
       colors: {
         primaryColor: "#191919",
         card1: "#363636",
