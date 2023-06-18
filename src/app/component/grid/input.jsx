@@ -3,54 +3,56 @@ import { useState } from 'react';
 export default function InputBar() {
     return (
         <>
-            <Menu />
+            <Menu  text={"النوع "}/>
             <Input />
         </>
     )
 }
-function Menu() {
+function Menu({text}) {
 
-    const [isOpen, setIsOpen] = useState(false)
-    const handleMenu = () => {
-        setIsOpen(prev => !prev)
-    }
-    return (
-        <div className='relative'>
-            <button
-                data-ripple-light="true"
-                data-popover-target="menu"
-                onClick={handleMenu}
-                className="middle none md:px-8 center mr-3 rounded-lg border border-lightContent py-3 px-6 font-sans text-xs font-bold uppercase focus:text-teal-400 text-lightContent focus:border-none transition-all focus:ring-2 focus:ring-teal-400 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            >
-                النوع
-            </button>
-            <ul
-                role="menu"
-                data-popover="menu"
-                data-popover-placement="bottom"
-                className={`absolute ${isOpen ? "" : "hidden"}  -bottom-2 mx-1 translate-y-full right-0 z-10 min-w-[180px] overflow-auto rounded-md border border-blue-gray-50 bg-lightSolid p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}
-            >
-                <li
-                    role="menuitem"
-                    className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-                >
-                   الخيار الاول
-                </li>
-                <li
-                    role="menuitem"
-                    className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-                >
-                     الخيار الثاني
-                </li>
-                <li
-                    role="menuitem"
-                    className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-                >
-                    الخيار الثالث
-                </li>
-            </ul>
-        </div>
-    )
+	const [isOpen, setIsOpen] = useState(false);
+	const handleMenu = () => {
+		setIsOpen((prev) => !prev);
+	};
+	return (
+		<div className="relative px-1">
+			<button
+				data-ripple-light="true"
+				data-popover-target="menu"
+				onClick={handleMenu}
+				className="middle none md:px-8 center mr-3 rounded-lg border border-lightContent py-3 px-6 font-sans text-xs font-bold uppercase focus:text-teal-400 text-lightContent focus:border-none transition-all focus:ring-2 focus:ring-teal-400 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+			>
+				{text}
+			</button>
+			<ul
+				role="menu"
+				data-popover="menu"
+				data-popover-placement="bottom"
+				className={`absolute ${
+					isOpen ? "" : "hidden"
+				}  -bottom-2 mx-1 translate-y-full right-0 z-10 min-w-[180px] overflow-auto rounded-md border border-blue-gray-50 bg-lightSolid p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none`}
+			>
+				<li
+					role="menuitem"
+					className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+				>
+					الخيار الاول
+				</li>
+				<li
+					role="menuitem"
+					className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+				>
+					الخيار الثاني
+				</li>
+				<li
+					role="menuitem"
+					className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+				>
+					الخيار الثالث
+				</li>
+			</ul>
+		</div>
+	);
 }
 function Input() {
     return (
