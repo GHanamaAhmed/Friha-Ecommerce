@@ -2,11 +2,11 @@ import React from 'react'
 
 export default function Card() {
     return (
-			<div className="w-36 p-0 md:w-60 h-56 md:h-80 overflow-hidden relative rounded-lg bg-card1 grid grid-cols-1 grid-rows-6">
-				<div className="place-self-start w-full h-full row-span-4 relative">
-					<img className="w-full h-full " src="./res/item.png" alt="" />
+			<div className="w-36 p-0 md:w-60 h-56 md:h-80 overflow-hidden relative rounded-lg bg-card1 grid grid-cols-1 grid-rows-6 md:grid-rows-4">
+				<div className="place-self-start w-full h-full row-span-4 md:row-span-3 relative">
+					<img className="w-full h-full " src="./res/blacksweatshirt.png" alt="" />
 				</div>
-				<div className="flex flex-col gap-2 row-span-2 justify-center">
+				<div className="flex flex-col gap-2 row-span-2 md:row-span-1 justify-center">
 					<div className="grid grid-rows-2 grid-cols-2 px-3">
 						<div className="col-span-2 text-end">
 							<h1 className="text-lightSolid text-lg">حذاء ADIDAS</h1>

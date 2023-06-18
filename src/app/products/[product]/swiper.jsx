@@ -13,7 +13,7 @@ import "swiper/css/free-mode";
 import img1 from "../../../../public/res/item.png";
 export default function SwiperX() {
 	return (
-		<div className={`p-1 overflow-clip `}>
+		<div className={`p-1 overflow-clip`}>
 			<Swiper
 				slidesPerView={10}
 				spaceBetween={75}
