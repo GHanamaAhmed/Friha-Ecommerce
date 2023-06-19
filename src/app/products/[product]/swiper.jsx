@@ -1,8 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, Navigation, Pagination, FreeMode } from "swiper";
-import { BsArrowLeft } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import {  Navigation, FreeMode } from "swiper";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
