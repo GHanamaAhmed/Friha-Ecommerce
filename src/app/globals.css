@@ -35,3 +35,6 @@ a {
   -webkit-line-clamp: 3;
   display: -webkit-box;
  }
+ .likeDesktop,.shareDesktop{
+    cursor: pointer !important;
+ }

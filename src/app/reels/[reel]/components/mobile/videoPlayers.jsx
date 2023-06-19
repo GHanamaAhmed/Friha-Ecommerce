@@ -13,7 +13,7 @@ export default function VideoPlayers({ video }) {
   useEffect(() => {
     if (checkSlide) {
       interval.current = setInterval(() => {
-        setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100)
+        videoRef.current&& setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100)
       }, 1000)
       return () => { clearInterval(interval.current) }
     }

@@ -6,7 +6,6 @@ import { Suspense } from 'react';
 import SwiperLoading from './component/swipers/swiperLoading';
 import NavBarLoading from './component/header/navBarLoading';
 import TitleSection from '../../components/titleSection/titleSection';
-import TitleSectionLoading from '../../components/titleSection/titleSectionLoading';
 import Steps from './component/steps/steps';
 import StepsLoading from './component/steps/stepsLoading';
 import CardGrid from './component/grid/cardGrid';
