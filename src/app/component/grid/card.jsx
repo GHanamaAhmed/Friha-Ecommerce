@@ -1,5 +1,4 @@
 import React from 'react'
-
 export default function Card() {
     return (
 			<div className="w-36 p-0 md:w-60 h-56 md:h-80 overflow-hidden relative rounded-lg bg-card1 grid grid-cols-1 grid-rows-6 md:grid-rows-4">

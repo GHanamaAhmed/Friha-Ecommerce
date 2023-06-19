@@ -33,7 +33,7 @@ export default function Details({ idReel }) {
             </div>
             <div className='w-full py-3'>
                     <Tabs value={isShowComments} className="w-full">
-                        <TabsHeader
+                        <TabsHeader 
                           className="rounded-none border-blue-gray-50 bg-transparent p-0"
                           indicatorProps={{
                             className: "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",

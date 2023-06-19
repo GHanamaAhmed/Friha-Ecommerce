@@ -1,15 +1,3 @@
-"use client";
-import React, { useRef, useState } from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/scrollbar";
-
-// import required modules
-import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 export default function Par() {
 	return (

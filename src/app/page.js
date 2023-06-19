@@ -1,4 +1,3 @@
-"use client"
 import Navbar from './component/header/navbar'
 import Swipers from './component/swipers/swiper'
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -11,7 +10,6 @@ import StepsLoading from './component/steps/stepsLoading';
 import CardGrid from './component/grid/cardGrid';
 import Footer from './component/footer/footer';
 import CardGridLoading from './component/grid/cardGridLoading';
-
 export default function Home() {
   return (
     <>
