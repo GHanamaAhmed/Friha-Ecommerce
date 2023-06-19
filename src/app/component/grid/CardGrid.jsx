@@ -1,4 +1,3 @@
-"use client"
 import React from 'react'
 import img1 from '../swipers/img/reels.png'
 import Card from './card'

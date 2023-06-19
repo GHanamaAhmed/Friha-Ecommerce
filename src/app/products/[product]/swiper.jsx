@@ -1,9 +1,6 @@
-"use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, Navigation, Pagination, FreeMode } from "swiper";
-import { BsArrowLeft } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import {  Navigation, FreeMode } from "swiper";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,7 +10,7 @@ import "swiper/css/free-mode";
 import img1 from "../../../../public/res/item.png";
 export default function SwiperX() {
 	return (
-		<div className={`p-1 overflow-clip `}>
+		<div className={`p-1 overflow-clip`}>
 			<Swiper
 				slidesPerView={10}
 				spaceBetween={75}

@@ -1,4 +1,3 @@
-"use client"
 import Navbar from './component/header/navbar'
 import Swipers from './component/swipers/swiper'
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -6,13 +5,11 @@ import { Suspense } from 'react';
 import SwiperLoading from './component/swipers/swiperLoading';
 import NavBarLoading from './component/header/navBarLoading';
 import TitleSection from '../../components/titleSection/titleSection';
-import TitleSectionLoading from '../../components/titleSection/titleSectionLoading';
 import Steps from './component/steps/steps';
 import StepsLoading from './component/steps/stepsLoading';
 import CardGrid from './component/grid/cardGrid';
 import Footer from './component/footer/footer';
 import CardGridLoading from './component/grid/cardGridLoading';
-
 export default function Home() {
   return (
     <>
@@ -42,11 +39,11 @@ export default function Home() {
           </div>
         </section>
         <section className='gap-3 md:px-14  px-4 flex w-full flex-col mt-40'>
-         <Suspense fallback={<CardGridLoading/>}>
-         <CardGrid />
-         </Suspense>
+          <Suspense fallback={<CardGridLoading />}>
+            <CardGrid />
+          </Suspense>
         </section>
-        <Footer/>
+        <Footer />
       </div>
     </>
   )

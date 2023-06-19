@@ -22,8 +22,8 @@ function SwiperLoadingComponent() {
               </svg>
 
               <div className='flex flex-col absolute bottom-4 gap-4 right-4 z-10'>
-                <div class="h-4 bg-gray-300 rounded-full w-16"></div>
-                <div class="h-2 bg-gray-300 rounded-full w-10"></div>
+                <div className="h-4 bg-gray-300 rounded-full w-16"></div>
+                <div className="h-2 bg-gray-300 rounded-full w-10"></div>
               </div >
             </div>
           </div>
