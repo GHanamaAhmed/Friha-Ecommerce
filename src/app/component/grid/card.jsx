@@ -11,7 +11,7 @@ export default function Card() {
 							<h1 className="text-lightSolid text-lg">حذاء ADIDAS</h1>
 						</div>
 						<div className="flex flex-row justify-between col-span-2  text-end">
-							<button className="text-white py-px px-4  hover:shadow-trueblue hover:shadow-md bg-gradient-to-r  from-trueblue to-azure bg-[position:_100%_100%] hover:bg-[position:_0%_0%] bg-[size:_160%] transition-all duration-500 rounded-lg">
+							<button className="text-white py-px px-4  hover:shadow-trueblue hover:shadow-sm bg-gradient-to-r  from-trueblue via-cyan-700 to-azure bg-[position:_0%_0%] hover:bg-[position:_100%_100%] bg-[size:_200%] transition-all duration-500 rounded-lg">
 								شراء
 							</button>
 							<p className="text-lightContent text-base">20DA</p>
