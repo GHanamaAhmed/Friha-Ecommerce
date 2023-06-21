@@ -148,7 +148,7 @@ export default function Video({ video, likes, comments, name, price, link, swipe
 								</div>
 								<button
 									onClick={postComment}
-									className="py-2.5 mb-1.5 px-4 h-fit none center rounded-lg border focus:border-cyan-700 focus:text-cyan-600 border-lightContent font-sans text-xs font-bold uppercase text-lightContent transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+									className="py-2.5 mb-1.5 px-4 h-fit none center rounded-lg border active:border-cyan-700 active:text-cyan-600 border-lightContent font-sans text-xs font-bold uppercase text-lightContent transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 								>
 									نشر
 								</button>

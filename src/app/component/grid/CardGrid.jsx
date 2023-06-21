@@ -5,7 +5,6 @@ import Search from './search'
 import { selep } from '../../../../lib/sleep'
 export default async function CardGrid() {
 	await selep()
-	const nItem = 10
 	const content = () => {
 		return (
 			<>
@@ -23,7 +22,7 @@ export default async function CardGrid() {
 					})}
 				</div>
 				<div className="w-full flex justify-center py-3">
-					<button className="middle none md:px-8 center mr-3 rounded-lg border border-lightContent py-3 px-6 font-sans text-xs font-bold uppercase focus:text-cyan-400 text-lightContent focus:border-none transition-all focus:ring-2 focus:ring-cyan-300  disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+					<button className="middle none md:px-8 center mr-3 rounded-lg border border-lightContent py-3 px-6 font-sans text-xs font-bold uppercase active:text-cyan-400 text-lightContent focus:border-none transition-all focus:ring-2 active:ring-cyan-300">
 						المزيد
 					</button>
 				</div>

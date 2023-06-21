@@ -1,6 +1,4 @@
-
 import Search from "./search"
-
 export default function CardGridLoading() {
     return (
         <>
