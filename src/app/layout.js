@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={"w-full  bg-primaryColor"}>{children}</body>
+      <body className={"w-full  bg-primaryColor relative"}>{children}</body>
     </html>
   );
 }

@@ -1,13 +1,18 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import img1 from "../swipers/img/reels.png";
-import Card from "./card";
+import Card from './card';
 import Search from "./search";
 import { selep } from "../../../../lib/sleep";
-export default async function CardGrid() {
-  await selep();
+import CardGridLoading from "./cardGridLoading";
+export default  function CardGrid() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    selep().then(setIsLoading(false));
+  }, []);
   const content = () => {
     return (
-      <>
+    !isLoading?  <>
         <Search />
         <div className="grid grid-cols-2 place-items-center gap-6 px-3 sm:grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
           {[...Array(10)].map((e, i) => {
@@ -26,7 +31,7 @@ export default async function CardGrid() {
             المزيد
           </button>
         </div>
-      </>
+      </>:<CardGridLoading/>
     );
   };
   return content();

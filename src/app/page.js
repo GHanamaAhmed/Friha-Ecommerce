@@ -6,7 +6,6 @@ import {
 } from "react-icons/bs";
 import { Suspense } from "react";
 import SwiperLoading from "./component/swipers/swiperLoading";
-import NavBarLoading from "./component/header/navBarLoading";
 import TitleSection from "../../components/titleSection/titleSection";
 import Steps from "./component/steps/steps";
 import StepsLoading from "./component/steps/stepsLoading";
@@ -16,11 +15,9 @@ import CardGridLoading from "./component/grid/cardGridLoading";
 export default function Home() {
   return (
     <>
-      <Suspense fallback={<NavBarLoading />}>
-        <Navbar />
-      </Suspense>
+      <Navbar />
       <div className="w-full pb-8">
-        <section className="mt-20 px-4 md:px-14">
+        <section className="px-4 pt-20 md:px-14">
           <TitleSection
             className={"flex w-full items-center justify-between"}
             title={"مقاطع صغيرة"}
@@ -36,9 +33,7 @@ export default function Home() {
             </div>
           </TitleSection>
           <div className="mt-10 w-full">
-            <Suspense fallback={<SwiperLoading />}>
-              <Swipers />
-            </Suspense>
+            <Swipers />
           </div>
         </section>
         <section className="flex w-full flex-col gap-6">
@@ -54,9 +49,7 @@ export default function Home() {
           </div>
         </section>
         <section className="mt-40 flex  w-full flex-col gap-3 px-4 md:px-14">
-          <Suspense fallback={<CardGridLoading />}>
-            <CardGrid />
-          </Suspense>
+          <CardGrid />
         </section>
         <Footer />
       </div>
