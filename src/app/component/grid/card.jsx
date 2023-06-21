@@ -17,7 +17,7 @@ export default function Card() {
           alt=""
         />
       </div>
-      <div className="grid-row-3 row-span-2 grid md:row-span-1">
+      <div className="grid-row-3 row-span-2 grid px-2 md:row-span-1">
         <div className="row-span-2 flex flex-col items-start justify-center">
           <h1 className="text-sm text-white md:text-lg">حذاء ADIDAS</h1>
           <p className="text-sm text-white md:text-xl">2000.00 DA</p>

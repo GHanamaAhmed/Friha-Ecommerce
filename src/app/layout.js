@@ -1,7 +1,7 @@
+import Auth0 from "./component/auth0/auth0";
 import Navbar from "./component/header/navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,8 +11,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={"w-full  bg-primaryColor relative"}>{children}</body>
-    </html>
+    <Auth0>
+      <html lang="en">
+        <body className={"relative  w-full bg-primaryColor"}>{children}</body>
+      </html>
+    </Auth0>
   );
 }
