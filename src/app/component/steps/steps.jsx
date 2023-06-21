@@ -1,4 +1,3 @@
-"use client";
 import Card from "./card";
 import img1 from "./img/icon.svg";
 import img2 from "./img/icon-1.svg";

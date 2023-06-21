@@ -23,7 +23,7 @@ export default function Swipers() {
       modules={[A11y, Navigation, Pagination]}
       spaceBetween={50}
       slidesPerView={
-        width > 1280 ? 4.5 : width > 767 ? 3.5 : width < 640 ? 1.5 : 2.5
+        width > 1280 ? 4.5 : width > 921 ? 3.5 : width < 640 ? 1.5 : 2.5
       }
       scrollbar={{ draggable: true }}
       freeMode={true}

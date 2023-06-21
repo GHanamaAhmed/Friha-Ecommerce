@@ -27,24 +27,36 @@ export default function MenuAccount() {
           src={user.picture}
         />
       </MenuHandler>
-      <MenuList>
-        <MenuItem className="flex items-center gap-2">
-          <UserCircleIcon strokeWidth={2} className="h-4 w-4" />
-          <Typography variant="small" className="font-Hacen-Tunisia">
+      <MenuList className="border-none bg-gray-900 ring-0">
+        <MenuItem className="flex items-center gap-2 hover:bg-gray-800 focus:bg-gray-800" >
+          <UserCircleIcon
+            strokeWidth={2}
+            className="h-4 w-4 stroke-lightSolid"
+          />
+          <Typography
+            variant="small"
+            className="font-Hacen-Tunisia text-lightSolid"
+          >
             الحساب
           </Typography>
         </MenuItem>
 
-        <MenuItem className="flex items-center gap-2">
-          <LifebuoyIcon strokeWidth={2} className="h-4 w-4" />
-          <Typography variant="small" className="font-Hacen-Tunisia">
+        <MenuItem className="flex items-center gap-2 hover:bg-gray-800 focus:bg-gray-800" >
+          <LifebuoyIcon strokeWidth={2} className="h-4 w-4 stroke-lightSolid" />
+          <Typography
+            variant="small"
+            className="font-Hacen-Tunisia text-lightSolid"
+          >
             مساعدة
           </Typography>
         </MenuItem>
-        <hr className="my-2 border-blue-gray-50" />
-        <MenuItem onClick={() => logout()} className="flex items-center gap-2 ">
-          <PowerIcon strokeWidth={2} className="h-4 w-4" />
-          <Typography variant="small" className="font-Hacen-Tunisia">
+        <hr className="my-2 border-lightSolid" />
+        <MenuItem onClick={() => logout()} className="flex items-center gap-2 hover:bg-gray-800 focus:bg-gray-800" >
+          <PowerIcon strokeWidth={2} className="h-4 w-4 stroke-lightSolid" />
+          <Typography
+            variant="small"
+            className="font-Hacen-Tunisia text-lightSolid"
+          >
             تسجيل الخروج
           </Typography>
         </MenuItem>

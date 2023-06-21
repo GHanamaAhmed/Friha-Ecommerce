@@ -34,7 +34,7 @@ export default function DrawerComponent({ onClose, isOpen }) {
       <Drawer
         open={open}
         onClose={closeDrawer}
-        className="bg-primaryColor"
+        className="bg-gray-900"
         placement="right"
       >
         <div className="mb-2 flex items-center justify-between py-4 pr-10">
@@ -45,9 +45,12 @@ export default function DrawerComponent({ onClose, isOpen }) {
         </div>
         <List>
           {item.map((e, i) => (
-            <ListItem key={i} className="gap-5">
+            <ListItem
+              key={i}
+              className="gap-5 py-5 text-lightSolid hover:bg-gray-800 hover:text-lightSolid focus:bg-blue-gray-800 focus:text-lightSolid"
+            >
               <ListItemPrefix>
-                <PresentationChartBarIcon className="h-5 w-5 fill-gray-300" />
+                <PresentationChartBarIcon className="h-5 w-5 fill-lightSolid" />
               </ListItemPrefix>
               {e}{" "}
             </ListItem>
