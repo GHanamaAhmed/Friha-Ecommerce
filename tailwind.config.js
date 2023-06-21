@@ -29,5 +29,5 @@ module.exports = withMT({
 			},
 		},
 	},
-	plugins: [],
+	plugins: [require('prettier-plugin-tailwindcss')],
 });

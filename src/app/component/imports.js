@@ -1,17 +1,10 @@
-'use client'
+"use client";
 import {
-	Menu ,
-	MenuHandler,
-	MenuList,
-	MenuItem,
-	Button,
-	Input ,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+  Input,
 } from "@material-tailwind/react";
-export {
-	Menu ,
-	MenuHandler,
-	MenuList,
-	MenuItem,
-	Button,
-	Input ,
-};
+export { Menu, MenuHandler, MenuList, MenuItem, Button, Input };

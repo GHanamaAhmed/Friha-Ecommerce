@@ -3,38 +3,39 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Hacen Tunisia';
-    src: url('../../public/fonts/Hacen\ Tunisia.ttf')
+  font-family: "Hacen Tunisia";
+  src: url("../../public/fonts/Hacen\ Tunisia.ttf");
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    font-family: Hacen Tunisia;
+  padding: 0;
+  margin: 0;
+  font-family: Hacen Tunisia;
 }
 
 body {
-    direction: rtl;
+  direction: rtl;
 }
 
 .subtitle {
-    color: #cccccc !important;
+  color: #cccccc !important;
 }
 input,
 textarea,
 button,
 select,
 a {
-    -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 .text-overflow-clamp {
-    width: 100%;
-    /* this code clamps based on specified lines */
-    overflow: hidden;
-   -webkit-box-orient: vertical;
+  width: 100%;
+  /* this code clamps based on specified lines */
+  overflow: hidden;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   display: -webkit-box;
- }
- .likeDesktop,.shareDesktop{
-    cursor: pointer !important;
- }
+}
+.likeDesktop,
+.shareDesktop {
+  cursor: pointer !important;
+}
