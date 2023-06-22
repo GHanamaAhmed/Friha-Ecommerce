@@ -16,9 +16,6 @@ export default function Navbar() {
   const [headerPosition, setHeaderPosition] = useState("");
   const { loginWithPopup, isAuthenticated, user } = useAuth0();
   useEffect(() => {
-    console.log(user);
-  });
-  useEffect(() => {
     const handlePosition = () => {
       if (positionScroll < globalThis.window?.scrollY) {
         setHeaderPosition("-translate-y-full");
@@ -44,7 +41,7 @@ export default function Navbar() {
       >
         <div className="hidden items-center justify-between gap-6 md:flex">
           <Button
-            className="hidden md:block"
+            className="hidden md:block p-0"
             variant="text"
             onClick={toggleMenu}
           >

@@ -15,6 +15,8 @@ module.exports = withMT({
 			},
 			colors: {
 				primaryColor: "#191919",
+				scandaryColor:"#1FAB71",
+				basketColor:"#403A63",
 				card1: "#363636",
 				card2: "#666666",
 				lightContent: "#A7A7A7",
@@ -31,6 +33,12 @@ module.exports = withMT({
 				"gradient-conic":
 					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 			},
+			keyframes:{
+				appear: {
+					'0%': { transform: 'scale(0)' },
+					'100%': { transform: 'scale(1)' },
+				  }
+			}
 		},
 	},
 	plugins: [require('prettier-plugin-tailwindcss')],

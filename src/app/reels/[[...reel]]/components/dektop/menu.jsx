@@ -14,7 +14,7 @@ export default function Menus() {
     <>
       <Button
         variant="filled"
-        className="font-hacen-tunisia flex items-center gap-3 bg-gradient-to-r  from-azure via-azure to-trueblue text-base  capitalize tracking-normal"
+        className="font-hacen-tunisia flex items-center gap-3 bg-gradient-to-r bg-scandaryColor text-white shadow-none hover:shadow-none text-base  capitalize tracking-normal"
       >
         شراء
         <ShoppingBagIcon

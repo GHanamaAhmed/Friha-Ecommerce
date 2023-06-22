@@ -5,6 +5,7 @@ import Card from "./card";
 import Search from "./search";
 import { selep } from "../../../../lib/sleep";
 import CardGridLoading from "./cardGridLoading";
+import { Button } from "@material-tailwind/react";
 export default function CardGrid() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -27,9 +28,13 @@ export default function CardGrid() {
           })}
         </div>
         <div className="flex w-full justify-center py-3">
-          <button className="middle none center mr-3 rounded-lg border border-lightContent px-6 py-3 font-sans text-xs font-bold uppercase text-lightContent transition-all focus:border-none focus:ring-2 active:text-cyan-400 active:ring-cyan-300 md:px-8">
+          <Button
+            variant="outlined"
+            size="md"
+            className={`font-Hacen-Tunisia border-lightContent  text-lightContent `}
+          >
             المزيد
-          </button>
+          </Button>
         </div>
       </>
     ) : (
