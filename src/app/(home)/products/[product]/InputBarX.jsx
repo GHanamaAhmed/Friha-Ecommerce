@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import MdAddShoppingCart from "react-icons/md";
-import img from "../../../../public/res/basket.svg";
 export default function InputBarX() {
   return (
-    <div className="justify-apart flex w-full flex-row items-center px-2 ">
+    <div className="justify-apart flex w-full flex-row items-center px-4 ">
       <div className="flex w-full flex-row items-center justify-start ">
         <Menu text="اللون" />
         <Menu text="المقاس" />
