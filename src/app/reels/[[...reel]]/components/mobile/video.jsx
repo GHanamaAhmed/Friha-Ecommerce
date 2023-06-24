@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useReducer } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
-import Comments from "../comments/comments";
+import Comments from "../../../../../../components/comments/comments";
 import VideoPlayers from "./videoPlayers";
 const initialState = (likes, comments) => {
   return {

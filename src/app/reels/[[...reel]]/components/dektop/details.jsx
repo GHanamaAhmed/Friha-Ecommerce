@@ -4,9 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import TitleSection from "../../../../../../components/titleSection/titleSection";
-import { AiFillLike } from "react-icons/ai";
-import { ShoppingCart } from "../img/img";
-import { FaComment, FaShare, FaShoppingCart } from "react-icons/fa";
+import { AiFillLike, AiFillMessage } from "react-icons/ai";
+import {  FaShare, FaShoppingCart } from "react-icons/fa";
 import Image from "next/image";
 import Example from "./menu";
 import { useState } from "react";
@@ -17,7 +16,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import Comments from "../comments/comments";
+import Comments from "../../../../../../components/comments/comments";
 export default function Details({ idReel }) {
   const [isShowComments, setIsShowComment] = useState(1);
   const [isLikeIt, setIsLikeIt] = useState(false);
@@ -79,7 +78,7 @@ export default function Details({ idReel }) {
                   <p className="text-lg  font-bold text-lightSolid">
                     {comments}
                   </p>
-                  <FaComment size={40} color="white" />
+                  <AiFillMessage size={40} color="white" />
                 </div>
               </Tab>
             </TabsHeader>
