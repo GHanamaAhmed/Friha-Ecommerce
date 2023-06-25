@@ -1,10 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { FaFacebookF, FaInstagram } from 'react-icons/fa'
-
-
 export default function Footer() {
-  console.log("ght");
     return (
         <div className='w-full flex flex-col px-2 md:px-14 gap-7 items-end'>
             <div className='flex flex-col gap-7 md:flex-row-reverse md:justify-between w-full items-end'>

@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {
   Menu,
@@ -5,8 +6,6 @@ import {
   MenuList,
   MenuItem,
   Button,
-  Card,
-  Typography,
 } from "@material-tailwind/react";
 import { ChevronDownIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 export default function Menus() {

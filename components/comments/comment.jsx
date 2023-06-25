@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { BsFillReplyFill } from "react-icons/bs";
 import { useState } from "react";
-import { useWidth } from "../../../../../../lib/hooks/useWidth";
+import { useWidth } from "../../lib/hooks/useWidth";
 import { twMerge } from "tailwind-merge";
 export default function Comment({
   className,
