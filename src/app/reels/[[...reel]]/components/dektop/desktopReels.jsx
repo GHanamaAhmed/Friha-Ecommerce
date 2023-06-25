@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { useRef, useState } from "react";
 import Video from "../mobile/video";
-import Details from "./details";
+import Details from "../../../../../../components/details/details";
 export default function DesktopReels() {
   const refSwiper = useRef();
   const [page, setPage] = useState(0);

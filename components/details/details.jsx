@@ -3,7 +3,7 @@ import { Navigation, A11y, FreeMode } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import TitleSection from "../../../../../../components/titleSection/titleSection";
+import TitleSection from "../titleSection/titleSection";
 import { AiFillLike, AiFillMessage } from "react-icons/ai";
 import {  FaShare, FaShoppingCart } from "react-icons/fa";
 import Image from "next/image";
@@ -16,7 +16,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import Comments from "../../../../../../components/comments/comments";
+import Comments from "../comments/comments";
 export default function Details({ idReel }) {
   const [isShowComments, setIsShowComment] = useState(1);
   const [isLikeIt, setIsLikeIt] = useState(false);
@@ -92,8 +92,9 @@ export default function Details({ idReel }) {
         <div className="grid h-full w-full grid-cols-12 grid-rows-1 pt-10">
           <div className="col-span-8 flex h-full w-full flex-col  items-center">
             <div className="flex h-5/6 w-full flex-col items-center justify-start">
-              <div className="flex w-full flex-col items-center gap-3">
-                <div className="relative h-56 w-80">
+              <div className="flex w-full flex-col items-start gap-3">
+                <div className="w-full px-5">
+                <div className="relative h-64 w-10/12">
                   <Image
                     fill={true}
                     priority
@@ -102,10 +103,12 @@ export default function Details({ idReel }) {
                     className="h-full w-full rounded-md"
                   />
                 </div>
-                <div className="flex w-full justify-around">
+                </div>
+                <div className="flex w-fit gap-3 px-5">
                   <Example />
                 </div>
                 <div className="px-5">
+                  <p className="text-scandaryColor text-xl font-Hacen-Tunisia">الوصف</p>
                   <p className="text-justify text-white">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Fugit fuga nesciunt quaerat distinctio incidunt asperiores

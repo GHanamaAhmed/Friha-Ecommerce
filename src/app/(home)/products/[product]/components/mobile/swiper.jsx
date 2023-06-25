@@ -27,22 +27,9 @@ export default function Pictures({ onClick, pictures }) {
       >
         <SwiperSlide>
           <Image
-            priority
-            className="h-24 w-24 min-w-[96px] rounded-lg"
-            src={img1}
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            priority
-            className="h-24 w-24 min-w-[96px] rounded-lg"
-            src={img1}
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
+            onClick={click}
+            unoptimized={true}
+            loader={() => img1}
             priority
             className="h-24 w-24 min-w-[96px] rounded-lg"
             src={img1}
@@ -52,6 +39,30 @@ export default function Pictures({ onClick, pictures }) {
         <SwiperSlide>
           <Image
             onClick={click}
+            unoptimized={true}
+            loader={() => img1}
+            priority
+            className="h-24 w-24 min-w-[96px] rounded-lg"
+            src={img1}
+            alt=""
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
+            onClick={click}
+            unoptimized={true}
+            loader={() => img1}
+            priority
+            className="h-24 w-24 min-w-[96px] rounded-lg"
+            src={img1}
+            alt=""
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
+            onClick={click}
+            unoptimized={true}
+            loader={() => img1}
             priority
             className="h-24 w-24 min-w-[96px] rounded-lg"
             src={img1}
