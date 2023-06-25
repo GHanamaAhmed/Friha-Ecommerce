@@ -1,8 +1,5 @@
 import React from "react";
-import dynamic from "next/dynamic";
-const DynamicReels = dynamic(() => import("./components/reels"), {
-  ssr: false,
-});
+import Reels from "./components/reels";
 export default function Page({ params }) {
-  return <DynamicReels />;
+  return <Reels />;
 }

@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <Auth0>
       <html lang="en">
-        <body className={"relative  w-full bg-primaryColor"}>
+        <body className={"w-full bg-primaryColor"}>
           {children}
         </body>
       </html>

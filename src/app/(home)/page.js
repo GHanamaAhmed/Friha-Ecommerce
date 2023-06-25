@@ -44,7 +44,7 @@ export default function Home() {
             </Suspense>
           </div>
         </section>
-        <section className="mt-40 flex  w-full flex-col gap-3 px-4 md:px-14">
+        <section className="mt-10 md:mt-40 flex  w-full flex-col gap-3 px-4 md:px-14">
           <CardGrid />
         </section>
         <Footer />

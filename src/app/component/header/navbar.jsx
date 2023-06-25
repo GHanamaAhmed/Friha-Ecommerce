@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`bg- fixed top-0 z-50 w-full bg-primaryColor px-4 md:px-14 ${headerPosition} flex items-center justify-between py-2 duration-500`}
+        className={`bg- fixed top-0 z-50 w-full bg-primaryColor px-4 md:px-14 ${headerPosition} flex items-center justify-between py-4 md:py-2 duration-500`}
       >
         <div className="hidden items-center justify-between gap-6 md:flex">
           <Button
