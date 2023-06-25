@@ -13,7 +13,7 @@ export default function Menus() {
     <>
       <Button
         variant="filled"
-        className="font-hacen-tunisia flex items-center gap-3 bg-gradient-to-r bg-scandaryColor text-white shadow-none hover:shadow-none text-base  capitalize tracking-normal"
+        className="font-hacen-tunisia px-5 flex items-center gap-3 bg-gradient-to-r bg-scandaryColor text-white shadow-none hover:shadow-none text-base  capitalize tracking-normal"
       >
         شراء
         <ShoppingBagIcon
@@ -40,7 +40,7 @@ function Color() {
         <Button
           {...triggers}
           variant="filled"
-          className="font-hacen-tunisia flex items-center gap-3 bg-card1 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
+          className="font-hacen-tunisia flex px-5 items-center gap-3 bg-card1 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
         >
           اللون
           <ChevronDownIcon
@@ -75,7 +75,7 @@ function Size() {
         <Button
           {...triggers}
           variant="filled"
-          className="font-hacen-tunisia flex items-center gap-3 bg-card1 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
+          className="font-hacen-tunisia flex px-5 items-center gap-3 bg-card1 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
         >
           الحجم
           <ChevronDownIcon

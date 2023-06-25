@@ -13,7 +13,6 @@ import { selep } from "../../../../lib/sleep";
 import { useWidth } from "../../../../lib/hooks/useWidth";
 import SwiperLoading from "./swiperLoading";
 export default function Swipers() {
-  const { width } = useWidth();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     selep().then(setIsLoading(false));
@@ -22,9 +21,7 @@ export default function Swipers() {
     <Swiper
       modules={[A11y, Navigation, Pagination]}
       spaceBetween={50}
-      slidesPerView={
-        width > 1280 ? 4.5 : width > 921 ? 3.5 : width < 640 ? 1.5 : 2.5
-      }
+      slidesPerView={1.5}
       scrollbar={{ draggable: true }}
       freeMode={true}
       navigation={{
@@ -32,6 +29,20 @@ export default function Swipers() {
         prevEl: ".prevEl",
       }}
       watchOverflow={true}
+      breakpoints={{
+        640: {
+          slidesPerView: 2.5,
+          spaceBetween: 20,
+        },
+        960: {
+          slidesPerView: 3.5,
+          spaceBetween: 40,
+        },
+        1160: {
+          slidesPerView: 4.5,
+          spaceBetween: 60,
+        },
+      }}
     >
       {[...Array(10)].map((e, i) => (
         <SwiperSlide key={i}>
