@@ -103,7 +103,7 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
           }}
         >
           {[...Array(6)].map((e,i)=><SwiperSlide key={i}>
-            <div className="flex items-center justify-center animate-pulse h-24 w-24 rounded-lg bg-gray-700 sm:w-96">
+            <div className="flex items-center justify-center animate-pulse h-24 w-24 rounded-lg bg-gray-700">
               <svg
                 className="h-12 w-12 text-gray-200"
                 xmlns="http://www.w3.org/2000/svg"

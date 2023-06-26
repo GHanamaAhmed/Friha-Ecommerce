@@ -28,7 +28,7 @@ export default function MobilePrudact() {
     <div className="relative overflow-hidden">
       <div className="flex h-screen flex-col  items-center justify-center overflow-y-auto pt-44">
         <div className="relative flex w-full flex-col gap-3">
-          <div className="relative h-80 w-full">
+          <div className="relative h-80 min-[550px]:h-[400px] w-full">
             {!isLoading ? (
               <Image fill={true} src={currentPicture} alt="" />
             ) : (
