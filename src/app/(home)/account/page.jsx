@@ -4,7 +4,14 @@ import Image from "next/image";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useReducer, useState } from "react";
-const initaialState = (isChange, nickName, familyName, email, phoneNumber,picture) => ({
+const initaialState = (
+  isChange,
+  nickName,
+  familyName,
+  email,
+  phoneNumber,
+  picture
+) => ({
   isChange,
   nickName,
   familyName,
@@ -77,11 +84,16 @@ export default function Page() {
   const changePicture = (e) => {
     e.preventDefault();
     let file = e.currentTarget.files[0];
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(file)
-    fileReader.addEventListener("loadend",() => {
-      dispatch({ type: "setPicture", payload: { picture: fileReader.result } });
-    });
+    if (file) {
+      let fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.addEventListener("loadend", () => {
+        dispatch({
+          type: "setPicture",
+          payload: { picture: fileReader.result },
+        });
+      });
+    }
   };
   return (
     <>
@@ -106,7 +118,7 @@ export default function Page() {
                 <Button
                   variant="outlined"
                   size="md"
-                  disabled
+                  disabled={state.isChange ? false : true}
                   className={`font-Hacen-Tunisia h-fit border-scandaryColor py-2 text-scandaryColor shadow-none outline-none ring-0 hover:shadow-none focus:outline-none focus:ring-0 md:w-full`}
                 >
                   الغاء
@@ -114,7 +126,7 @@ export default function Page() {
                 <Button
                   variant="filled"
                   size="md"
-                  disabled
+                  disabled={state.isChange ? false : true}
                   className={`font-Hacen-Tunisia h-fit border-scandaryColor bg-scandaryColor py-2 text-white shadow-none hover:shadow-none md:w-full`}
                 >
                   حفظ التغييرات
