@@ -3,26 +3,86 @@ import { Button, useSelect } from "@material-tailwind/react";
 import Image from "next/image";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useReducer, useState } from "react";
+const initaialState = (isChange, nickName, familyName, email, phoneNumber,picture) => ({
+  isChange,
+  nickName,
+  familyName,
+  email,
+  phoneNumber,
+  picture,
+});
+const reducer = (state, { type, payload }) => {
+  let nickName;
+  let familyName;
+  let email;
+  let phoneNumber;
+  let picture;
+  switch (type) {
+    case "start":
+      nickName = payload.nickName;
+      familyName = payload.familyName;
+      email = payload.email;
+      phoneNumber = payload.phoneNumber;
+      picture = payload.picture;
+      return { ...state, nickName, familyName, email, phoneNumber, picture };
+    case "setNickName":
+      nickName = payload.nickName;
+      return { ...state, nickName };
+    case "setFamilyName":
+      familyName = payload.familyName;
+      return { ...state, familyName };
+    case "setEmail":
+      email = payload.email;
+      return { ...state, email };
+    case "setPhoneNumber":
+      phoneNumber = payload.phoneNumber;
+      return { ...state, phoneNumber };
+    case "setPicture":
+      picture = payload.picture;
+      return { ...state, picture };
+  }
+};
 export default function Page() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const router = useRouter();
-  const [isChange, setIsChange] = useState(false);
-  const [nickName, setNickName] = useState(user?.nickname);
-  const [familyName, setFamilyName] = useState(user?.family_name);
-  const [email, setEmail] = useState(user?.email);
-  const [phoneNumber, setPhoneNumber] = useState(user?.phone_number);
+  const [state, dispatch] = useReducer(
+    reducer,
+    initaialState(
+      false,
+      user?.nickname,
+      user?.family_name,
+      user?.email,
+      user?.phone_number,
+      user?.picture
+    )
+  );
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/");
     }
     if (isAuthenticated && !isLoading) {
-      setEmail(user?.email);
-      setNickName(user?.nickname);
-      setFamilyName(user?.family_name);
-      setPhoneNumber(user?.phone_number);
+      dispatch({
+        type: "start",
+        payload: {
+          email: user?.email,
+          nickName: user?.nickname,
+          familyName: user?.family_name,
+          phoneNumber: user?.phone_number,
+          picture: user?.picture,
+        },
+      });
     }
   }, [isLoading]);
+  const changePicture = (e) => {
+    e.preventDefault();
+    let file = e.currentTarget.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file)
+    fileReader.addEventListener("loadend",() => {
+      dispatch({ type: "setPicture", payload: { picture: fileReader.result } });
+    });
+  };
   return (
     <>
       {isLoading && <AccountLoading />}
@@ -69,8 +129,13 @@ export default function Page() {
               <div className="flex gap-2">
                 <div className="relative h-11 w-full max-w-[200px]">
                   <input
-                    value={nickName}
-                    onChange={(e) => setNickName(e.currentTarget.value)}
+                    value={state.nickName}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "setNickName",
+                        payload: { nickName: e.currentTarget.value },
+                      })
+                    }
                     className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                   />
@@ -80,8 +145,13 @@ export default function Page() {
                 </div>
                 <div className="relative h-11 w-full max-w-[200px]">
                   <input
-                    value={familyName}
-                    onChange={(e) => setFamilyName(e.currentTarget.value)}
+                    value={state.familyName}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "setFamilyName",
+                        payload: { familyName: e.currentTarget.value },
+                      })
+                    }
                     className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                   />
@@ -102,9 +172,9 @@ export default function Page() {
               </div>
               <div className="">
                 <label htmlFor="image">
-                  <Image src="/res/Friha.png" width={50} height={50} alt="" />
+                  <Image src={state.picture} width={50} height={50} alt="" />
                 </label>
-                <input hidden type="file" id="image" />
+                <input hidden onChange={changePicture} type="file" id="image" />
               </div>
             </div>
             <div className="h-px w-full bg-gray-800"></div>
@@ -116,8 +186,13 @@ export default function Page() {
                 <div className="flex w-full max-w-[400px] md:min-w-[400px]">
                   <div className="relative h-11 max-w-[250px] md:min-w-[250px]">
                     <input
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.currentTarget.value)}
+                      value={state.phoneNumber}
+                      onChange={(e) =>
+                        dispatch({
+                          type: "setPhoneNumber",
+                          payload: { phoneNumber: e.currentTarget.value },
+                        })
+                      }
                       className="peer h-full w-full rounded-md rounded-l-none border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                       placeholder=" "
                     />
