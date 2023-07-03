@@ -7,7 +7,7 @@ module.exports = {
 
 	deploy: {
 		production: {
-			key: "ssh-key-2023-07-01 (2).key",
+			key: "ssh-key-2023-07-01.key",
 			user: "ubuntu",
 			host: "158.180.30.34",
 			ref: "origin/main",
@@ -17,7 +17,7 @@ module.exports = {
 			"post-deploy":
 				"source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production",
 			"pre-setup": "",
-      "ssh_options": "forwardAgent=yes"
+			ssh_options: "forwardAgent=yes",
 		},
 	},
 };
