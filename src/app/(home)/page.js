@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import TitleSection from "../../../components/titleSection/titleSection";
 import Steps from "../component/steps/steps";
 import StepsLoading from "../component/steps/stepsLoading";
-import CardGrid from "../component/grid/cardGrid";
+import CardGrid from "../component/grid/CardGrid";
 import Footer from "../component/footer/footer";
 export default function Home() {
   return (
