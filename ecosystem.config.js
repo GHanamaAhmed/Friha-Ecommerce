@@ -11,7 +11,7 @@ module.exports = {
 			user: "ubuntu",
 			host: "158.180.30.34",
 			ref: "origin/main",
-			repo: "https://github.com/0asaca0rum0/ecommerce123.git",
+			repo: "git@github.com:0asaca0rum0/ecommerce123.git",
 			path: "/home/ubuntu",
 			"pre-deploy-local": "",
 			"post-deploy":
