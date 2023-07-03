@@ -39,9 +39,7 @@ export default function Home() {
             subtitle={"تعرّف على كيفية الشراء من موقعنا بخطوات بسيطة"}
           />
           <div className="relative w-full">
-            <Suspense fallback={<StepsLoading />}>
               <Steps />
-            </Suspense>
           </div>
         </section>
         <section className="mt-10 md:mt-40 flex  w-full flex-col gap-3 px-4 md:px-14">
