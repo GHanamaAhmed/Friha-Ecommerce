@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import img1 from "../swipers/img/reels.png";
 import Card from "./card";
 import Search from "./search";
 import { selep } from "../../../../lib/sleep";
