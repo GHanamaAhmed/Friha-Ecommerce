@@ -2,9 +2,8 @@ import Card from "./card";
 import img1 from "./img/Icon.svg";
 import img2 from "./img/Icon-1.svg";
 import img3 from "./img/Icon-2.svg";
-import { selep } from "../../../../lib/sleep";
-export default async function Steps() {
-  await selep();
+export default  function Steps() {
+
   return (
     <>
       <div className="flex  h-full w-full flex-col items-center justify-around gap-3 sm:flex-row">
