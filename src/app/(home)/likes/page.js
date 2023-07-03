@@ -4,10 +4,7 @@ import {
 	BsFillArrowLeftCircleFill,
 	BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { Suspense } from "react";
 import TitleSection from "../../../../components/titleSection/titleSection";
-import Steps from "../../component/steps/steps";
-import StepsLoading from "../../component/steps/stepsLoading";
 import CardGrid from "../../component/grid/cardGrid";
 import Footer from "../../component/footer/footer";
 export default function Likes() {

@@ -1,7 +1,7 @@
 import Card from "./card";
-import img1 from "./img/icon.svg";
-import img2 from "./img/icon-1.svg";
-import img3 from "./img/icon-2.svg";
+import img1 from "./img/Icon.svg";
+import img2 from "./img/Icon-1.svg";
+import img3 from "./img/Icon-2.svg";
 import { selep } from "../../../../lib/sleep";
 export default async function Steps() {
   await selep();
