@@ -3,7 +3,6 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { Suspense } from "react";
 import TitleSection from "../../../components/titleSection/titleSection";
 import Steps from "../component/steps/steps";
 import StepsLoading from "../component/steps/stepsLoading";
