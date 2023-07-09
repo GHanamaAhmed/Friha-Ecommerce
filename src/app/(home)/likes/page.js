@@ -5,7 +5,7 @@ import {
 	BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 import TitleSection from "../../../../components/titleSection/titleSection";
-import CardGrid from "../../component/grid/cardGrid";
+import CardGrid from "../../component/grid/CardGrid";
 import Footer from "../../component/footer/footer";
 export default function Likes() {
   return (

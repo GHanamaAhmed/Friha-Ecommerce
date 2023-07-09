@@ -27,7 +27,6 @@ const account = [
 ];
 const savedOperation = [
   {
-    path: "/basket",
     prefix: <LuShoppingCart />,
     text: "السلة",
   },
@@ -121,7 +120,7 @@ export default function DrawerComponent({ onClose, isOpen }) {
 					{savedOperation.map((e, i) => {
 						return (
 							<ListItem
-								onClick={(element) => changeRouter(element, e.path)}
+								onClick={(element) =>  {e?.path && changeRouter(element, e.path)}}
 								key={i}
 								className="gap-5 py-4 text-lightSolid hover:bg-scandaryColor hover:bg-opacity-30 hover:text-scandaryColor focus:bg-scandaryColor focus:bg-opacity-30 focus:text-scandaryColor active:bg-scandaryColor active:bg-opacity-30 active:text-scandaryColor"
 							>
