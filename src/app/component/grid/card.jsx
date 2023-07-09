@@ -5,32 +5,77 @@ import { useWidth } from "../../../../lib/hooks/useWidth";
 import { LuShoppingCart } from "react-icons/lu";
 import { BsCheckLg } from "react-icons/bs";
 import { Tooltip } from "@material-tailwind/react";
-export default function Card() {
-  const [isLike, setIsLike] = useState(false);
-  const [isSave, setIsSave] = useState(false);
+import { selep } from "@@/lib/sleep";
+import { customAxios } from "@@/lib/api/axios";
+import { likePost, unLikePost } from "@@/lib/likes/togleLike";
+import { SavePost, unSavePost } from "@@/lib/likes/togleSave";
+
+export default function Card({
+  id,
+  name,
+  price,
+  quntity,
+  like,
+  save,
+  isShowPrice,
+  promotion,
+  isShowPromotion,
+  thumbanil,
+}) {
+  const [isLike, setIsLike] = useState(like || false);
+  const [isSave, setIsSave] = useState(save || false);
+  const [IsPulse, setIsPulse] = useState(false);
   const { width } = useWidth();
+  const togglepulse = () => {
+    setIsPulse((prev) => !prev);
+  };
   const toggleSave = () => {
-    setIsSave((prev) => !prev);
+    const req = {  id };
+    if (isSave) {
+      setIsSave(false);
+      unSavePost(req).catch((err) => console.error(err));
+    }
+    if (!isSave) {
+      setIsSave(true);
+      SavePost(req).catch((err) => console.error(err));
+    }
   };
   const toggleLike = () => {
-    setIsLike((prev) => !prev);
+    const req = { type: "product", postId: id };
+    if (isLike) {
+      setIsLike(false);
+      unLikePost(req).catch((err) => console.error(err));
+    }
+    if (!isLike) {
+      setIsLike(true);
+      likePost(req).catch((err) => console.error(err));
+    }
   };
   return (
     <div className="relative grid h-56 w-36 grid-cols-1 grid-rows-6 overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60 md:grid-rows-4">
       <div className="relative row-span-4 h-full w-full place-self-start md:row-span-3">
         <img
+          crossOrigin="anonymous"
           className="h-full w-full "
-          src="./res/blacksweatshirt.png"
+          src={thumbanil}
           alt=""
         />
       </div>
       <div className="grid-row-3 row-span-2 grid px-2 md:row-span-1">
         <div className="row-span-2 flex flex-col items-start justify-center">
-          <h1 className="text-sm text-white md:text-lg">حذاء ADIDAS</h1>
-          <p className="text-sm text-scandaryColor md:text-sm">2000.00 DA</p>
+          <h1 className="text-sm text-white md:text-lg">{name}</h1>
+          {isShowPrice && !isShowPromotion && (
+            <p className="text-sm text-scandaryColor">{price}</p>
+          )}
+          {isShowPrice && isShowPrice && (
+            <div className="">
+              <p className="text-sm text-scandaryColor">{price}</p>
+              <p className="text-xs text-white line-through">{promotion}</p>
+            </div>
+          )}
         </div>
         <div className="flex w-full items-center justify-between border-t-[1px] border-card2 px-2 py-px md:hidden md:py-2">
-          <p className="text-sm text-white md:text-lg">الكمية: 15</p>
+          <p className="text-sm text-white md:text-lg">الكمية: {quntity}</p>
           <Tooltip
             content={`${!isLike ? "اعجاب" : "تم الاعجاب"}`}
             placement="top"
@@ -46,14 +91,18 @@ export default function Card() {
         </div>
       </div>
       <div className="hidden w-full items-center justify-between border-t-[1px] border-card2 px-2 py-px md:flex md:py-2">
-        <p className="text-sm text-white md:text-lg">الكمية: 15</p>
+        <p className="text-sm text-white md:text-lg">الكمية: {quntity}</p>
         <Tooltip
           content={`${!isLike ? "اعجاب" : "تم الاعجاب"}`}
           placement="top"
         >
           <button onClick={toggleLike}>
             {isLike ? (
-              <AiFillHeart size={width <= 767 ? 17 : 25} color="red" />
+              <AiFillHeart
+                size={width <= 767 ? 17 : 25}
+                color="red"
+                className={`${IsPulse ? "animate- fill-red" : ""}`}
+              />
             ) : (
               <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
             )}

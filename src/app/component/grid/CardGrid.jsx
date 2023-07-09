@@ -1,28 +1,42 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import img1 from "../swipers/img/reels.png";
 import Card from "./card";
 import Search from "./search";
 import { selep } from "../../../../lib/sleep";
 import CardGridLoading from "./cardGridLoading";
 import { Button } from "@material-tailwind/react";
+import { customAxios } from "@@/lib/api/axios";
 export default function CardGrid() {
   const [isLoading, setIsLoading] = useState(true);
+  const [product, setProduct] = useState([]);
   useEffect(() => {
-    selep().then(setIsLoading(false));
+    const fetch = async () => {
+      await customAxios.get("/products").then((res) => {
+        setIsLoading(false);
+        setProduct(res.data);
+      });
+    };
+    fetch();
   }, []);
   const content = () => {
     return !isLoading ? (
       <>
         <Search />
         <div className="grid grid-cols-2 place-items-center gap-6 px-3 sm:grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
-          {[...Array(10)].map((e, i) => {
+          {product.map((e, i) => {
             return (
               <Card
-                key={i}
-                title={"producto"}
-                subtitle={"free!!!!"}
-                img={img1}
+			  key={i}
+			  id={e?._id}
+			  name={e?.name}
+			  price={e?.price}
+			  promotion={e?.promotion}
+			  quntity={e?.quntity}
+			  like={e?.isLike}
+			  save={e?.isSave}
+			  isShowPrice={e?.showPrice}
+			  isShowPromotion={e?.showPromotion}
+			  thumbanil={e?.thumbanil}
               />
             );
           })}
@@ -31,7 +45,7 @@ export default function CardGrid() {
           <Button
             variant="outlined"
             size="md"
-            className={`font-Hacen-Tunisia border-lightContent  text-lightContent `}
+            className={`font-Hacen-Tunisia border-lightContent ${"Focus:border-none text-lightContent focus:bg-scandaryColor focus:text-white"} focus:ring-0`}
           >
             المزيد
           </Button>

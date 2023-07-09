@@ -1,11 +1,19 @@
+"use client";
 import Card from "./card";
-import img1 from "./img/icon.svg";
-import img2 from "./img/icon-1.svg";
-import img3 from "./img/icon-2.svg";
-import { selep } from "../../../../lib/sleep";
-export default async function Steps() {
-  await selep();
-  return (
+import img1 from "./img/Icon.svg";
+import img2 from "./img/Icon-1.svg";
+import img3 from "./img/Icon-2.svg";
+import { useEffect, useState } from "react";
+import { selep } from "@@/lib/sleep";
+import StepsLoading from "./stepsLoading";
+export default function Steps() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    selep().then(() => setIsLoading(false));
+  }, []);
+  return isLoading ? (
+    <StepsLoading />
+  ) : (
     <>
       <div className="flex  h-full w-full flex-col items-center justify-around gap-3 sm:flex-row">
         <Card

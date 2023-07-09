@@ -3,11 +3,10 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { Suspense } from "react";
 import TitleSection from "../../../components/titleSection/titleSection";
 import Steps from "../component/steps/steps";
 import StepsLoading from "../component/steps/stepsLoading";
-import CardGrid from "../component/grid/cardGrid";
+import CardGrid from "../component/grid/CardGrid";
 import Footer from "../component/footer/footer";
 export default function Home() {
   return (
@@ -39,9 +38,7 @@ export default function Home() {
             subtitle={"تعرّف على كيفية الشراء من موقعنا بخطوات بسيطة"}
           />
           <div className="relative w-full">
-            <Suspense fallback={<StepsLoading />}>
               <Steps />
-            </Suspense>
           </div>
         </section>
         <section className="mt-10 md:mt-40 flex  w-full flex-col gap-3 px-4 md:px-14">
