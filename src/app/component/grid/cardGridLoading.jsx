@@ -2,7 +2,6 @@ import Search from "./search";
 export default function CardGridLoading() {
   return (
     <>
-      <Search />
       <div className="grid grid-cols-2 place-items-center gap-6 px-3 sm:grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
         {[...Array(10)].map((e, i) => {
           return <Card key={i} />;

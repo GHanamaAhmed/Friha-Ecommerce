@@ -1,92 +1,32 @@
 "use client";
 import { Button, useSelect } from "@material-tailwind/react";
 import Image from "next/image";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useReducer, useState } from "react";
-const initaialState = (isChange, nickName, familyName, email, phoneNumber,picture) => ({
-  isChange,
-  nickName,
-  familyName,
-  email,
-  phoneNumber,
-  picture,
-});
-const reducer = (state, { type, payload }) => {
-  let nickName;
-  let familyName;
-  let email;
-  let phoneNumber;
-  let picture;
-  switch (type) {
-    case "start":
-      nickName = payload.nickName;
-      familyName = payload.familyName;
-      email = payload.email;
-      phoneNumber = payload.phoneNumber;
-      picture = payload.picture;
-      return { ...state, nickName, familyName, email, phoneNumber, picture };
-    case "setNickName":
-      nickName = payload.nickName;
-      return { ...state, nickName };
-    case "setFamilyName":
-      familyName = payload.familyName;
-      return { ...state, familyName };
-    case "setEmail":
-      email = payload.email;
-      return { ...state, email };
-    case "setPhoneNumber":
-      phoneNumber = payload.phoneNumber;
-      return { ...state, phoneNumber };
-    case "setPicture":
-      picture = payload.picture;
-      return { ...state, picture };
-  }
-};
+import { useSelector, useDispatch } from "react-redux";
+import { getInfo } from "@/app/redux/accountReducer";
+
 export default function Page() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isLoading } = useSelector((store) => store.account);
   const router = useRouter();
-  const [state, dispatch] = useReducer(
-    reducer,
-    initaialState(
-      false,
-      user?.nickname,
-      user?.family_name,
-      user?.email,
-      user?.phone_number,
-      user?.picture
-    )
-  );
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/");
-    }
-    if (isAuthenticated && !isLoading) {
-      dispatch({
-        type: "start",
-        payload: {
-          email: user?.email,
-          nickName: user?.nickname,
-          familyName: user?.family_name,
-          phoneNumber: user?.phone_number,
-          picture: user?.picture,
-        },
-      });
-    }
-  }, [isLoading]);
+    dispatch(getInfo())
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
   const changePicture = (e) => {
     e.preventDefault();
     let file = e.currentTarget.files[0];
     let fileReader = new FileReader();
-    fileReader.readAsDataURL(file)
-    fileReader.addEventListener("loadend",() => {
-      dispatch({ type: "setPicture", payload: { picture: fileReader.result } });
-    });
+    fileReader.readAsDataURL(file);
+    fileReader.addEventListener("loadend", () => {});
   };
   return (
     <>
       {isLoading && <AccountLoading />}
-      {!isLoading && isAuthenticated && (
+      {!isLoading && (
         <div className="flex h-screen w-screen items-center justify-center px-5 pr-4 pt-14 md:pr-0">
           <div className="flex w-full flex-col items-start md:w-9/12">
             <p className="mb-4  text-lg text-white md:text-3xl">
@@ -129,13 +69,7 @@ export default function Page() {
               <div className="flex gap-2">
                 <div className="relative h-11 w-full max-w-[200px]">
                   <input
-                    value={state.nickName}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "setNickName",
-                        payload: { nickName: e.currentTarget.value },
-                      })
-                    }
+                    value={user?.firstName}
                     className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                   />
@@ -145,13 +79,7 @@ export default function Page() {
                 </div>
                 <div className="relative h-11 w-full max-w-[200px]">
                   <input
-                    value={state.familyName}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "setFamilyName",
-                        payload: { familyName: e.currentTarget.value },
-                      })
-                    }
+                    value={user.lastName}
                     className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                   />
@@ -172,7 +100,7 @@ export default function Page() {
               </div>
               <div className="">
                 <label htmlFor="image">
-                  <Image src={state.picture} width={50} height={50} alt="" />
+                
                 </label>
                 <input hidden onChange={changePicture} type="file" id="image" />
               </div>
@@ -186,13 +114,7 @@ export default function Page() {
                 <div className="flex w-full max-w-[400px] md:min-w-[400px]">
                   <div className="relative h-11 max-w-[250px] md:min-w-[250px]">
                     <input
-                      value={state.phoneNumber}
-                      onChange={(e) =>
-                        dispatch({
-                          type: "setPhoneNumber",
-                          payload: { phoneNumber: e.currentTarget.value },
-                        })
-                      }
+                      value={user?.phone}
                       className="peer h-full w-full rounded-md rounded-l-none border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                       placeholder=" "
                     />

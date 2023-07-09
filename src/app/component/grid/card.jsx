@@ -30,7 +30,7 @@ export default function Card({
     setIsPulse((prev) => !prev);
   };
   const toggleSave = () => {
-    const req = {  id };
+    const req = { id };
     if (isSave) {
       setIsSave(false);
       unSavePost(req).catch((err) => console.error(err));
@@ -52,22 +52,26 @@ export default function Card({
     }
   };
   return (
-    <div className="relative grid h-56 w-36 grid-cols-1 grid-rows-6 overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60 md:grid-rows-4">
-      <div className="relative row-span-4 h-full w-full place-self-start md:row-span-3">
-        <img
-          crossOrigin="anonymous"
-          className="h-full w-full "
-          src={thumbanil}
-          alt=""
-        />
+    <div className="relative h-56 w-36 flex flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60">
+      <div className="relative h-full max-h-[75%]">
+        <div className="aspect-w-3 aspect-h-4 relative flex justify-center items-center w-full h-full">
+          <div className="absolute h-full flex justify-center items-center w-full">
+            <img
+              crossOrigin="anonymous"
+              className="max-h-full w-full object-cover"
+              src={thumbanil}
+              alt=""
+            />
+          </div>
+        </div>
       </div>
-      <div className="grid-row-3 row-span-2 grid px-2 md:row-span-1">
+      <div className="mb-1">
         <div className="row-span-2 flex flex-col items-start justify-center">
           <h1 className="text-sm text-white md:text-lg">{name}</h1>
           {isShowPrice && !isShowPromotion && (
             <p className="text-sm text-scandaryColor">{price}</p>
           )}
-          {isShowPrice && isShowPrice && (
+          {isShowPrice && isShowPromotion && (
             <div className="">
               <p className="text-sm text-scandaryColor">{price}</p>
               <p className="text-xs text-white line-through">{promotion}</p>
