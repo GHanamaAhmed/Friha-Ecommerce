@@ -58,6 +58,7 @@ export default function VideoPlayers({ video }) {
     <div className="relative h-full w-full" onClick={videoHandler}>
       {checkSlide && (
         <video
+          crossOrigin="anonymous"
           autoPlay
           ref={videoRef}
           loop

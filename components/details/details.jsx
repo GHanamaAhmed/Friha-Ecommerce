@@ -30,6 +30,8 @@ const initialState = (
 };
 const reducer = (state, { type, payload }) => {
   switch (type) {
+    case "setreacts":
+      return { ...state, likes:payload.likes,comments:payload.comments };
     case "handleLike":
       let likes = state.isLikeIt ? state.likes - 1 : state.likes + 1;
       let isLikeIt = !state.isLikeIt;
@@ -42,16 +44,26 @@ const reducer = (state, { type, payload }) => {
       return { ...state, isLoading };
   }
 };
-export default function Details({ idReel, isOnlyPrudact }) {
+export default function Details({ reel, isOnlyPrudact }) {
   const [state, dispatch] = useReducer(
     reducer,
-    initialState(isOnlyPrudact ? 0 : 1, false, 121, 77, 78, true)
+    initialState(
+      isOnlyPrudact ? 0 : 1,
+      false,
+      reel?.likes,
+      77,
+      reel?.comments,
+      true
+    )
   );
   useEffect(() => {
     selep().then(() => {
       dispatch({ type: "toggleLoading", payload: false });
     });
   }, []);
+  useEffect(() => {
+    dispatch({ type: "setreacts", payload: {likes:reel?.likes,comments:reel?.comments} });
+  }, [reel]);
   const handleLike = () => {
     dispatch({ type: "handleLike" });
   };
@@ -101,9 +113,6 @@ export default function Details({ idReel, isOnlyPrudact }) {
                   >
                     <Tab onClick={hideComments} value={0}>
                       <div className="flex flex-row items-center justify-around gap-4">
-                        <p className={`text-lg  font-bold text-lightSolid `}>
-                          {state.left}
-                        </p>
                         <FaShoppingCart size={40} color="white" />
                       </div>
                     </Tab>
@@ -126,9 +135,7 @@ export default function Details({ idReel, isOnlyPrudact }) {
         </>
       )}
       {!state.isShowComments && (
-        <div
-          className={`h-full w-full`}
-        >
+        <div className={`h-full w-full`}>
           <div className="col-span-8 flex h-full w-full flex-col  items-center">
             <div className="flex h-5/6 w-full flex-col items-center justify-start">
               <div className="flex w-full flex-col items-start gap-3">
@@ -179,8 +186,8 @@ function LoadingDetails({ isOnlyPrudact }) {
   return (
     <div className="flex h-full w-full animate-pulse flex-col items-center pt-7">
       <div className="w-11/12 pt-4">
-        <div class="mb-4 h-2.5 w-48 rounded-full bg-gray-700"></div>
-        <div class="mb-4 h-2 w-40 rounded-full bg-gray-700"></div>
+        <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-700"></div>
+        <div className="mb-4 h-2 w-40 rounded-full bg-gray-700"></div>
       </div>
       {!isOnlyPrudact && (
         <div className="flex w-full flex-row items-center justify-center py-3">

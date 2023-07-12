@@ -2,22 +2,26 @@
 import { AiFillLike } from "react-icons/ai";
 import { FaComment, FaShare, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 import VideoPlayers from "./videoPlayers";
 import MobileComents from "../../../../../../components/comments/mobileComents";
-const initialState = (likes, comments) => {
+import { likePost, unLikePost } from "@@/lib/likes/togleLike";
+const initialState = (likes, comments, isLike, isSave) => {
   return {
-    isClickLike: false,
-    isClickBasket: false,
+    isClickLike: isLike,
+    isClickBasket: isSave,
     likes: Number(likes),
     comments: Number(comments),
     isShowComments: false,
   };
 };
-const reducer = (state, { type, value }) => {
+const reducer = (state, { type, value, payload }) => {
   switch (type) {
+    case "initialize":
+      console.log(payload);
+      return { ...state, ...payload };
     case "toggleClickLike":
       let likes = !state.isClickLike ? state.likes + 1 : state.likes - 1;
       let isClickLike = !state.isClickLike;
@@ -30,7 +34,9 @@ const reducer = (state, { type, value }) => {
       return { ...state, isShowComments };
   }
 };
+
 export default function Video({
+  id,
   video,
   likes,
   comments,
@@ -39,11 +45,35 @@ export default function Video({
   link,
   swiper,
   tools,
+  isLike,
+  isSave,
 }) {
-  const [state, dispatch] = useReducer(reducer, initialState(likes, comments));
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState(likes, comments, isLike, isSave)
+  );
   const pathName = usePathname();
+  useEffect(() => {
+    dispatch({
+      type: "initialize",
+      payload: {
+        likes,
+        comments,
+        isClikeLike: isLike,
+        isClikeBasket: isSave,
+      },
+    });
+  }, []);
   const hanldeClickLike = (e) => {
     e.preventDefault();
+    const req = { type: "reel", postId: id };
+    console.log(req);
+    if (state.isClikeLike) {
+      unLikePost(req).catch((err) => console.error(err));
+    }
+    if (!state.isClikeLike) {
+      likePost(req).catch((err) => console.error(err));
+    }
     dispatch({ type: "toggleClickLike" });
   };
   const hanldeClickBasket = (e) => {
@@ -129,7 +159,9 @@ export default function Video({
                   {" "}
                   <p className="text-40 text-white">{name}</p>
                 </Link>
-                <p className="text-end text-2xl text-white">{price}DA</p>
+                {price > 0 && (
+                  <p className="text-end text-2xl text-white">{price}DA</p>
+                )}
               </div>
             </div>
           </div>

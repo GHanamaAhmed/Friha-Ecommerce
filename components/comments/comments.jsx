@@ -2,88 +2,42 @@
 import { useEffect, useState } from "react";
 import Comment from "./comment";
 import { selep } from "@@/lib/sleep";
-const data = [
-  {
-    className: "w-11/12",
-    nameUser: "John",
-    imgUser: "john.jpg",
-    textUser: "This is the first comment.",
-    replyTo: null,
-    replies: [
-      {
-        className: "w-11/12",
-        nameUser: "Alice",
-        imgUser: "alice.jpg",
-        textUser: "Reply to the first comment.",
-        replyTo: "John",
-        replies: [
-          {
-            className: "w-11/12",
-            nameUser: "Bob",
-            imgUser: "bob.jpg",
-            textUser: "Reply to Alice's reply.",
-            replyTo: "Alice",
-            replies: [],
-            createAt: "2023-06-15",
-          },
-        ],
-        createAt: "2023-06-15",
-      },
-      {
-        className: "w-11/12",
-        nameUser: "Bob",
-        imgUser: "bob.jpg",
-        textUser: "Another reply to the first comment.",
-        replyTo: "John",
-        replies: [],
-        createAt: "2023-06-15",
-      },
-    ],
-    createAt: "2023-06-15",
-  },
-  {
-    className: "",
-    nameUser: "Mary",
-    imgUser: "mary.jpg",
-    textUser: "This is another comment.",
-    replyTo: null,
-    replies: [],
-    createAt: "2023-06-16",
-  },
-  {
-    className: "w-11/12",
-    nameUser: "Alice",
-    imgUser: "alice.jpg",
-    textUser: "This is a standalone comment.",
-    replyTo: null,
-    replies: [],
-    createAt: "2023-06-17",
-  },
-];
-
+import { fetchComments } from "@@/lib/api/comment";
+const formatDate=(date)=>{
+  return new Date(date).toLocaleDateString('en-us', {  year:"numeric", month:"short", day:"numeric" ,hour:"2-digit",minute:"2-digit"})
+}
 export default function Comments() {
   const [isLoading, setIsLoading] = useState(true);
+  const [comments, setComments] = useState([]);
   useEffect(() => {
-    selep().then(() => {
-      setIsLoading(false);
-    });
-  }, []);
+    const req = { type: "reel", postId: window.history.state };
+    window.history.state &&
+      isLoading &&
+      fetchComments(req)
+        .then((res) => {
+          setComments(res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => console.error(err));
+
+        console.log(comments);
+  }, [window.history.state]);
   return isLoading ? (
     <LoadingComments />
   ) : (
     <div className="flex w-11/12 flex-col overflow-y-auto py-4">
       <div className="flex w-full flex-col justify-start gap-3">
-        {data.map((e, i) => {
+        {comments?.map((e, i) => {
           return (
             <Comment
               key={i}
               className={"w-full"}
-              createAt={e?.createAt}
-              imgUser={"/res/basket.svg"}
-              nameUser={e?.nameUser}
-              textUser={e?.textUser}
-              replies={e?.replies}
-              replyTo={e?.replyTo}
+              createAt={formatDate(e?.createAt)}
+              imgUser={e?.Photo}
+              nameUser={`${e?.lastName} ${e?.firstName}`}
+              textUser={"sdfdsaf"}
+              commentId={e?.commentId}
+              nReplies={e?.replies}
             />
           );
         })}
@@ -99,12 +53,14 @@ function LoadingComments() {
           return (
             <div
               key={i}
-              className={"flex flex-col mb-2 gap-3 rounded-sm bg-card1 px-3 pt-3"}
+              className={
+                "mb-2 flex flex-col gap-3 rounded-sm bg-card1 px-3 pt-3"
+              }
             >
               <div className="flex w-full items-center justify-between">
                 <div></div>
                 <div className="flex items-center gap-2">
-                  <div class="h-2 w-56 rounded-full bg-gray-700"></div>
+                  <div className="h-2 w-56 rounded-full bg-gray-700"></div>
                   <div className="relative h-6 w-6  rounded-full bg-gray-700 md:h-8 md:w-8"></div>
                 </div>
               </div>

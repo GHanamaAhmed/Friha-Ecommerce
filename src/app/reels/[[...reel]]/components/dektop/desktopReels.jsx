@@ -5,26 +5,30 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Video from "../mobile/video";
 import Details from "../../../../../../components/details/details";
-export default function DesktopReels() {
+import { reelUrl } from "@@/lib/genURL";
+export default function DesktopReels({ reels }) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
+  }, [reels]);
   const refSwiper = useRef();
-  const [page, setPage] = useState(0);
   const handle = (e) => {
-    history.replaceState(null, "", "/reels/" + e.activeIndex);
-    setPage(e.activeIndex);
+    setIndex(reels[e.activeIndex]?._id);
+    window.history.replaceState(index, "", "/reels/" + index);
   };
   return (
     <div className="grid h-screen w-screen grid-cols-12 grid-rows-1 overflow-hidden pt-5">
       <div className="col-span-8 max-h-full overflow-auto">
-        <Details />
+        <Details reel={reels[index]} />
       </div>
       <div className="col-span-4">
         <Swiper
           className="h-full w-full"
           modules={[Navigation, A11y]}
-          initialSlide={page}
+          initialSlide={0}
           spaceBetween={50}
           slidesPerView={1}
           direction="vertical"
@@ -33,15 +37,23 @@ export default function DesktopReels() {
             refSwiper.current = swiper;
           }}
         >
-          <SwiperSlide className="text-white">
-            <Video
-              swiper={refSwiper}
-              price={"20.00"}
-              video={
-                "https://player.vimeo.com/progressive_redirect/playback/798204134/rendition/540p/file.mp4?loc=external&oauth2_token_id=57447761&signature=bfb3467730b2657679a5dc79d2342e39ace903aeb053be77272d044d16960b7d"
-              }
-            />
-          </SwiperSlide>
+          {reels.map((reel, index) => (
+            <SwiperSlide key={index} className="text-white">
+              <Video
+                tools={false}
+                swiper={refSwiper}
+                id={reel?._id}
+                price={reel?.price}
+                name={reel?.name}
+                link={reelUrl(reel.productId)}
+                likes={reel.likes}
+                isLike={reel?.isLike}
+                isSave={reel?.isSave}
+                comments={reel?.comments}
+                video={reel?.video}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>
