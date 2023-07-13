@@ -1,4 +1,5 @@
 import Comments from "@@/components/comments/comments";
+import DesktopComments from "@@/components/comments/desktopComments";
 import Details from "@@/components/details/details";
 
 export default function Desktopprudact() {
@@ -8,7 +9,7 @@ export default function Desktopprudact() {
         <Details isOnlyPrudact={true} />
       </div>
       <div className="col-span-5">
-        <Comments />
+        <DesktopComments/>
       </div>
     </div>
   );

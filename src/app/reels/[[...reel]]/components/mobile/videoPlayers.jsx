@@ -81,6 +81,7 @@ export default function VideoPlayers({ video }) {
       </div>
       <input
         onChange={changeRange}
+        onClick={(e)=>e.stopPropagation()}
         value={`${progress}`}
         className="h- absolute bottom-5 right-1/2 z-20 h-[2px] w-11/12 translate-x-1/2  overflow-hidden bg-gray-400"
         type="range"

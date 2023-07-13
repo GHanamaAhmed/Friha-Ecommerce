@@ -1,21 +1,12 @@
 import { RiCloseFill } from "react-icons/ri";
 import Comments from "./comments";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { commentContext } from "./comentContext";
 import { useParams } from "next/navigation";
-import { sendComment } from "@@/lib/api/comment";
 export default function MobileComents({ show, onClose, onPostComment }) {
   const [text, setText] = useState("");
+  const { postComment } = useContext(commentContext);
   const params = useParams();
-  const postComment = () => {
-    // type: joi.string().valid("product", "reel").required(),
-    // postId: objectId.required(),
-    // text:joi.string().max(200).required()
-    const type = Object.keys(params)[0];
-    const req = { type, postId: window.history.state, text };
-    sendComment(req)
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
-  };
   return (
     <div
       className={`absolute bottom-0 z-10 flex h-4/5 w-full flex-col items-center rounded-t-xl bg-primaryColor transition-transform duration-500 ${
@@ -50,7 +41,12 @@ export default function MobileComents({ show, onClose, onPostComment }) {
           </label>
         </div>
         <button
-          onClick={postComment}
+          onClick={(e) => {
+            e.preventDefault();
+            const type = Object.keys(params)[0];
+            postComment({ type, postId: window.history.state, text });
+            setText("")
+          }}
           className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           نشر
@@ -61,3 +57,14 @@ export default function MobileComents({ show, onClose, onPostComment }) {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+

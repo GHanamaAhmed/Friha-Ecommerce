@@ -7,7 +7,7 @@ const getInfo = createAsyncThunk(
       const res = await customAxios.get("/users/getInfo");
       return fulfillWithValue(res.data);
     } catch (error) {
-     return rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );
@@ -16,7 +16,7 @@ const accountSlice = createSlice({
   name: "account",
   initialState: {
     user: {
-      id: "",
+      _id: "",
       firstName: "",
       lastName: "",
       birthday: "",

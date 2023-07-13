@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Comment from "./comment";
-import { selep } from "@@/lib/sleep";
+import { commentContext } from "./comentContext";
 import { fetchComments } from "@@/lib/api/comment";
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString("en-us", {
@@ -11,10 +11,8 @@ const formatDate = (date) => {
   });
 };
 export default function Comments() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [comments, setComments] = useState([]);
+  const { comments, isLoading,setComments,setIsLoading } = useContext(commentContext);
   useEffect(() => {
-    setIsLoading(true);
     const req = { type: "reel", postId: window.history.state };
     window.history.state &&
       fetchComments(req)
@@ -22,9 +20,11 @@ export default function Comments() {
           setComments(res.data);
           setIsLoading(false);
         })
-        .catch((err) => console.error(err));
-
-    console.log(comments);
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
+    !window.history.state&&setIsLoading(false)
   }, [window.history.state]);
   return isLoading ? (
     <LoadingComments />
@@ -32,16 +32,19 @@ export default function Comments() {
     <div className="flex w-11/12 flex-col overflow-y-auto py-4">
       <div className="flex w-full flex-col justify-start gap-3">
         {comments?.map((e, i) => {
+          console.log(e);
           return (
             <Comment
               key={i}
+              userId={e?._id}
               className={"w-full"}
               createAt={formatDate(e?.createAt)}
               imgUser={e?.Photo}
               nameUser={`${e?.lastName}`}
-              textUser={"sdfdsaf"}
+              textUser={e?.text}
               commentId={e?.commentId}
-              nReplies={e?.replies}
+              nReplies={Number(e?.replies)}
+              isRoot={true}
             />
           );
         })}

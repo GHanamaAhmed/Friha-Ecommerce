@@ -2,7 +2,7 @@
 import { AiFillLike } from "react-icons/ai";
 import { FaComment, FaShare, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 import VideoPlayers from "./videoPlayers";
@@ -10,6 +10,7 @@ import MobileComents from "../../../../../../components/comments/mobileComents";
 import { likePost, unLikePost } from "@@/lib/likes/togleLike";
 import Login from "@@/components/login/login";
 import { useSelector } from "react-redux";
+import { commentContext } from "@@/components/comments/comentContext";
 const initialState = (likes, comments, isLike, isSave) => {
   return {
     isClickLike: isLike,
@@ -50,9 +51,10 @@ export default function Video({
   isLike,
   isSave,
 }) {
+  const commentsC = useContext(commentContext);
   const [state, dispatch] = useReducer(
     reducer,
-    initialState(likes, comments, isLike, isSave)
+    initialState(likes, commentsC.comments?.length , isLike, isSave)
   );
   const { isAuthenticated } = useSelector((store) => store.account);
   const pathName = usePathname();
@@ -61,12 +63,12 @@ export default function Video({
       type: "initialize",
       payload: {
         likes,
-        comments,
+        comments: commentsC.comments?.length ,
         isClikeLike: isLike,
         isClikeBasket: isSave,
       },
     });
-  }, []);
+  }, [commentsC]);
   const hanldeClickLike = (e) => {
     e.preventDefault();
     const req = { type: "reel", postId: id };
