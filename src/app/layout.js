@@ -1,5 +1,4 @@
 import "./globals.css";
-import Auth0 from "./component/auth0/auth0";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "./redux/provider";
@@ -8,6 +7,7 @@ export const metadata = {
   description: "Friha clothes",
 };
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body className={"w-full bg-primaryColor"}>

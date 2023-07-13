@@ -11,8 +11,6 @@ const formatDate = (date) => {
     year: "numeric",
     month: "numeric",
     day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
   });
 };
 export default function Comment({
@@ -70,9 +68,7 @@ export default function Comment({
             <BsFillReplyFill color="white" />
           </button>
           <div className="flex items-center gap-2">
-            <p className="overflow-hidden text-ellipsis text-xs text-lightSolid md:text-sm">
-              {createAt}
-            </p>
+            <p className="text-xs text-lightSolid md:text-sm">{createAt}</p>
             {replyTo ? (
               <div className="flex items-center gap-1">
                 <p className=" overflow-hidden text-ellipsis text-xs md:text-sm">
@@ -129,7 +125,7 @@ export default function Comment({
               className={"w-11/12"}
               createAt={formatDate(e?.createAt)}
               imgUser={e?.Photo}
-              nameUser={`${e?.lastName} ${e?.firstName}`}
+              nameUser={`${e?.lastName}`}
               textUser={"sdfdsaf"}
               commentId={e?.commentId}
               nReplies={e?.replies}

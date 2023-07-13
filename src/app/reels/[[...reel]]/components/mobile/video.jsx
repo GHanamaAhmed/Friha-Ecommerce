@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import VideoPlayers from "./videoPlayers";
 import MobileComents from "../../../../../../components/comments/mobileComents";
 import { likePost, unLikePost } from "@@/lib/likes/togleLike";
+import Login from "@@/components/login/login";
+import { useSelector } from "react-redux";
 const initialState = (likes, comments, isLike, isSave) => {
   return {
     isClickLike: isLike,
@@ -52,6 +54,7 @@ export default function Video({
     reducer,
     initialState(likes, comments, isLike, isSave)
   );
+  const { isAuthenticated } = useSelector((store) => store.account);
   const pathName = usePathname();
   useEffect(() => {
     dispatch({
@@ -109,28 +112,45 @@ export default function Video({
       {tools === true && (
         <>
           <div className="absolute bottom-8 right-5 grid h-full grid-rows-6 gap-10">
-            <div className="row-start-4 row-end-7 flex h-full flex-col items-center justify-between">
+            <div className="row-start-4 row-end-7 flex h-full flex-col items-center justify-around">
               <div className="flex flex-col items-center gap-3">
-                <button onClick={hanldeClickLike}>
-                  <AiFillLike
-                    size={40}
-                    className={`${
-                      state.isClickLike ? "fill-blue-500" : "fill-white"
-                    }`}
-                  />
-                </button>
+                {!isAuthenticated ? (
+                  <Login>
+                    <button>
+                      <AiFillLike size={40} className={"fill-white"} />
+                    </button>
+                  </Login>
+                ) : (
+                  <button onClick={hanldeClickLike}>
+                    <AiFillLike
+                      size={40}
+                      className={`${
+                        state.isClickLike ? "fill-blue-500" : "fill-white"
+                      }`}
+                    />
+                  </button>
+                )}
                 <p>{state.likes}</p>
               </div>
               <div className="flex flex-col items-center gap-3">
-                <button onClick={hanldeClickBasket}>
-                  {" "}
-                  <FaShoppingCart
-                    size={40}
-                    className={`${
-                      state.isClickBasket ? "fill-blue-500" : "fill-white"
-                    }`}
-                  />
-                </button>
+                {isAuthenticated ? (
+                  <button onClick={hanldeClickBasket}>
+                    {" "}
+                    <FaShoppingCart
+                      size={40}
+                      className={`${
+                        state.isClickBasket ? "fill-blue-500" : "fill-white"
+                      }`}
+                    />
+                  </button>
+                ) : (
+                  <Login>
+                    <button>
+                      {" "}
+                      <FaShoppingCart size={40} className={"fill-white"} />
+                    </button>
+                  </Login>
+                )}
                 <p>حفظ</p>
               </div>
               <div className="flex flex-col items-center gap-2">

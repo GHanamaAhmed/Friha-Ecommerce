@@ -5,7 +5,6 @@ import {
 } from "react-icons/bs";
 import TitleSection from "../../../components/titleSection/titleSection";
 import Steps from "../component/steps/steps";
-import StepsLoading from "../component/steps/stepsLoading";
 import CardGrid from "../component/grid/CardGrid";
 import Footer from "../component/footer/footer";
 export default function Home() {

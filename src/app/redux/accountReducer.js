@@ -7,7 +7,7 @@ const getInfo = createAsyncThunk(
       const res = await customAxios.get("/users/getInfo");
       return fulfillWithValue(res.data);
     } catch (error) {
-      rejectWithValue(error);
+     return rejectWithValue(error);
     }
   }
 );
@@ -30,12 +30,15 @@ const accountSlice = createSlice({
     },
     isLoading: null,
     error: null,
+    isAuthenticated: false,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getInfo.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.user = { ...payload };
         state.isLoading = false;
+        state.isAuthenticated = true;
       })
       .addCase(getInfo.pending, (state) => {
         state.isLoading = true;
@@ -43,6 +46,7 @@ const accountSlice = createSlice({
       .addCase(getInfo.rejected, (state, { error }) => {
         state.error = error;
         state.isLoading = false;
+        state.isAuthenticated = false;
       });
   },
 });

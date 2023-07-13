@@ -16,8 +16,8 @@ export default function DesktopReels({ reels }) {
   }, [reels]);
   const refSwiper = useRef();
   const handle = (e) => {
+    window.history.replaceState(reels[e.activeIndex]?._id, "", "/reels/" + reels[e.activeIndex]?._id);
     setIndex(reels[e.activeIndex]?._id);
-    window.history.replaceState(index, "", "/reels/" + index);
   };
   return (
     <div className="grid h-screen w-screen grid-cols-12 grid-rows-1 overflow-hidden pt-5">

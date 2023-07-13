@@ -3,87 +3,17 @@ import { Button, useSelect } from "@material-tailwind/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useReducer, useState } from "react";
-<<<<<<< HEAD
-const initaialState = (
-  isChange,
-  nickName,
-  familyName,
-  email,
-  phoneNumber,
-  picture
-) => ({
-  isChange,
-  nickName,
-  familyName,
-  email,
-  phoneNumber,
-  picture,
-});
-const reducer = (state, { type, payload }) => {
-  let nickName;
-  let familyName;
-  let email;
-  let phoneNumber;
-  let picture;
-  switch (type) {
-    case "start":
-      nickName = payload.nickName;
-      familyName = payload.familyName;
-      email = payload.email;
-      phoneNumber = payload.phoneNumber;
-      picture = payload.picture;
-      return { ...state, nickName, familyName, email, phoneNumber, picture };
-    case "setNickName":
-      nickName = payload.nickName;
-      return { ...state, nickName };
-    case "setFamilyName":
-      familyName = payload.familyName;
-      return { ...state, familyName };
-    case "setEmail":
-      email = payload.email;
-      return { ...state, email };
-    case "setPhoneNumber":
-      phoneNumber = payload.phoneNumber;
-      return { ...state, phoneNumber };
-    case "setPicture":
-      picture = payload.picture;
-      return { ...state, picture };
-  }
-};
-=======
 import { useSelector, useDispatch } from "react-redux";
 import { getInfo } from "@/app/redux/accountReducer";
 
->>>>>>> ecfe6a7cf222cb3c20e2dd1a16b79373af1f7517
 export default function Page() {
   const { user, isLoading } = useSelector((store) => store.account);
-  const router = useRouter();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInfo())
-      .unwrap()
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
   const changePicture = (e) => {
     e.preventDefault();
     let file = e.currentTarget.files[0];
-<<<<<<< HEAD
-    if (file) {
-      let fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.addEventListener("loadend", () => {
-        dispatch({
-          type: "setPicture",
-          payload: { picture: fileReader.result },
-        });
-      });
-    }
-=======
     let fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.addEventListener("loadend", () => {});
->>>>>>> ecfe6a7cf222cb3c20e2dd1a16b79373af1f7517
   };
   return (
     <>
@@ -161,9 +91,7 @@ export default function Page() {
                 </p>
               </div>
               <div className="">
-                <label htmlFor="image">
-                
-                </label>
+                <label htmlFor="image"></label>
                 <input hidden onChange={changePicture} type="file" id="image" />
               </div>
             </div>

@@ -13,16 +13,15 @@ export default function MobileReels({ reels }) {
   const refSwiper = useRef();
   const [page, setPage] = useState(0);
   useEffect(() => {
-    window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
+      window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
   }, [reels]);
   const handle = (e) => {
-    setPage(reels[e.activeIndex]?._id);
-    window.history.replaceState(page, "", "/reels/" + page);
+    window.history.replaceState(reels[e.activeIndex]?._id, "", "/reels/" + reels[e.activeIndex]?._id);
   };
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen flex justify-center items-center">
       <Swiper
-        className="h-full w-full"
+        className="h-[90%] w-full"
         modules={[Navigation, A11y]}
         initialSlide={page}
         spaceBetween={50}

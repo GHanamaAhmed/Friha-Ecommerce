@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 import Comment from "./comment";
 import { selep } from "@@/lib/sleep";
 import { fetchComments } from "@@/lib/api/comment";
-const formatDate=(date)=>{
-  return new Date(date).toLocaleDateString('en-us', {  year:"numeric", month:"short", day:"numeric" ,hour:"2-digit",minute:"2-digit"})
-}
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
 export default function Comments() {
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
   useEffect(() => {
+    setIsLoading(true);
     const req = { type: "reel", postId: window.history.state };
     window.history.state &&
-      isLoading &&
       fetchComments(req)
         .then((res) => {
           setComments(res.data);
@@ -20,7 +24,7 @@ export default function Comments() {
         })
         .catch((err) => console.error(err));
 
-        console.log(comments);
+    console.log(comments);
   }, [window.history.state]);
   return isLoading ? (
     <LoadingComments />
@@ -34,7 +38,7 @@ export default function Comments() {
               className={"w-full"}
               createAt={formatDate(e?.createAt)}
               imgUser={e?.Photo}
-              nameUser={`${e?.lastName} ${e?.firstName}`}
+              nameUser={`${e?.lastName}`}
               textUser={"sdfdsaf"}
               commentId={e?.commentId}
               nReplies={e?.replies}
