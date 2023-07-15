@@ -9,13 +9,21 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useEffect, useState } from "react";
 import Short from "./short";
-import { selep } from "../../../../lib/sleep";
-import { useWidth } from "../../../../lib/hooks/useWidth";
 import SwiperLoading from "./swiperLoading";
+import { fetchReels } from "@@/lib/api/reels";
 export default function Swipers() {
   const [isLoading, setIsLoading] = useState(true);
+  const [reels, setReels] = useState([]);
   useEffect(() => {
-    selep().then(setIsLoading(false));
+    fetchReels("")
+      .then((res) => {
+        setReels(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, []);
   return !isLoading ? (
     <Swiper
@@ -44,10 +52,10 @@ export default function Swipers() {
         },
       }}
     >
-      {[...Array(10)].map((e, i) => (
+      {reels.map((e, i) => (
         <SwiperSlide key={i}>
           {" "}
-          <Short />
+          <Short reel={e} />
         </SwiperSlide>
       ))}
     </Swiper>

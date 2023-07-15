@@ -38,7 +38,7 @@ export default function Page() {
                 <Button
                   variant="outlined"
                   size="md"
-                  disabled={state.isChange ? false : true}
+                  disabled={true}
                   className={`font-Hacen-Tunisia h-fit border-scandaryColor py-2 text-scandaryColor shadow-none outline-none ring-0 hover:shadow-none focus:outline-none focus:ring-0 md:w-full`}
                 >
                   الغاء
@@ -46,7 +46,7 @@ export default function Page() {
                 <Button
                   variant="filled"
                   size="md"
-                  disabled={state.isChange ? false : true}
+                  disabled={ true}
                   className={`font-Hacen-Tunisia h-fit border-scandaryColor bg-scandaryColor py-2 text-white shadow-none hover:shadow-none md:w-full`}
                 >
                   حفظ التغييرات

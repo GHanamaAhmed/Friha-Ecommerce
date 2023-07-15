@@ -10,13 +10,13 @@ export default function Pictures({ direction }) {
   const { isLoading, product } = useContext(productsContext);
   const [curentPicture, setCurentPicture] = useState(0);
   return (
-    product?.photos.length && (
+    (product?.photos?.length || product?.thumbanil) && (
       <>
         <div className="w-full px-5">
           <div className="relative h-64 w-8/12">
-            <img
-              crossOrigin="anonymous"
-              src={product?.photos[curentPicture]}
+            <Image
+              fill
+              src={product?.photos[curentPicture]?.photo || product.thumbanil}
               alt=""
               className="h-full w-full rounded-md object-cover"
             />
@@ -47,7 +47,7 @@ export default function Pictures({ direction }) {
                 <div className="h-28 w-28 overflow-hidden rounded-lg">
                   <img
                     crossOrigin="anonymous"
-                    src={e}
+                    src={e.photo}
                     alt=""
                     className=" h-full w-full object-cover"
                   />

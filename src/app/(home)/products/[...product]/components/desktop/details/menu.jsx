@@ -1,5 +1,5 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import {
   Menu,
   MenuHandler,
@@ -8,12 +8,14 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { ChevronDownIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { productsContext } from "../../productsContext";
 export default function Menus() {
+  const { colors, sizes } = useContext(productsContext);
   return (
     <>
       <Button
         variant="filled"
-        className="font-hacen-tunisia px-5 flex items-center gap-3 bg-gradient-to-r bg-scandaryColor text-white shadow-none hover:shadow-none text-base  capitalize tracking-normal"
+        className="font-hacen-tunisia flex items-center gap-3 bg-scandaryColor bg-gradient-to-r px-5 text-base capitalize tracking-normal text-white  shadow-none hover:shadow-none"
       >
         شراء
         <ShoppingBagIcon
@@ -21,15 +23,15 @@ export default function Menus() {
           className={`h-3.5 w-3.5 transition-transform`}
         />
       </Button>
-      <Color />
-      <Size />
+      {colors?.length > 1 && <Color />}
+      {sizes?.length > 1 && <Size />}
     </>
   );
 }
 
 function Color() {
   const [openMenu, setOpenMenu] = React.useState(false);
-
+  const { colors, setColor } = useContext(productsContext);
   const triggers = {
     onClick: () => setOpenMenu((prev) => !prev),
   };
@@ -40,7 +42,7 @@ function Color() {
         <Button
           {...triggers}
           variant="filled"
-          className="font-hacen-tunisia flex px-5 items-center gap-3 bg-card1 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
+          className="font-hacen-tunisia flex items-center gap-3 bg-card1 px-5 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
         >
           اللون
           <ChevronDownIcon
@@ -55,16 +57,24 @@ function Color() {
         {...triggers}
         className="font-Hacen-Tunisia bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
       >
-        <MenuItem> الخيار الاول</MenuItem>
-        <MenuItem> الخيار الاول</MenuItem>
-        <MenuItem> الخيار الاول</MenuItem>
+        {colors.map((e, i) => (
+          <MenuItem
+            onClick={(el) => {
+              el.preventDefault();
+              setColor(e);
+            }}
+            key={i}
+          >
+            {e}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );
 }
 function Size() {
   const [openMenu, setOpenMenu] = React.useState(false);
-
+  const { sizes, setSize } = useContext(productsContext);
   const triggers = {
     onClick: () => setOpenMenu((prev) => !prev),
   };
@@ -75,7 +85,7 @@ function Size() {
         <Button
           {...triggers}
           variant="filled"
-          className="font-hacen-tunisia flex px-5 items-center gap-3 bg-card1 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
+          className="font-hacen-tunisia flex items-center gap-3 bg-card1 px-5 text-base font-normal capitalize tracking-normal shadow-sm shadow-black hover:shadow-none"
         >
           الحجم
           <ChevronDownIcon
@@ -90,9 +100,17 @@ function Size() {
         {...triggers}
         className="font-Hacen-Tunisia bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
       >
-        <MenuItem> الخيار الاول</MenuItem>
-        <MenuItem> الخيار الاول</MenuItem>
-        <MenuItem> الخيار الاول</MenuItem>
+        {sizes.map((e, i) => (
+          <MenuItem
+            onClick={(el) => {
+              el.preventDefault();
+              setSize(e);
+            }}
+            key={i}
+          >
+            {e}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );

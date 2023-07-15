@@ -1,7 +1,7 @@
 "use client";
 import "swiper/css";
 import "swiper/css/navigation";
-import Example from "./menu";
+import Menus from "./menu";
 import Pictures from "./pictures";
 import { useContext, useState } from "react";
 import TitleSection from "../../../../../../../../components/titleSection/titleSection";
@@ -28,7 +28,7 @@ export default function Details() {
                 <div className="flex w-full flex-col items-start gap-3">
                   <Pictures direction={"horizontal"} />
                   <div className="flex w-fit gap-3 px-5">
-                    <Example />
+                    <Menus />
                   </div>
                   {product?.description && (
                     <div className="px-5">

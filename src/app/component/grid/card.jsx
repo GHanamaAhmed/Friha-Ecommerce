@@ -9,7 +9,7 @@ import { selep } from "@@/lib/sleep";
 import { customAxios } from "@@/lib/api/axios";
 import { likePost, unLikePost } from "@@/lib/likes/togleLike";
 import { SavePost, unSavePost } from "@@/lib/likes/togleSave";
-
+import {useRouter} from 'next/navigation';
 export default function Card({
   id,
   name,
@@ -26,10 +26,13 @@ export default function Card({
   const [isSave, setIsSave] = useState(save || false);
   const [IsPulse, setIsPulse] = useState(false);
   const { width } = useWidth();
+  const router=useRouter()
   const togglepulse = () => {
     setIsPulse((prev) => !prev);
   };
-  const toggleSave = () => {
+  const toggleSave = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     const req = { id };
     if (isSave) {
       setIsSave(false);
@@ -40,7 +43,9 @@ export default function Card({
       SavePost(req).catch((err) => console.error(err));
     }
   };
-  const toggleLike = () => {
+  const toggleLike = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     const req = { type: "product", postId: id };
     if (isLike) {
       setIsLike(false);
@@ -51,11 +56,14 @@ export default function Card({
       likePost(req).catch((err) => console.error(err));
     }
   };
+  const redirect=()=>{
+    router.push(`/products/${id}`)
+  }
   return (
-    <div className="relative h-56 w-36 flex flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60">
+    <div onClick={redirect} className="relative cursor-pointer flex h-56 w-36 flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60">
       <div className="relative h-full max-h-[75%]">
-        <div className="aspect-w-3 aspect-h-4 relative flex justify-center items-center w-full h-full">
-          <div className="absolute h-full flex justify-center items-center w-full">
+        <div className="aspect-w-3 aspect-h-4 relative flex h-full w-full items-center justify-center">
+          <div className="absolute flex h-full w-full items-center justify-center">
             <img
               crossOrigin="anonymous"
               className="max-h-full w-full object-cover"

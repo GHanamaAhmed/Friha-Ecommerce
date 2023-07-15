@@ -1,18 +1,46 @@
-import reel from "./img/reels.png";
+"use client";
 import Image from "next/image";
-export default function Short() {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+export default function Short({ reel }) {
+  const [play, setPlay] = useState(false);
+  const router=useRouter()
   return (
-    <div>
-      <div className="relative flex items-center justify-start">
-        <Image
-          priority
-          className="m-0 h-72 max-h-none w-52 max-w-none rounded-lg md:h-80 md:w-60"
-          src={reel}
-          alt="reel"
-        />
+    <div
+      onMouseEnter={(e) => {
+        e.preventDefault();
+        setPlay(true);
+      }}
+      onMouseLeave={(e) => {
+        e.preventDefault();
+        setPlay(false);
+      }}
+      onClick={(e)=>{router.push(`reels/${reel?._id}`)}}
+    >
+      <div className="relative overflow-hidden m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-start rounded-lg md:h-80 md:w-60">
+        {!play && (
+          <Image
+            priority
+            crossOrigin="anonymous"
+            fill
+            className="object-cover"
+            src={reel?.thumbanil}
+            alt="reel"
+          />
+        )}
+        {play && (
+          <video
+            crossOrigin="anonymous"
+            autoPlay
+            src={reel?.video}
+            className="h-full w-full"
+            controls={false}
+            muted
+            loop
+          />
+        )}
         <div className="absolute bottom-4 right-4 z-10 flex flex-col">
-          <p className="text-32 text-white">حذاء</p>
-          <p className="text-sm text-white">200 DA</p>
+          <p className="text-32 text-white">{reel?.name}</p>
         </div>
       </div>
     </div>

@@ -30,8 +30,11 @@ export default function MobilePrudact() {
             {!isLoading ? (
               (product.thumbanil || product.photos?.length) && (
                 <Image
-                  fill={true}
-                  src={product?.photos[currentPicture] || product?.thumbanil}
+                  fill
+                  className="h-full w-full object-cover"
+                  src={
+                    product?.photos[currentPicture].photo || product?.thumbanil
+                  }
                   alt=""
                 />
               )
@@ -53,7 +56,26 @@ export default function MobilePrudact() {
             <div className="flex w-full items-center justify-between px-2 text-end">
               {!isLoading ? (
                 <>
-                  <TitleSection title={"adidas"} subtitle={"20 da"} />
+                  <TitleSection
+                    title={product?.name}
+                    subtitle={
+                      <div className="row-span-2 flex flex-col items-start justify-center">
+                        {product?.showPrice && !product?.showPromotion && (
+                          <p className="text-lg text-scandaryColor">{product?.price}</p>
+                        )}
+                        {product?.showPrice && product?.showPromotion && (
+                          <div className="">
+                            <p className="text-lg text-scandaryColor">
+                              {product?.price}
+                            </p>
+                            <p className="text-base text-white line-through">
+                              {product?.promotion}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    }
+                  />
                   <button
                     onClick={(e) => {
                       e.preventDefault();

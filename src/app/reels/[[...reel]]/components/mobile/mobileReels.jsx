@@ -43,9 +43,9 @@ export default function MobileReels({ reels }) {
               link={reelUrl(reel.productId)}
               likes={reel.likes}
               isLike={reel?.isLike}
-              isSave={reel?.isSave}
               comments={reel?.comments}
               video={reel?.video}
+              productId={reel?.productId}
             />
           </SwiperSlide>
         ))}

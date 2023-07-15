@@ -11,10 +11,9 @@ import { likePost, unLikePost } from "@@/lib/likes/togleLike";
 import Login from "@@/components/login/login";
 import { useSelector } from "react-redux";
 import { commentContext } from "@@/components/comments/comentContext";
-const initialState = (likes, comments, isLike, isSave) => {
+const initialState = (likes, comments, isLike) => {
   return {
     isClickLike: isLike,
-    isClickBasket: isSave,
     likes: Number(likes),
     comments: Number(comments),
     isShowComments: false,
@@ -29,9 +28,6 @@ const reducer = (state, { type, value, payload }) => {
       let likes = !state.isClickLike ? state.likes + 1 : state.likes - 1;
       let isClickLike = !state.isClickLike;
       return { ...state, likes, isClickLike };
-    case "toggleClickBasket":
-      let isClickBasket = !state.isClickBasket;
-      return { ...state, isClickBasket };
     case "toggleShowComment":
       let isShowComments = value;
       return { ...state, isShowComments };
@@ -49,12 +45,12 @@ export default function Video({
   swiper,
   tools,
   isLike,
-  isSave,
+  productId,
 }) {
   const commentsC = useContext(commentContext);
   const [state, dispatch] = useReducer(
     reducer,
-    initialState(likes, commentsC.comments?.length , isLike, isSave)
+    initialState(likes, commentsC.comments?.length, isLike)
   );
   const { isAuthenticated } = useSelector((store) => store.account);
   const pathName = usePathname();
@@ -63,9 +59,8 @@ export default function Video({
       type: "initialize",
       payload: {
         likes,
-        comments: commentsC.comments?.length ,
+        comments: commentsC.comments?.length,
         isClikeLike: isLike,
-        isClikeBasket: isSave,
       },
     });
   }, [commentsC]);
@@ -74,16 +69,15 @@ export default function Video({
     const req = { type: "reel", postId: id };
     console.log(req);
     if (state.isClikeLike) {
-      unLikePost(req).catch((err) => console.error(err));
+      unLikePost(req)
+        .then((res) => dispatch({ type: "toggleClickLike" }))
+        .catch((err) => console.error(err));
     }
     if (!state.isClikeLike) {
-      likePost(req).catch((err) => console.error(err));
+      likePost(req)
+        .then((res) => dispatch({ type: "toggleClickLike" }))
+        .catch((err) => console.error(err));
     }
-    dispatch({ type: "toggleClickLike" });
-  };
-  const hanldeClickBasket = (e) => {
-    e.preventDefault();
-    dispatch({ type: "toggleClickBasket" });
   };
   const closeComments = (value) => {
     !value ? swiper.current.enable() : swiper.current.disable();
@@ -94,7 +88,7 @@ export default function Video({
       navigator
         .share({
           title: "FrihaClothes",
-          url: pathName,
+          url: "http://localhost:3000/reels/" + window.history.state,
         })
         .then(() => {
           console.log("Thanks for sharing!");
@@ -134,27 +128,15 @@ export default function Video({
                 )}
                 <p>{state.likes}</p>
               </div>
-              <div className="flex flex-col items-center gap-3">
-                {isAuthenticated ? (
-                  <button onClick={hanldeClickBasket}>
+              {productId && (
+                <div className="flex flex-col items-center gap-3">
+                  <Link href={`http://localhost:3000/products/${productId}`}>
                     {" "}
-                    <FaShoppingCart
-                      size={40}
-                      className={`${
-                        state.isClickBasket ? "fill-blue-500" : "fill-white"
-                      }`}
-                    />
-                  </button>
-                ) : (
-                  <Login>
-                    <button>
-                      {" "}
-                      <FaShoppingCart size={40} className={"fill-white"} />
-                    </button>
-                  </Login>
-                )}
-                <p>حفظ</p>
-              </div>
+                    <FaShoppingCart size={40} className={"fill-white"} />
+                  </Link>
+                  <p>شراء</p>
+                </div>
+              )}
               <div className="flex flex-col items-center gap-2">
                 <button
                   onClick={(e) => {

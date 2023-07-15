@@ -12,7 +12,7 @@ import img1 from "@@/public/res/item.png";
 import { selep } from "@@/lib/sleep";
 import { productsContext } from "../productsContext";
 export default function Pictures({ onClick, pictures, idPrudacts }) {
-  const { isLoading, product } = useContext(productsContext);
+  const { isLoading, product, color, size } = useContext(productsContext);
   return (
     <div className={`my-3 w-full px-4`}>
       {!isLoading ? (
@@ -35,25 +35,31 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
               },
             }}
           >
-            {product?.photos.map((e, i) => (
-              <SwiperSlide
-                onClick={(e) => {
-                  e.preventDefault();
-                  onClick(i);
-                }}
-                className="cursor-pointer"
-              >
-                <div className="h-24 w-24 overflow-hidden rounded-lg">
-                  {" "}
-                  <img
-                    crossOrigin="anonymous"
-                    className="max-h-full w-full object-cover"
-                    src={e}
-                    alt=""
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
+            {product?.photos.map((e, i) => {
+              if (
+                (e.sizes?.includes(size) || size == "الكل") &&
+                (e.colors?.includes(color) || color == "الكل")
+              )
+                return (
+                  <SwiperSlide
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onClick(i);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <div className="h-24 w-24 overflow-hidden rounded-lg">
+                      {" "}
+                      <img
+                        crossOrigin="anonymous"
+                        className="max-h-full w-full object-cover"
+                        src={e.photo}
+                        alt=""
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+            })}
           </Swiper>
         )
       ) : (
