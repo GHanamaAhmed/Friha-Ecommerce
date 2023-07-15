@@ -1,14 +1,15 @@
 "use client"
+
+import { useContext } from "react";
+import { productsContext } from "../productsContext";
+
 export default function Par() {
+  const { product } = useContext(productsContext);
   return (
-    <div className="p-4">
+    <div className="p-4 w-full">
       <p className="font-Hacen-Tunisia text-xl text-scandaryColor">الوصف</p>
       <p className="w-full text-justify text-lightSolid">
-        Step into the spotlight with our Blue Lightning Shoe: a perfect blend of
-        style and comfort. Its striking blue color and sleek design make a bold
-        fashion statement. Engineered for durability and enhanced performance,
-        its your go-to choice for any occasion. Unleash your unique style with
-        the Blue Lightning Shoe.
+      {product?.description}
       </p>
     </div>
   );

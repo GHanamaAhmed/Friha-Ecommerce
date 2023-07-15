@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import Comment from "./comment";
 import { commentContext } from "./comentContext";
 import { fetchComments } from "@@/lib/api/comment";
+import { useParams, usePathname } from "next/navigation";
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString("en-us", {
     year: "numeric",
@@ -11,10 +12,17 @@ const formatDate = (date) => {
   });
 };
 export default function Comments() {
-  const { comments, isLoading,setComments,setIsLoading } = useContext(commentContext);
+  const { comments, isLoading, setComments, setIsLoading } =
+    useContext(commentContext);
+  const params = useParams();
+  const pathName = usePathname();
   useEffect(() => {
-    const req = { type: "reel", postId: window.history.state };
-    window.history.state &&
+    const req = {
+      type: pathName.includes("reel") ? "reel" : "product",
+      postId: params?.product || window.history.state  || params?.reel,
+    };
+    console.log(req);
+    (window.history.state || params?.product || params?.reel) &&
       fetchComments(req)
         .then((res) => {
           setComments(res.data);
@@ -24,7 +32,7 @@ export default function Comments() {
           console.error(err);
           setIsLoading(false);
         });
-    !window.history.state&&setIsLoading(false)
+    !window.history.state && setIsLoading(false);
   }, [window.history.state]);
   return isLoading ? (
     <LoadingComments />

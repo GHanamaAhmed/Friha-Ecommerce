@@ -6,7 +6,7 @@ import { useWidth } from "../../lib/hooks/useWidth";
 import { twMerge } from "tailwind-merge";
 import { fetchReels } from "@@/lib/api/reels";
 import { fetchReplies, removeComment, sendComment } from "@@/lib/api/comment";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { commentContext } from "./comentContext";
 import { AiFillDelete } from "react-icons/ai";
@@ -38,9 +38,10 @@ export default function Comment({
   const [nreplies, setnReplies] = useState(nReplies);
   const [isShowReponde, setIsShowReponde] = useState(false);
   const { user } = useSelector((store) => store.account);
-  const { setComments,comments } = useContext(commentContext);
+  const { setComments, comments } = useContext(commentContext);
   const [text, setText] = useState("");
   const params = useParams();
+  const pathName = usePathname();
   useEffect(() => {
     setnReplies(replies?.length);
   }, [replies]);
@@ -51,13 +52,12 @@ export default function Comment({
   const handleFetchReplies = (e) => {
     e.preventDefault();
     const req = {
-      type: "reel",
-      postId: window.history.state,
+      type: pathName.includes("reel") ? "reel" : "product",
+      postId: params?.product || window.history.state  || params?.reel,
       commentId,
     };
     if (!isShow) {
-      console.log(replies);
-      window.history.state &&
+      (window.history.state || params?.product || params?.reel) &&
         fetchReplies(req)
           .then((res) => {
             setReplies(res.data);
@@ -86,10 +86,9 @@ export default function Comment({
   };
   const postComment = (e) => {
     e.preventDefault();
-    const type = Object.keys(params)[0];
     sendComment({
-      type,
-      postId: window.history.state,
+      type: pathName.includes("reel") ? "reel" : "product",
+      postId: params?.product || window.history.state  || params?.reel,
       text,
       toUserCommentId: commentId,
     })
@@ -104,12 +103,12 @@ export default function Comment({
           createAt: res.data?.createAt,
           commentId: res.data?._id,
           replies: 0,
-          text
+          text,
         };
-        
+
         setReplies([...replies, newComment]);
-        setIsShowReponde(false)
-        setIsShowReplies(true)
+        setIsShowReponde(false);
+        setIsShowReplies(true);
       })
       .catch((err) => console.error(err));
   };
