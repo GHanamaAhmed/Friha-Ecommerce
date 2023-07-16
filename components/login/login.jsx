@@ -15,7 +15,10 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { GrFacebookOption } from "react-icons/gr";
 export default function Login({ children }) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen((cur) => !cur);
+  const handleOpen = (e) => {
+    e.stopPropagation();
+    setOpen((cur) => !cur);
+  };
 
   return (
     <React.Fragment>
@@ -78,7 +81,7 @@ export default function Login({ children }) {
                   color="blue"
                   className="flex items-center gap-3"
                 >
-                 <GrFacebookOption size={25}/>
+                  <GrFacebookOption size={25} />
                   Continue with facebook
                 </Button>
               </MenuItem>

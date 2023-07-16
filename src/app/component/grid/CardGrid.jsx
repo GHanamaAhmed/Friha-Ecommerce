@@ -9,22 +9,40 @@ import { customAxios } from "@@/lib/api/axios";
 export default function CardGrid() {
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState([]);
+  const [min, setMin] = useState(null);
+  const [count, setCount] = useState(0);
   useEffect(() => {
     const fetch = async () => {
-      await customAxios.get("/products").then((res) => {
+      await customAxios.get(`/products`).then((res) => {
         setIsLoading(false);
         setProduct(res.data);
+        setMin(res.data?.length );
+      });
+    };
+    const fetchCount = async () => {
+      await customAxios.get(`/products/count`).then((res) => {
+        setCount(res.data?.count - 1);
       });
     };
     fetch();
+    fetchCount();
   }, []);
+  const more = (e) => {
+    e.preventDefault()
+    const fetch = async () => {
+      await customAxios.get(`/products/${min}/${min + 15}`).then((res) => {
+        setProduct((prev) => [...prev, ...res.data]);
+        setMin(res.data?.length + min);
+      });
+    };
+    fetch();
+  };
   const content = () => {
     return (
       <>
-       <Search />
-        {!isLoading && product?.length>0 && (
+        <Search />
+        {!isLoading && product?.length > 0 && (
           <>
-           
             <div className="grid grid-cols-2 place-items-center gap-6 px-3 sm:grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
               {product.map((e, i) => {
                 return (
@@ -45,18 +63,26 @@ export default function CardGrid() {
               })}
             </div>
             <div className="flex w-full justify-center py-3">
-              <Button
-                variant="outlined"
-                size="md"
-                className={`font-Hacen-Tunisia border-lightContent ${"Focus:border-none text-lightContent focus:bg-scandaryColor focus:text-white"} focus:ring-0`}
-              >
-                المزيد
-              </Button>
+              {min <= count && (
+                <Button
+                onClick={more}
+                  variant="outlined"
+                  size="md"
+                  className={`font-Hacen-Tunisia border-lightContent ${"Focus:border-none text-lightContent focus:bg-scandaryColor focus:text-white"} focus:ring-0`}
+                >
+                  المزيد
+                </Button>
+              )}
             </div>
           </>
         )}
         {isLoading && <CardGridLoading />}
-        {!isLoading && !product?.length >0&& <div className="w-full h-full flex justify-center items-center mt-4 mb-20 md:mb-6"> <p className="text-white text-5xl">لايوجد منتوج حاليا</p></div>}
+        {!isLoading && !product?.length > 0 && (
+          <div className="mb-20 mt-4 flex h-full w-full items-center justify-center md:mb-6">
+            {" "}
+            <p className="text-5xl text-white">لايوجد منتوج حاليا</p>
+          </div>
+        )}
       </>
     );
   };

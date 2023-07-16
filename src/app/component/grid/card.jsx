@@ -9,7 +9,9 @@ import { selep } from "@@/lib/sleep";
 import { customAxios } from "@@/lib/api/axios";
 import { likePost, unLikePost } from "@@/lib/likes/togleLike";
 import { SavePost, unSavePost } from "@@/lib/likes/togleSave";
-import {useRouter} from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import Login from "@@/components/login/login";
 export default function Card({
   id,
   name,
@@ -26,7 +28,8 @@ export default function Card({
   const [isSave, setIsSave] = useState(save || false);
   const [IsPulse, setIsPulse] = useState(false);
   const { width } = useWidth();
-  const router=useRouter()
+  const { isAuthenticated } = useSelector((store) => store.account);
+  const router = useRouter();
   const togglepulse = () => {
     setIsPulse((prev) => !prev);
   };
@@ -56,11 +59,14 @@ export default function Card({
       likePost(req).catch((err) => console.error(err));
     }
   };
-  const redirect=()=>{
-    router.push(`/products/${id}`)
-  }
+  const redirect = () => {
+    router.push(`/products/${id}`);
+  };
   return (
-    <div onClick={redirect} className="relative cursor-pointer flex h-56 w-36 flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60">
+    <div
+      onClick={redirect}
+      className="relative flex h-56 w-36 cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60"
+    >
       <div className="relative h-full max-h-[75%]">
         <div className="aspect-w-3 aspect-h-4 relative flex h-full w-full items-center justify-center">
           <div className="absolute flex h-full w-full items-center justify-center">
@@ -92,13 +98,22 @@ export default function Card({
             content={`${!isLike ? "اعجاب" : "تم الاعجاب"}`}
             placement="top"
           >
-            <button onClick={toggleLike}>
-              {isLike ? (
-                <AiFillHeart size={width <= 767 ? 17 : 25} color="red" />
-              ) : (
-                <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
-              )}
-            </button>
+            {isAuthenticated ? (
+              <button onClick={toggleLike}>
+                {isLike ? (
+                  <AiFillHeart size={width <= 767 ? 17 : 25} color="red" />
+                ) : (
+                  <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
+                )}
+              </button>
+            ) : (
+              <Login>
+                {" "}
+                <button>
+                  <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
+                </button>
+              </Login>
+            )}
           </Tooltip>
         </div>
       </div>
@@ -108,38 +123,56 @@ export default function Card({
           content={`${!isLike ? "اعجاب" : "تم الاعجاب"}`}
           placement="top"
         >
-          <button onClick={toggleLike}>
-            {isLike ? (
-              <AiFillHeart
-                size={width <= 767 ? 17 : 25}
-                color="red"
-                className={`${IsPulse ? "animate- fill-red" : ""}`}
-              />
-            ) : (
-              <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
-            )}
-          </button>
+          {isAuthenticated ? (
+            <button onClick={toggleLike}>
+              {isLike ? (
+                <AiFillHeart
+                  size={width <= 767 ? 17 : 25}
+                  color="red"
+                  className={`${IsPulse ? "animate- fill-red" : ""}`}
+                />
+              ) : (
+                <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
+              )}
+            </button>
+          ) : (
+            <Login>
+              <button>
+                <AiOutlineHeart size={width <= 767 ? 17 : 25} color="white" />
+              </button>
+            </Login>
+          )}
         </Tooltip>
       </div>
       <Tooltip
         content={`${!isSave ? "وضع في السلة" : "تم الوضع"}`}
         placement="top"
       >
-        <button
-          onClick={toggleSave}
-          className={`absolute right-2 top-2 rounded-full p-2 ${
-            !isSave ? "bg-white" : "bg-scandaryColor"
-          }`}
-        >
-          {!isSave ? (
-            <LuShoppingCart size={15} className={`stroke-basketColor`} />
-          ) : (
-            <BsCheckLg
-              size={15}
-              className={`animate-[appear_0.3s_ease-in-out] fill-white`}
-            />
-          )}
-        </button>
+        {isAuthenticated ? (
+          <button
+            onClick={toggleSave}
+            className={`absolute right-2 top-2 rounded-full p-2 ${
+              !isSave ? "bg-white" : "bg-scandaryColor"
+            }`}
+          >
+            {!isSave ? (
+              <LuShoppingCart size={15} className={`stroke-basketColor`} />
+            ) : (
+              <BsCheckLg
+                size={15}
+                className={`animate-[appear_0.3s_ease-in-out] fill-white`}
+              />
+            )}
+          </button>
+        ) : (
+          <Login>
+            <button
+              className={`absolute right-2 top-2 rounded-full bg-white p-2`}
+            >
+              <LuShoppingCart size={15} className={`stroke-basketColor`} />
+            </button>
+          </Login>
+        )}
       </Tooltip>
     </div>
   );
