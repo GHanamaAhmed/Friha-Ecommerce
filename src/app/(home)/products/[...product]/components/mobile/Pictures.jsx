@@ -42,6 +42,7 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
               )
                 return (
                   <SwiperSlide
+                    key={i}
                     onClick={(e) => {
                       e.preventDefault();
                       onClick(i);

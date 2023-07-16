@@ -12,7 +12,7 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-
+import { GrFacebookOption } from "react-icons/gr";
 export default function Login({ children }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
@@ -36,7 +36,7 @@ export default function Login({ children }) {
         </DialogHeader>
         <DialogBody className="overflow-y-scroll pr-2">
           <div className="mb-6">
-            <div className="flex flex-col gap-3 items-center">
+            <div className="flex flex-col items-center gap-3">
               <div className="m-0 w-fit rounded-full bg-primaryColor p-5">
                 {" "}
                 <Image src="/res/Friha.png" width={50} height={50} alt="" />
@@ -46,30 +46,44 @@ export default function Login({ children }) {
               </div>
             </div>
             <ul className="-ml-2 mt-1 flex flex-col gap-1">
-              <MenuItem className="flex items-center gap-3" onClick={(e)=>window.open("http://localhost:4000/auth/google","_self")}>
-                <img
-                  src="https://www.material-tailwind.com/icons/metamask.svg"
-                  alt="metamast"
-                  className="h-6 w-6"
-                />
-                <Typography color="blue-gray" variant="h6">
-                  MetaMask
-                </Typography>
+              <MenuItem
+                className="flex items-center justify-center gap-3"
+                onClick={(e) =>
+                  window.open("http://localhost:4000/auth/google", "_self")
+                }
+              >
+                <Button
+                  size="lg"
+                  variant="outlined"
+                  color="blue-gray"
+                  className="flex items-center gap-3"
+                >
+                  <img
+                    src="https://www.material-tailwind.com/icons/google.svg"
+                    alt="metamask"
+                    className="h-6 w-6"
+                  />
+                  Continue with Google
+                </Button>
               </MenuItem>
-              <MenuItem className="flex items-center gap-3" onClick={(e)=>window.open("http://localhost:4000/auth/facebook","_self")}>
-                <img
-                  src="https://www.material-tailwind.com/icons/metamask.svg"
-                  alt="metamast"
-                  className="h-6 w-6 rounded-md"
-                />
-                <Typography color="blue-gray" variant="h6">
-                  Coinbase Wallet
-                </Typography>
+              <MenuItem
+                className="flex items-center gap-3"
+                onClick={(e) =>
+                  window.open("http://localhost:4000/auth/facebook", "_self")
+                }
+              >
+                <Button
+                  size="lg"
+                  variant="filled"
+                  color="blue"
+                  className="flex items-center gap-3"
+                >
+                 <GrFacebookOption size={25}/>
+                  Continue with facebook
+                </Button>
               </MenuItem>
-              
             </ul>
           </div>
-          
         </DialogBody>
       </Dialog>
     </React.Fragment>

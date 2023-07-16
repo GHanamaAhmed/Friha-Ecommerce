@@ -3,9 +3,12 @@ import Comments from "./comments";
 import { useContext, useState } from "react";
 import { commentContext } from "./comentContext";
 import { useParams, usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import Login from "../login/login";
 export default function MobileComents({ show, onClose, onPostComment }) {
   const [text, setText] = useState("");
   const { postComment } = useContext(commentContext);
+  const { isAuthenticated } = useSelector((store) => store.account);
   const params = useParams();
   const pathName = usePathname();
   return (
@@ -41,20 +44,29 @@ export default function MobileComents({ show, onClose, onPostComment }) {
             اكتب تعليق
           </label>
         </div>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            postComment({
-              type: pathName.includes("reel") ? "reel" : "product",
-              postId: params?.product || window.history.state || params?.reel,
-              text,
-            });
-            setText("");
-          }}
-          className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-        >
-          نشر
-        </button>
+        {isAuthenticated && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              postComment({
+                type: pathName.includes("reel") ? "reel" : "product",
+                postId: params?.product || window.history.state || params?.reel,
+                text,
+              });
+              setText("");
+            }}
+            className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            نشر
+          </button>
+        )}
+        {!isAuthenticated && (
+          <Login>
+            <button className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+              نشر
+            </button>
+          </Login>
+        )}
       </div>
       <div className="mb-1.5 h-px w-full bg-card2"></div>
       <Comments />

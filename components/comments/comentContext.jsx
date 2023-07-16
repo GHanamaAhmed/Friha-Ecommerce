@@ -8,6 +8,7 @@ export const commentContext = createContext();
 export default function CommentContext({ children }) {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [nComments, setNComments] = useState(0);
   const { user } = useSelector((store) => store.account);
   const postComment = (req) => {
     sendComment(req)
@@ -22,15 +23,24 @@ export default function CommentContext({ children }) {
           createAt: res.data?.createAt,
           commentId: res.data?._id,
           replies: 0,
-          text:req?.text
+          text: req?.text,
         };
         setComments([...comments, newComment]);
+        setNComments((prev) => prev + 1);
       })
       .catch((err) => console.error(err));
   };
   return (
     <commentContext.Provider
-      value={{ comments, isLoading, postComment, setComments, setIsLoading }}
+      value={{
+        comments,
+        isLoading,
+        postComment,
+        setComments,
+        setIsLoading,
+        nComments,
+        setNComments,
+      }}
     >
       {children}
     </commentContext.Provider>

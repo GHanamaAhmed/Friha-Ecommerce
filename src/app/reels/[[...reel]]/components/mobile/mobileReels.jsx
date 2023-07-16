@@ -6,20 +6,39 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import Video from "./video";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { reelUrl } from "@@/lib/genURL";
-import { useParams } from "next/navigation";
+import { useParams,usePathname } from "next/navigation";
+import { commentContext } from "@@/components/comments/comentContext";
+import { fetchCountComments } from "@@/lib/api/comment";
 export default function MobileReels({ reels }) {
+  const { nComments, setNComments } = useContext(commentContext);
   const refSwiper = useRef();
   const [page, setPage] = useState(0);
+  const params = useParams();
+  const pathName = usePathname();
   useEffect(() => {
-      window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
+    window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
   }, [reels]);
   const handle = (e) => {
-    window.history.replaceState(reels[e.activeIndex]?._id, "", "/reels/" + reels[e.activeIndex]?._id);
+    window.history.replaceState(
+      reels[e.activeIndex]?._id,
+      "",
+      "/reels/" + reels[e.activeIndex]?._id
+    );
+    fetchCountComments({
+      type: pathName.includes("reel") ? "reel" : "product",
+      postId: params?.product || window.history.state || params?.reel,
+    })
+      .then((res) => {
+        setNComments(res.data[0]?.count||0);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
+    <div className="flex h-screen w-screen items-center justify-center">
       <Swiper
         className="h-[90%] w-full"
         modules={[Navigation, A11y]}

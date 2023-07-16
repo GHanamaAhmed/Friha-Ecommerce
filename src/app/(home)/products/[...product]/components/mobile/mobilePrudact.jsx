@@ -24,7 +24,7 @@ export default function MobilePrudact() {
   };
   return (
     <div className="relative overflow-hidden">
-      <div className="flex h-screen flex-col  items-center justify-center overflow-y-auto pt-44">
+      <div className="flex h-screen flex-col  items-center justify-center overflow-y-auto mb-10 pt-20">
         <div className="relative flex w-full flex-col gap-3">
           <div className="min-[550px]:h-[400px] relative h-80 w-full">
             {!isLoading ? (
@@ -122,10 +122,10 @@ export default function MobilePrudact() {
             <p className="font-Hacen-Tunisia text-xl text-scandaryColor">
               الوصف
             </p>
-            <div class="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
-            <div class="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
-            <div class="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
-            <div class="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
+            <div className="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
+            <div className="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
+            <div className="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
+            <div className="mb-2.5 h-2 w-full rounded-full bg-gray-700"></div>
           </div>
         )}
         <MobileComents show={isShowComments} onClose={handleComments} />

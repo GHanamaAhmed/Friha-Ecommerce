@@ -1,8 +1,9 @@
 "use client";
-import { fetchProduct } from "@@/lib/api/products";
+import { fetchProduct, fetchProductReel } from "@@/lib/api/products";
 import React, { createContext, useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { fetchReel } from "@@/lib/api/reels";
 export const productsContext = createContext();
 export default function ProductsContext({ children }) {
   const [product, setProduct] = useState(null);
@@ -25,9 +26,14 @@ export default function ProductsContext({ children }) {
       })
       .catch((err) => {
         console.error(err);
-        router.replace("/");
+        !window.history.state && !params?.reel && router.replace("/");
+        fetchProductReel(window.history.state || params?.reel).then((res) => {
+          setIsLoadin(false);
+          console.log(window.history.state, params?.reel);
+          setProduct(res.data[0]);
+        }).catch(err=>console.error(err));
       });
-  }, []);
+  }, [window.history.state]);
   useEffect(() => {
     if (product) {
       product.photos.map((e, i) => {
@@ -44,7 +50,16 @@ export default function ProductsContext({ children }) {
   }, [product]);
   return (
     <productsContext.Provider
-      value={{ product, isLoading, sizes, colors, setColor, setSize,size,color }}
+      value={{
+        product,
+        isLoading,
+        sizes,
+        colors,
+        setColor,
+        setSize,
+        size,
+        color,
+      }}
     >
       {children}
     </productsContext.Provider>

@@ -2,7 +2,7 @@
 import { useContext, useEffect } from "react";
 import Comment from "./comment";
 import { commentContext } from "./comentContext";
-import { fetchComments } from "@@/lib/api/comment";
+import { fetchComments, fetchCountComments } from "@@/lib/api/comment";
 import { useParams, usePathname } from "next/navigation";
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString("en-us", {
@@ -12,16 +12,22 @@ const formatDate = (date) => {
   });
 };
 export default function Comments() {
-  const { comments, isLoading, setComments, setIsLoading } =
-    useContext(commentContext);
+  const {
+    comments,
+    isLoading,
+    setComments,
+    setIsLoading,
+    setNComments,
+    nComments,
+  } = useContext(commentContext);
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
+    setIsLoading(true);
     const req = {
       type: pathName.includes("reel") ? "reel" : "product",
-      postId: params?.product || window.history.state  || params?.reel,
+      postId: params?.product || window.history.state || params?.reel,
     };
-    console.log(req);
     (window.history.state || params?.product || params?.reel) &&
       fetchComments(req)
         .then((res) => {
@@ -32,6 +38,7 @@ export default function Comments() {
           console.error(err);
           setIsLoading(false);
         });
+    
     !window.history.state && setIsLoading(false);
   }, [window.history.state]);
   return isLoading ? (
@@ -40,7 +47,6 @@ export default function Comments() {
     <div className="flex w-11/12 flex-col overflow-y-auto py-4">
       <div className="flex w-full flex-col justify-start gap-3">
         {comments?.map((e, i) => {
-          console.log(e);
           return (
             <Comment
               key={i}
@@ -64,7 +70,7 @@ function LoadingComments() {
   return (
     <div className="flex w-11/12 animate-pulse flex-col overflow-y-auto pt-4">
       <div className="flex w-full flex-col justify-start gap-1">
-        {[...Array(3)].map((e, i) => {
+        {[...Array(2)].map((e, i) => {
           return (
             <div
               key={i}

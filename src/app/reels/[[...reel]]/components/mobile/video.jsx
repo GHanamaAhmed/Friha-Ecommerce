@@ -22,7 +22,6 @@ const initialState = (likes, comments, isLike) => {
 const reducer = (state, { type, value, payload }) => {
   switch (type) {
     case "initialize":
-      console.log(payload);
       return { ...state, ...payload };
     case "toggleClickLike":
       let likes = !state.isClickLike ? state.likes + 1 : state.likes - 1;
@@ -47,10 +46,10 @@ export default function Video({
   isLike,
   productId,
 }) {
-  const commentsC = useContext(commentContext);
+  const { nComments } = useContext(commentContext);
   const [state, dispatch] = useReducer(
     reducer,
-    initialState(likes, commentsC.comments?.length, isLike)
+    initialState(likes, nComments, isLike)
   );
   const { isAuthenticated } = useSelector((store) => store.account);
   const pathName = usePathname();
@@ -59,21 +58,19 @@ export default function Video({
       type: "initialize",
       payload: {
         likes,
-        comments: commentsC.comments?.length,
-        isClikeLike: isLike,
+        comments: nComments,
+        isClickLike: isLike,
       },
     });
-  }, [commentsC]);
+  }, [nComments]);
   const hanldeClickLike = (e) => {
     e.preventDefault();
     const req = { type: "reel", postId: id };
-    console.log(req);
-    if (state.isClikeLike) {
+    if (state.isClickLike) {
       unLikePost(req)
         .then((res) => dispatch({ type: "toggleClickLike" }))
         .catch((err) => console.error(err));
-    }
-    if (!state.isClikeLike) {
+    } else {
       likePost(req)
         .then((res) => dispatch({ type: "toggleClickLike" }))
         .catch((err) => console.error(err));

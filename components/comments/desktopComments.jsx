@@ -2,11 +2,14 @@ import React from "react";
 import { commentContext } from "../comments/comentContext";
 import Comments from "../comments/comments";
 import { useContext, useState } from "react";
-import { useParams ,usePathname} from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import TitleSection from "../titleSection/titleSection";
+import Login from "../login/login";
+import { useSelector } from "react-redux";
 export default function DesktopComments() {
   const [text, setText] = useState("");
   const { postComment, comments } = useContext(commentContext);
+  const { isAuthenticated } = useSelector((store) => store.account);
   const params = useParams();
   const pathName = usePathname();
   return (
@@ -24,20 +27,30 @@ export default function DesktopComments() {
               اكتب تعليق
             </label>
           </div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              postComment({
-                type: pathName.includes("reel") ? "reel" : "product",
-                postId: params?.product || window.history.state  || params?.reel,
-                text,
-              });
-              setText("");
-            }}
-            className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            نشر
-          </button>
+          {isAuthenticated && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                postComment({
+                  type: pathName.includes("reel") ? "reel" : "product",
+                  postId:
+                    params?.product || window.history.state || params?.reel,
+                  text,
+                });
+                setText("");
+              }}
+              className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            >
+              نشر
+            </button>
+          )}
+          {!isAuthenticated && (
+            <Login>
+              <button className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                نشر
+              </button>
+            </Login>
+          )}
         </div>
         <Comments />
       </div>

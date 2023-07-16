@@ -38,7 +38,7 @@ export default function Comment({
   const [nreplies, setnReplies] = useState(nReplies);
   const [isShowReponde, setIsShowReponde] = useState(false);
   const { user } = useSelector((store) => store.account);
-  const { setComments, comments } = useContext(commentContext);
+  const { setComments, comments, setNComments } = useContext(commentContext);
   const [text, setText] = useState("");
   const params = useParams();
   const pathName = usePathname();
@@ -53,7 +53,7 @@ export default function Comment({
     e.preventDefault();
     const req = {
       type: pathName.includes("reel") ? "reel" : "product",
-      postId: params?.product || window.history.state  || params?.reel,
+      postId: params?.product || window.history.state || params?.reel,
       commentId,
     };
     if (!isShow) {
@@ -61,7 +61,6 @@ export default function Comment({
         fetchReplies(req)
           .then((res) => {
             setReplies(res.data);
-            console.log(res);
           })
           .catch((err) => console.error(err));
     }
@@ -81,14 +80,16 @@ export default function Comment({
           setParentReplies((prev) =>
             prev.filter((e) => e.commentId != commentId)
           );
+
+        setNComments((prev) => prev - 1);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
   const postComment = (e) => {
     e.preventDefault();
     sendComment({
       type: pathName.includes("reel") ? "reel" : "product",
-      postId: params?.product || window.history.state  || params?.reel,
+      postId: params?.product || window.history.state || params?.reel,
       text,
       toUserCommentId: commentId,
     })
@@ -109,6 +110,7 @@ export default function Comment({
         setReplies([...replies, newComment]);
         setIsShowReponde(false);
         setIsShowReplies(true);
+        setNComments((prev) => prev + 1);
       })
       .catch((err) => console.error(err));
   };

@@ -6,7 +6,7 @@ import Pictures from "./pictures";
 import { useContext, useState } from "react";
 import TitleSection from "../../../../../../../../components/titleSection/titleSection";
 import { productsContext } from "../../productsContext";
-export default function Details() {
+export default function Details({ onlyProduct }) {
   const { isLoading, product } = useContext(productsContext);
   return (
     <div className="flex h-full w-full flex-col items-center">
@@ -17,7 +17,7 @@ export default function Details() {
           <div className={`h-full w-full`}>
             <div className="col-span-8 flex h-full w-full flex-col  items-center">
               <div className={`w-11/12`}>
-                {product?.name && (
+                {onlyProduct && product?.name && (
                   <TitleSection
                     title={product?.name}
                     subtitle={product?.price}
