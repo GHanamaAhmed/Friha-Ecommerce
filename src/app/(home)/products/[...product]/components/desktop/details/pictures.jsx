@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 import { productsContext } from "../../productsContext";
 
 export default function Pictures({ direction }) {
-  const { isLoading, product } = useContext(productsContext);
+  const { isLoading, product, size, color } = useContext(productsContext);
   const [curentPicture, setCurentPicture] = useState(0);
   return (
     (product?.photos?.length || product?.thumbanil) && (
@@ -35,25 +35,34 @@ export default function Pictures({ direction }) {
             }}
             direction={direction == "horizontal" ? "horizontal" : "vertical"}
           >
-            {product?.photos.map((e, i) => (
-              <SwiperSlide
-                key={i}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setCurentPicture(i);
-                }}
-                className="cursor-pointer"
-              >
-                <div className="h-28 w-28 overflow-hidden rounded-lg">
-                  <img
-                    crossOrigin="anonymous"
-                    src={e.photo}
-                    alt=""
-                    className=" h-full w-full object-cover"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
+            {product?.photos.map((e, i) => {
+              if (
+                (e?.sizes?.includes(size) || size == "الكل") &&
+                (e?.colors?.includes(color) || color == "الكل") &&
+                (e?.quntity >= 0 ||
+                  e?.quntity === undefined ||
+                  e?.quntity === null)
+              )
+                return (
+                  <SwiperSlide
+                    key={i}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurentPicture(i);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <div className="h-28 w-28 overflow-hidden rounded-lg">
+                      <img
+                        crossOrigin="anonymous"
+                        src={e.photo}
+                        alt=""
+                        className=" h-full w-full object-cover"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+            })}
           </Swiper>
         </div>
       </>

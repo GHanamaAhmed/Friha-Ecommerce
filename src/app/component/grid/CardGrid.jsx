@@ -11,12 +11,23 @@ export default function CardGrid() {
   const [product, setProduct] = useState([]);
   const [min, setMin] = useState(null);
   const [count, setCount] = useState(0);
+  const [types, setTypes] = useState([]);
+  const [type, setType] = useState("الكل");
+  const [input, setInput] = useState("");
   useEffect(() => {
     const fetch = async () => {
       await customAxios.get(`/products`).then((res) => {
         setIsLoading(false);
         setProduct(res.data);
-        setMin(res.data?.length );
+        res.data?.map((e, i) => {
+          if ((e?.status || e?.isSave) && e?.type) {
+            setTypes((prev) => [
+              ...prev.filter((el) => el != e?.type),
+              e?.type,
+            ]);
+          }
+        });
+        setMin(res.data?.length);
       });
     };
     const fetchCount = async () => {
@@ -28,10 +39,19 @@ export default function CardGrid() {
     fetchCount();
   }, []);
   const more = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const fetch = async () => {
       await customAxios.get(`/products/${min}/${min + 15}`).then((res) => {
         setProduct((prev) => [...prev, ...res.data]);
+        res.data?.map((e, i) => {
+          if (e?.status === true || e?.isSave === true) {
+            setTypes((prev) => {
+              if (prev?.includes(e?.type) && e?.type) {
+                return [...prev, e?.type];
+              }
+            });
+          }
+        });
         setMin(res.data?.length + min);
       });
     };
@@ -40,32 +60,43 @@ export default function CardGrid() {
   const content = () => {
     return (
       <>
-        <Search />
+        <Search
+          types={types}
+          type={type}
+          onChangeType={(e) => setType(e)}
+          onChangeInpute={(e) => setInput(e)}
+        />
         {!isLoading && product?.length > 0 && (
           <>
             <div className="grid grid-cols-2 place-items-center gap-6 px-3 sm:grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
               {product.map((e, i) => {
-                return (
-                  <Card
-                    key={i}
-                    id={e?._id}
-                    name={e?.name}
-                    price={e?.price}
-                    promotion={e?.promotion}
-                    quntity={e?.quntity}
-                    like={e?.isLike}
-                    save={e?.isSave}
-                    isShowPrice={e?.showPrice}
-                    isShowPromotion={e?.showPromotion}
-                    thumbanil={e?.thumbanil}
-                  />
-                );
+                if (
+                  (e?.status === true || e?.isSave === true) &&
+                  (e?.type == type || type == "الكل") &&
+                  (e?.name?.includes(input) || input == "")
+                )
+                  return (
+                    <Card
+                      key={i}
+                      id={e?._id}
+                      name={e?.name}
+                      price={e?.price}
+                      promotion={e?.promotion}
+                      quntity={e?.quntity}
+                      like={e?.isLike}
+                      save={e?.isSave}
+                      isShowPrice={e?.showPrice}
+                      isShowPromotion={e?.showPromotion}
+                      thumbanil={e?.thumbanil}
+                      status={e?.status}
+                    />
+                  );
               })}
             </div>
             <div className="flex w-full justify-center py-3">
               {min <= count && (
                 <Button
-                onClick={more}
+                  onClick={more}
                   variant="outlined"
                   size="md"
                   className={`font-Hacen-Tunisia border-lightContent ${"Focus:border-none text-lightContent focus:bg-scandaryColor focus:text-white"} focus:ring-0`}

@@ -23,6 +23,7 @@ export default function Card({
   promotion,
   isShowPromotion,
   thumbanil,
+  status,
 }) {
   const [isLike, setIsLike] = useState(like || false);
   const [isSave, setIsSave] = useState(save || false);
@@ -144,36 +145,38 @@ export default function Card({
           )}
         </Tooltip>
       </div>
-      <Tooltip
-        content={`${!isSave ? "وضع في السلة" : "تم الوضع"}`}
-        placement="top"
-      >
-        {isAuthenticated ? (
-          <button
-            onClick={toggleSave}
-            className={`absolute right-2 top-2 rounded-full p-2 ${
-              !isSave ? "bg-white" : "bg-scandaryColor"
-            }`}
-          >
-            {!isSave ? (
-              <LuShoppingCart size={15} className={`stroke-basketColor`} />
-            ) : (
-              <BsCheckLg
-                size={15}
-                className={`animate-[appear_0.3s_ease-in-out] fill-white`}
-              />
-            )}
-          </button>
-        ) : (
-          <Login>
+      {(status === true || isSave === true) && (
+        <Tooltip
+          content={`${!isSave ? "وضع في السلة" : "تم الوضع"}`}
+          placement="top"
+        >
+          {isAuthenticated ? (
             <button
-              className={`absolute right-2 top-2 rounded-full bg-white p-2`}
+              onClick={toggleSave}
+              className={`absolute right-2 top-2 rounded-full p-2 ${
+                !isSave ? "bg-white" : "bg-scandaryColor"
+              }`}
             >
-              <LuShoppingCart size={15} className={`stroke-basketColor`} />
+              {!isSave ? (
+                <LuShoppingCart size={15} className={`stroke-basketColor`} />
+              ) : (
+                <BsCheckLg
+                  size={15}
+                  className={`animate-[appear_0.3s_ease-in-out] fill-white`}
+                />
+              )}
             </button>
-          </Login>
-        )}
-      </Tooltip>
+          ) : (
+            <Login>
+              <button
+                className={`absolute right-2 top-2 rounded-full bg-white p-2`}
+              >
+                <LuShoppingCart size={15} className={`stroke-basketColor`} />
+              </button>
+            </Login>
+          )}
+        </Tooltip>
+      )}
     </div>
   );
 }

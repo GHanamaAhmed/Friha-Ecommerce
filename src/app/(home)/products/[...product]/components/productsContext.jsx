@@ -27,11 +27,13 @@ export default function ProductsContext({ children }) {
       .catch((err) => {
         console.error(err);
         !window.history.state && !params?.reel && router.replace("/");
-        fetchProductReel(window.history.state || params?.reel).then((res) => {
-          setIsLoadin(false);
-          console.log(window.history.state, params?.reel);
-          setProduct(res.data[0]);
-        }).catch(err=>console.error(err));
+        fetchProductReel(window.history.state || params?.reel)
+          .then((res) => {
+            setIsLoadin(false);
+            console.log(window.history.state, params?.reel);
+            setProduct(res.data[0]);
+          })
+          .catch((err) => console.error(err));
       });
   }, [window.history.state]);
   useEffect(() => {
@@ -39,11 +41,23 @@ export default function ProductsContext({ children }) {
       product.photos.map((e, i) => {
         setSizes((prev) => [
           ...prev,
-          ...e.sizes.filter((e) => !prev.includes(e)),
+          ...e.sizes.filter(
+            (e) =>
+              !prev.includes(e) &&
+              (e?.quntity > 0 ||
+                e?.quntity === null ||
+                e?.quntity === undefined)
+          ),
         ]);
         setColors((prev) => [
           ...prev,
-          ...e.colors.filter((e) => !prev.includes(e)),
+          ...e.colors.filter(
+            (e) =>
+              !prev.includes(e) &&
+              (e?.quntity > 0 ||
+                e?.quntity === null ||
+                e?.quntity === undefined)
+          ),
         ]);
       });
     }

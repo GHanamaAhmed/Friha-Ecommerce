@@ -37,8 +37,11 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
           >
             {product?.photos.map((e, i) => {
               if (
-                (e.sizes?.includes(size) || size == "الكل") &&
-                (e.colors?.includes(color) || color == "الكل")
+                (e?.sizes?.includes(size) || size == "الكل") &&
+                (e?.colors?.includes(color) || color == "الكل") &&
+                (e?.quntity >= 0 ||
+                  e?.quntity === undefined ||
+                  e?.quntity === null)
               )
                 return (
                   <SwiperSlide

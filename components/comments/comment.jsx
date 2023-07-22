@@ -43,7 +43,7 @@ export default function Comment({
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
-    setnReplies(replies?.length);
+    setnReplies(isShowReplies ? replies?.length : nreplies);
   }, [replies]);
   const toggleShow = (e) => {
     e.preventDefault();

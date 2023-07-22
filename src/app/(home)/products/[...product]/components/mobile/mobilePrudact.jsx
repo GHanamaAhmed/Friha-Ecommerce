@@ -28,12 +28,12 @@ export default function MobilePrudact() {
         <div className="relative flex w-full flex-col gap-3">
           <div className="min-[550px]:h-[400px] relative h-80 w-full">
             {!isLoading ? (
-              (product.thumbanil || product.photos?.length) && (
+              (product?.thumbanil || product?.photos?.length) && (
                 <Image
                   fill
                   className="h-full w-full object-cover"
                   src={
-                    product?.photos[currentPicture].photo || product?.thumbanil
+                    product?.photos[currentPicture]?.photo || product?.thumbanil
                   }
                   alt=""
                 />
