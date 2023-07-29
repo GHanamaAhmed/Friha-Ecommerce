@@ -2,58 +2,31 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Drawer, List } from "@material-tailwind/react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useRouter, usePathname } from "next/navigation";
 import Card from "./card";
-import { customAxios } from "@@/lib/api/axios";
-import { unSavePost } from "@@/lib/likes/togleSave";
-
+import { useDispatch, useSelector } from "react-redux";
+import { changeIsOrder } from "@/app/redux/basketReducer";
+import { useRouter } from "next/navigation";
 export default function BasketDrawer({ onClose, isOpen }) {
   const [open, setOpen] = React.useState(false);
-  const pathName = usePathname();
+  const { products } = useSelector((state) => state.basket);
   const router = useRouter();
-  const [baskets, setBaskets] = useState([]);
-  const [order, setOrder] = useState([]);
-  const addOrder = useCallback(
-    (val) => {
-      console.log(val);
-      setOrder((prev) => [...prev.filter((e) => e?.id != val?.id), val]);
-    },
-    [setOrder]
-  );
-  const removeOrder = useCallback(
-    (id) => {
-      setOrder((prev) => prev.filter((e) => e?.id != id));
-      setBaskets((prev) => prev.filter((e) => e?.productId != id));
-      unSavePost({ id }).catch((err) => console.error(err));
-    },
-    [setOrder]
-  );
-  const price = useMemo(
-    () =>
-      order.reduce((sum, i) => {
-        return Number(sum) + Number(i?.price);
-      }, 0),
-    [order, isOpen]
-  );
-  useEffect(() => {
-    customAxios
-      .get("/basket")
-      .then((res) => {
-        setBaskets([...res?.data]);
-      })
-      .catch((err) => console.error(err));
-  }, [isOpen]);
+  const dispatch = useDispatch();
   const closeDrawer = () => {
     onClose();
   };
+  const some = useMemo(() => {
+    return products.reduce((some, e) => some + e?.price * e?.quntity, 0);
+  }, [products]);
+  const disable = useMemo(() => {
+    const c = products.map(
+      (e) =>
+        (e?.color == "الكل" || !e?.color) && (e?.size == "الكل" || !e?.size)
+    );
+    return !c ? false : true;
+  }, [products]);
   useEffect(() => {
     setOpen(isOpen);
   }, [isOpen]);
-  const changeRouter = (e, path) => {
-    e.preventDefault();
-    router.push(path);
-  };
   return (
     <React.Fragment>
       <Drawer
@@ -66,25 +39,24 @@ export default function BasketDrawer({ onClose, isOpen }) {
         <List className="flex flex-col justify-between">
           <div>
             <div className="mt-5 flex items-center justify-end gap-2">
-              <p className="text-red-500">(2 عناصر)</p>
+              <p className="text-red-500">({products?.length} عناصر)</p>
               <p className="text-white"> المنتجات المحفوظة</p>{" "}
               <AiOutlineLeft color="white" />
             </div>
-            {baskets.map((e, i) => (
-              <Card
-                key={i}
-                basket={e}
-                onAddOrder={addOrder}
-                onRemove={removeOrder}
-              />
+            {products?.map((e, i) => (
+              <Card basket={e} index={i} key={i} />
             ))}
           </div>
           <div className="flex w-full flex-col items-center gap-5">
             <div className="flex w-5/6 justify-between">
               <p className="text-white">:المجموع</p>
-              <p className="text-white">{price}dz</p>
+              <p className="text-white">{some}dz</p>
             </div>
             <Button
+              onClick={() => {
+                dispatch(changeIsOrder(true));
+                router.push("/checkout");
+              }}
               variant="filled"
               color="green"
               className="w-4/5 py-2 text-lg"

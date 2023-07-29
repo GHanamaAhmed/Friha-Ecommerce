@@ -9,51 +9,47 @@ import { customAxios } from "@@/lib/api/axios";
 export default function CardGrid() {
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState([]);
-  const [min, setMin] = useState(null);
+  const [min, setMin] = useState(0);
   const [count, setCount] = useState(0);
   const [types, setTypes] = useState([]);
   const [type, setType] = useState("الكل");
   const [input, setInput] = useState("");
-  useEffect(() => {
-    const fetch = async () => {
-      await customAxios.get(`/products`).then((res) => {
+  const fetch = async () => {
+    await customAxios
+      .get(
+        `/products?${input.length > 0 ? `&name=${input}` : ""}${
+          type != "الكل" ? `&type=${type}` : ""
+        }`
+      )
+      .then((res) => {
         setIsLoading(false);
-        setProduct(res.data);
-        res.data?.map((e, i) => {
-          if ((e?.status || e?.isSave) && e?.type) {
-            setTypes((prev) => [
-              ...prev.filter((el) => el != e?.type),
-              e?.type,
-            ]);
-          }
-        });
-        setMin(res.data?.length);
+        setProduct(res.data.products);
+        setMin(res.data.products?.length);
+        setTypes(res.data?.types);
       });
-    };
-    const fetchCount = async () => {
-      await customAxios.get(`/products/count`).then((res) => {
-        setCount(res.data?.count - 1);
-      });
-    };
+  };
+  const fetchCount = async () => {
+    await customAxios.get(`/products/count`).then((res) => {
+      setCount(res.data?.count - 1);
+    });
+  };
+  useEffect(() => {
     fetch();
     fetchCount();
   }, []);
   const more = (e) => {
     e.preventDefault();
     const fetch = async () => {
-      await customAxios.get(`/products/${min}/${min + 15}`).then((res) => {
-        setProduct((prev) => [...prev, ...res.data]);
-        res.data?.map((e, i) => {
-          if (e?.status === true || e?.isSave === true) {
-            setTypes((prev) => {
-              if (prev?.includes(e?.type) && e?.type) {
-                return [...prev, e?.type];
-              }
-            });
-          }
+      await customAxios
+        .get(
+          `/products?min=${min}&max=${min + 15}${
+            input.length > 0 ? `&name=${input}` : ""
+          }${type != "الكل" ? `&type=${type}` : ""}`
+        )
+        .then((res) => {
+          setProduct((prev) => [...prev, ...res.data.products]);
+          setMin(res.data.products?.length + min);
         });
-        setMin(res.data?.length + min);
-      });
     };
     fetch();
   };
@@ -61,6 +57,10 @@ export default function CardGrid() {
     return (
       <>
         <Search
+          onClick={() => {
+            fetch();
+            fetchCount();
+          }}
           types={types}
           type={type}
           onChangeType={(e) => setType(e)}
@@ -70,11 +70,7 @@ export default function CardGrid() {
           <>
             <div className="grid grid-cols-2 place-items-center gap-6 px-3 sm:grid-cols-2 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
               {product.map((e, i) => {
-                if (
-                  (e?.status === true || e?.isSave === true) &&
-                  (e?.type == type || type == "الكل") &&
-                  (e?.name?.includes(input) || input == "")
-                )
+                if (e?.status === true || e?.isSave === true)
                   return (
                     <Card
                       key={i}
@@ -89,6 +85,7 @@ export default function CardGrid() {
                       isShowPromotion={e?.showPromotion}
                       thumbanil={e?.thumbanil}
                       status={e?.status}
+                      photos={e?.photos}
                     />
                   );
               })}

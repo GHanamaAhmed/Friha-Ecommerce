@@ -5,12 +5,12 @@ import { useWidth } from "../../../../lib/hooks/useWidth";
 import { LuShoppingCart } from "react-icons/lu";
 import { BsCheckLg } from "react-icons/bs";
 import { Tooltip } from "@material-tailwind/react";
-import { selep } from "@@/lib/sleep";
-import { customAxios } from "@@/lib/api/axios";
 import { likePost, unLikePost } from "@@/lib/likes/togleLike";
 import { SavePost, unSavePost } from "@@/lib/likes/togleSave";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { addToBasket, remveByIdFromBasket } from "@/app/redux/basketReducer";
+import { useDispatch } from "react-redux";
 import Login from "@@/components/login/login";
 export default function Card({
   id,
@@ -24,12 +24,14 @@ export default function Card({
   isShowPromotion,
   thumbanil,
   status,
+  photos,
 }) {
   const [isLike, setIsLike] = useState(like || false);
   const [isSave, setIsSave] = useState(save || false);
   const [IsPulse, setIsPulse] = useState(false);
   const { width } = useWidth();
   const { isAuthenticated } = useSelector((store) => store.account);
+  const dispatch = useDispatch();
   const router = useRouter();
   const togglepulse = () => {
     setIsPulse((prev) => !prev);
@@ -37,15 +39,41 @@ export default function Card({
   const toggleSave = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    const req = { id };
-    if (isSave) {
+    let colors=["الكل"];
+    let sizes=["الكل"];
+    photos?.map((e, i) => {
+      sizes = [
+        ...sizes,
+        ...e.sizes.filter(
+          (e) =>
+            !sizes.includes(e) &&
+            (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined)
+        ),
+      ];
+      colors = [
+        ...colors,
+        ...e.colors.filter(
+          (e) =>
+            !colors.includes(e) &&
+            (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined)
+        ),
+      ];
+    });
+    dispatch(
+      addToBasket({
+        id,
+        name,
+        price: promotion && isShowPromotion ? promotion : price,
+        quntity: 1,
+        thumbanil,
+        colors,
+        sizes,
+      })
+    );
+    setIsSave(true);
+    setTimeout(() => {
       setIsSave(false);
-      unSavePost(req).catch((err) => console.error(err));
-    }
-    if (!isSave) {
-      setIsSave(true);
-      SavePost(req).catch((err) => console.error(err));
-    }
+    }, 1000);
   };
   const toggleLike = (e) => {
     e.stopPropagation();
@@ -150,31 +178,21 @@ export default function Card({
           content={`${!isSave ? "وضع في السلة" : "تم الوضع"}`}
           placement="top"
         >
-          {isAuthenticated ? (
-            <button
-              onClick={toggleSave}
-              className={`absolute right-2 top-2 rounded-full p-2 ${
-                !isSave ? "bg-white" : "bg-scandaryColor"
-              }`}
-            >
-              {!isSave ? (
-                <LuShoppingCart size={15} className={`stroke-basketColor`} />
-              ) : (
-                <BsCheckLg
-                  size={15}
-                  className={`animate-[appear_0.3s_ease-in-out] fill-white`}
-                />
-              )}
-            </button>
-          ) : (
-            <Login>
-              <button
-                className={`absolute right-2 top-2 rounded-full bg-white p-2`}
-              >
-                <LuShoppingCart size={15} className={`stroke-basketColor`} />
-              </button>
-            </Login>
-          )}
+          <button
+            onClick={toggleSave}
+            className={`absolute right-2 top-2 rounded-full p-2 ${
+              !isSave ? "bg-white" : "bg-scandaryColor"
+            }`}
+          >
+            {!isSave ? (
+              <LuShoppingCart size={15} className={`stroke-basketColor`} />
+            ) : (
+              <BsCheckLg
+                size={15}
+                className={`animate-[appear_0.3s_ease-in-out] fill-white`}
+              />
+            )}
+          </button>
         </Tooltip>
       )}
     </div>

@@ -28,7 +28,7 @@ export default function Details({ onlyProduct }) {
                 <div className="flex w-full flex-col items-start gap-3">
                   <Pictures direction={"horizontal"} />
                   <div className="flex w-fit gap-3 px-5">
-                    <Menus />
+                    <Menus product={product}/>
                   </div>
                   {product?.description && (
                     <div className="px-5">

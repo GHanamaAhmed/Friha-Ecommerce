@@ -11,7 +11,13 @@ import {
 import { ChevronDownIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TitleSection from "../../../../components/titleSection/titleSection";
-export default function Search({ types, onChangeType,type, onChangeInpute }) {
+export default function Search({
+  types,
+  onChangeType,
+  type,
+  onChangeInpute,
+  onClick,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const handleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -51,7 +57,7 @@ export default function Search({ types, onChangeType,type, onChangeInpute }) {
             </MenuList>
           </Menu2>
         )}
-        <div className="relative h-11 w-full min-w-[200px]">
+        <div className="relative h-11 w-full min-w-[150px]">
           <input
             onChange={(e) => onChangeInpute(e.currentTarget.value)}
             className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-gray-200 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -61,6 +67,16 @@ export default function Search({ types, onChangeType,type, onChangeInpute }) {
             المتج الذي تبحث عنه
           </label>
         </div>
+        <Button
+          onClick={() => {
+            onClick();
+          }}
+          variant="outlined"
+          size="md"
+          className={`font-Hacen-Tunisia border-lightContent text-lightContent focus:ring-0 active:border-none active:bg-scandaryColor active:text-white`}
+        >
+          بحث
+        </Button>
       </div>
     </TitleSection>
   );

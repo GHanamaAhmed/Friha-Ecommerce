@@ -105,7 +105,7 @@ export default function MobilePrudact() {
         </div>
         <Pictures onClick={changeCurrentPicture} />
         {!isLoading ? (
-          <div className="flex w-full justify-between px-4">
+          <div className="grid grid-flow-col gap-2 w-full justify-stretch px-4">
             <Menus />
           </div>
         ) : (
