@@ -21,6 +21,7 @@ export default function ProductsContext({ children }) {
           router.replace("/");
         } else {
           setIsLoadin(false);
+          console.log(res.data[0]);
           setProduct(res.data[0]);
         }
       })
@@ -39,29 +40,18 @@ export default function ProductsContext({ children }) {
   useEffect(() => {
     if (product) {
       product.photos.map((e, i) => {
-        setSizes((prev) => [
-          ...prev,
-          ...e.sizes.filter(
-            (e) =>
-              !prev.includes(e) &&
-              (e?.quntity > 0 ||
-                e?.quntity === null ||
-                e?.quntity === undefined)
-          ),
-        ]);
-        setColors((prev) => [
-          ...prev,
-          ...e.colors.filter(
-            (e) =>
-              !prev.includes(e) &&
-              (e?.quntity > 0 ||
-                e?.quntity === null ||
-                e?.quntity === undefined)
-          ),
-        ]);
-      });
+        if (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined) {
+          setColors((prev) => [...prev, e.color]);
+        }
+      });   
     }
   }, [product]);
+  useEffect(() => {
+    setSizes(["الكل"]);
+    product?.photos?.map((e, i) => {
+      e.color == color && setSizes(["الكل", ...e.sizes]);
+    });
+  }, [color, colors]);
   return (
     <productsContext.Provider
       value={{

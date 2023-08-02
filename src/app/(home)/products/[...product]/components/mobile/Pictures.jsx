@@ -38,17 +38,17 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
             {product?.photos.map((e, i) => {
               if (
                 (e?.sizes?.includes(size) || size == "الكل") &&
-                (e?.colors?.includes(color) || color == "الكل") &&
+                (e?.color == color || color == "الكل") &&
                 (e?.quntity >= 0 ||
                   e?.quntity === undefined ||
                   e?.quntity === null)
-              )
-                return (
+              ) {
+                return e.photos.map((el, ind) => (
                   <SwiperSlide
-                    key={i}
+                    key={ind + i}
                     onClick={(e) => {
                       e.preventDefault();
-                      onClick(i);
+                      onClick(i,ind);
                     }}
                     className="cursor-pointer"
                   >
@@ -57,12 +57,13 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
                       <img
                         crossOrigin="anonymous"
                         className="max-h-full w-full object-cover"
-                        src={e.photo}
+                        src={el}
                         alt=""
                       />
                     </div>
                   </SwiperSlide>
-                );
+                ));
+              }
             })}
           </Swiper>
         )

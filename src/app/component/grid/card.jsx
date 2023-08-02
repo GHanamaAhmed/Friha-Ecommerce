@@ -39,25 +39,12 @@ export default function Card({
   const toggleSave = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    let colors=["الكل"];
-    let sizes=["الكل"];
+    let colors = ["الكل"];
+    let sizes = ["الكل"];
     photos?.map((e, i) => {
-      sizes = [
-        ...sizes,
-        ...e.sizes.filter(
-          (e) =>
-            !sizes.includes(e) &&
-            (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined)
-        ),
-      ];
-      colors = [
-        ...colors,
-        ...e.colors.filter(
-          (e) =>
-            !colors.includes(e) &&
-            (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined)
-        ),
-      ];
+      if (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined) {
+        colors = [...colors, e.color];
+      }
     });
     dispatch(
       addToBasket({

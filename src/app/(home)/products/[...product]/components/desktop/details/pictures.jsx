@@ -8,7 +8,7 @@ import { productsContext } from "../../productsContext";
 
 export default function Pictures({ direction }) {
   const { isLoading, product, size, color } = useContext(productsContext);
-  const [curentPicture, setCurentPicture] = useState(0);
+  const [curentPicture, setCurentPicture] = useState();
   return (
     (product?.photos?.length || product?.thumbanil) && (
       <>
@@ -16,7 +16,11 @@ export default function Pictures({ direction }) {
           <div className="relative h-64 w-8/12">
             <Image
               fill
-              src={product?.photos[curentPicture]?.photo || product.thumbanil}
+              src={
+                product?.photos[curentPicture?.i || 0]?.photos[
+                  curentPicture?.ind || 0
+                ] || product.thumbanil
+              }
               alt=""
               className="h-full w-full rounded-md object-cover"
             />
@@ -38,30 +42,31 @@ export default function Pictures({ direction }) {
             {product?.photos.map((e, i) => {
               if (
                 (e?.sizes?.includes(size) || size == "الكل") &&
-                (e?.colors?.includes(color) || color == "الكل") &&
+                (e?.color == color || color == "الكل") &&
                 (e?.quntity >= 0 ||
                   e?.quntity === undefined ||
                   e?.quntity === null)
-              )
-                return (
+              ) {
+                return e.photos.map((el, ind) => (
                   <SwiperSlide
-                    key={i}
+                    key={ind + i}
                     onClick={(e) => {
                       e.preventDefault();
-                      setCurentPicture(i);
+                      setCurentPicture({ i, ind });
                     }}
                     className="cursor-pointer"
                   >
                     <div className="h-28 w-28 overflow-hidden rounded-lg">
                       <img
                         crossOrigin="anonymous"
-                        src={e.photo}
+                        src={el}
                         alt=""
                         className=" h-full w-full object-cover"
                       />
                     </div>
                   </SwiperSlide>
-                );
+                ));
+              }
             })}
           </Swiper>
         </div>

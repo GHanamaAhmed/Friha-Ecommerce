@@ -6,6 +6,8 @@ import {
   MenuList,
   MenuItem,
   Button,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { ChevronDownIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { productsContext } from "../../productsContext";
@@ -50,8 +52,8 @@ export default function Menus({ product }) {
         السلة
         <LuShoppingCart size={15} color="white" />
       </Button>
-      {colors?.length > 1 && <Color />}
-      {sizes?.length > 1 && <Size />}
+      {colors?.length > 0 && <Color />}
+      {sizes?.length > 0 && <Size />}
     </>
   );
 }
@@ -85,13 +87,7 @@ function Color() {
         className="font-Hacen-Tunisia bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
       >
         {colors.map((e, i) => (
-          <MenuItem
-            onClick={(el) => {
-              el.preventDefault();
-              setColor(e);
-            }}
-            key={i}
-          >
+          <MenuItem onClick={(el) => setColor(e)} key={i}>
             {e}
           </MenuItem>
         ))}
@@ -128,13 +124,7 @@ function Size() {
         className="font-Hacen-Tunisia bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
       >
         {sizes.map((e, i) => (
-          <MenuItem
-            onClick={(el) => {
-              el.preventDefault();
-              setSize(e);
-            }}
-            key={i}
-          >
+          <MenuItem onClick={() => {setSize(e)}} key={i}>
             {e}
           </MenuItem>
         ))}

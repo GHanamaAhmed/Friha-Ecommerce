@@ -14,17 +14,17 @@ import { productsContext } from "../productsContext";
 export default function MobilePrudact() {
   const router = useRouter();
   const [isShowComments, setIsShowComments] = useState(false);
-  const [currentPicture, setCurrentPicture] = useState(0);
+  const [currentPicture, setCurrentPicture] = useState();
   const { isLoading, product } = useContext(productsContext);
   const handleComments = (value) => {
     setIsShowComments(value);
   };
-  const changeCurrentPicture = (src) => {
-    setCurrentPicture(src);
+  const changeCurrentPicture = (i, ind) => {
+    setCurrentPicture({ i, ind });
   };
   return (
     <div className="relative overflow-hidden">
-      <div className="flex h-screen flex-col  items-center justify-center overflow-y-auto mb-10 pt-20">
+      <div className="mb-10 flex h-screen  flex-col items-center justify-center overflow-y-auto pt-20">
         <div className="relative flex w-full flex-col gap-3">
           <div className="min-[550px]:h-[400px] relative h-80 w-full">
             {!isLoading ? (
@@ -33,7 +33,9 @@ export default function MobilePrudact() {
                   fill
                   className="h-full w-full object-cover"
                   src={
-                    product?.photos[currentPicture]?.photo || product?.thumbanil
+                    product?.photos[currentPicture?.i||0]?.photos[
+                      currentPicture?.ind||0
+                    ] || product?.thumbanil
                   }
                   alt=""
                 />
@@ -61,7 +63,9 @@ export default function MobilePrudact() {
                     subtitle={
                       <div className="row-span-2 flex flex-col items-start justify-center">
                         {product?.showPrice && !product?.showPromotion && (
-                          <p className="text-lg text-scandaryColor">{product?.price}</p>
+                          <p className="text-lg text-scandaryColor">
+                            {product?.price}
+                          </p>
                         )}
                         {product?.showPrice && product?.showPromotion && (
                           <div className="">
@@ -105,7 +109,7 @@ export default function MobilePrudact() {
         </div>
         <Pictures onClick={changeCurrentPicture} />
         {!isLoading ? (
-          <div className="grid grid-flow-col gap-2 w-full justify-stretch px-4">
+          <div className="grid w-full grid-flow-col justify-stretch gap-2 px-4">
             <Menus />
           </div>
         ) : (
