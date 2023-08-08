@@ -23,11 +23,9 @@ export default function Card({ basket, index }) {
   const triggersColor = {
     onClick: () => setOpenMenuColor((prev) => !prev),
   };
-
   const triggersSize = {
     onClick: () => setOpenMenuSize((prev) => !prev),
   };
-
   return (
     <div className="flex justify-between px-2 py-5">
       <div className="flex flex-col justify-between">
@@ -44,47 +42,49 @@ export default function Card({ basket, index }) {
         <div className="flex flex-col items-end justify-between">
           <p className="text-white">{basket?.name}</p>
           <div className="z-[99999] flex gap-2">
-              <Menu open={openMenuColor} handler={setOpenMenuColor}>
-                <MenuHandler>
-                  <Button
-                    {...triggersColor}
-                    variant="filled"
-                    className="flex gap-2 rounded-sm px-3 py-2"
-                    color="blue-gray"
-                  >
-                    اللون
-                    <ChevronDownIcon
-                      strokeWidth={2.5}
-                      className={`h-3.5 w-3.5 transition-transform ${
-                        openMenuColor ? "rotate-180" : ""
-                      }`}
-                    />
-                  </Button>
-                </MenuHandler>
-                <MenuList
+            <Menu open={openMenuColor} handler={setOpenMenuColor}>
+              <MenuHandler>
+                <Button
                   {...triggersColor}
-                  className=" font-Hacen-Tunisia bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
+                  variant="filled"
+                  className="flex gap-2 rounded-sm px-3 py-2"
+                  color="blue-gray"
                 >
-                  {basket?.colors.map((e, i) => (
-                    <MenuItem
-                      onClick={() =>
-                        dispatch(
-                          updateBasket({
-                            index,
-                            basket: { ...basket, color: e },
-                          })
-                        )
-                      }
-                      key={i}
-                    >
-                      {e}
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </Menu>
-            
-
-           
+                  {basket?.color || "اللون"}{" "}
+                  <ChevronDownIcon
+                    strokeWidth={2.5}
+                    className={`h-3.5 w-3.5 transition-transform ${
+                      openMenuColor ? "rotate-180" : ""
+                    }`}
+                  />
+                </Button>
+              </MenuHandler>
+              <MenuList
+                {...triggersColor}
+                className=" font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
+              >
+                {basket?.photos?.map((e, i) => (
+                  <MenuItem
+                    onClick={() =>
+                      dispatch(
+                        updateBasket({
+                          index,
+                          basket: {
+                            ...basket,
+                            color: e?.color,
+                            size: undefined,
+                          },
+                        })
+                      )
+                    }
+                    key={i}
+                  >
+                    {e?.color}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+            {basket?.color && (
               <Menu open={openMenuSize} handler={setOpenMenuSize}>
                 <MenuHandler>
                   <Button
@@ -93,7 +93,7 @@ export default function Card({ basket, index }) {
                     className="flex gap-2 rounded-sm px-3 py-2"
                     color="blue-gray"
                   >
-                    الحجم
+                    {basket?.size || "الحجم"}
                     <ChevronDownIcon
                       strokeWidth={2.5}
                       className={`h-3.5 w-3.5 transition-transform ${
@@ -104,26 +104,30 @@ export default function Card({ basket, index }) {
                 </MenuHandler>
                 <MenuList
                   {...triggersSize}
-                  className="font-Hacen-Tunisia bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
+                  className="font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
                 >
-                  {basket?.sizes.map((e, i) => (
-                    <MenuItem
-                      onClick={() =>
-                        dispatch(
-                          updateBasket({
-                            index,
-                            basket: { ...basket, size: e },
-                          })
-                        )
-                      }
-                      key={i}
-                    >
-                      {e}
-                    </MenuItem>
-                  ))}
+                  {basket?.photos[
+                    basket?.photos.findIndex((e) => e?.color == basket?.color)
+                  ]?.sizes?.map((e, i) => {
+                    return (
+                      <MenuItem
+                        onClick={() =>
+                          dispatch(
+                            updateBasket({
+                              index,
+                              basket: { ...basket, size: e },
+                            })
+                          )
+                        }
+                        key={i}
+                      >
+                        {e}
+                      </MenuItem>
+                    );
+                  })}
                 </MenuList>
               </Menu>
-            
+            )}
           </div>
           <div className="flex w-full justify-between border-blue-500">
             <Button

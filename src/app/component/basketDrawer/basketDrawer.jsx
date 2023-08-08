@@ -18,11 +18,10 @@ export default function BasketDrawer({ onClose, isOpen }) {
     return products.reduce((some, e) => some + e?.price * e?.quntity, 0);
   }, [products]);
   const disable = useMemo(() => {
-    const c = products.map(
-      (e) =>
-        (e?.color == "الكل" || !e?.color) && (e?.size == "الكل" || !e?.size)
+    const c = products.every(
+      (e) => e?.color && e?.size && e?.color != "الكل" && e?.size != "الكل"
     );
-    return !c ? false : true;
+    return c ? false : true;
   }, [products]);
   useEffect(() => {
     setOpen(isOpen);
@@ -53,8 +52,10 @@ export default function BasketDrawer({ onClose, isOpen }) {
               <p className="text-white">{some}dz</p>
             </div>
             <Button
+              disabled={disable}
               onClick={() => {
                 dispatch(changeIsOrder(true));
+                setOpen(false);
                 router.push("/checkout");
               }}
               variant="filled"

@@ -1,17 +1,24 @@
+import { toasty } from "../component/toasty/toast";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const basketSlice = createSlice({
   name: "basket",
   initialState: {
     products: [],
-    order:false
+    order: false,
   },
   reducers: {
-    changeIsOrder:function (state, { payload }) {
-        state.order=payload
+    changeIsOrder: function (state, { payload }) {
+      state.order = payload;
     },
     addToBasket: function (state, { payload }) {
       state.products = [...state.products, payload];
+      toasty("تم وضع المنتج في السلة", {
+        toastId: "addProduct",
+        autoClose: 5000,
+        type: "success",
+      });
     },
     remveByIndexFromBasket: function (state, { payload }) {
       state.products = state.products.filter((e, i) => i != payload);
@@ -30,13 +37,14 @@ const {
   addToBasket,
   remveByIdFromBasket,
   remveByIndexFromBasket,
-  updateBasket,changeIsOrder
+  updateBasket,
+  changeIsOrder,
 } = basketSlice.actions;
 export {
   addToBasket,
   remveByIdFromBasket,
   remveByIndexFromBasket,
+  changeIsOrder,
   updateBasket,
-  changeIsOrder
 };
 export default basketSlice.reducer;

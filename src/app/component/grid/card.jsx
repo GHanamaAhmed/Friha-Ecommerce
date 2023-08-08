@@ -39,22 +39,14 @@ export default function Card({
   const toggleSave = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    let colors = ["الكل"];
-    let sizes = ["الكل"];
-    photos?.map((e, i) => {
-      if (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined) {
-        colors = [...colors, e.color];
-      }
-    });
     dispatch(
       addToBasket({
         id,
         name,
         price: promotion && isShowPromotion ? promotion : price,
-        quntity: 1,
+        quntity:1,
         thumbanil,
-        colors,
-        sizes,
+        photos,
       })
     );
     setIsSave(true);
@@ -95,7 +87,7 @@ export default function Card({
           </div>
         </div>
       </div>
-      <div className="mb-1">
+      <div className="mb-1 px-2">
         <div className="row-span-2 flex flex-col items-start justify-center">
           <h1 className="text-sm text-white md:text-lg">{name}</h1>
           {isShowPrice && !isShowPromotion && (
@@ -108,7 +100,7 @@ export default function Card({
             </div>
           )}
         </div>
-        <div className="flex w-full items-center justify-between border-t-[1px] border-card2 px-2 py-px md:hidden md:py-2">
+        <div className="flex w-full items-center justify-between border-t-[1px] border-card2 py-px md:hidden md:py-2">
           <p className="text-sm text-white md:text-lg">الكمية: {quntity}</p>
           <Tooltip
             content={`${!isLike ? "اعجاب" : "تم الاعجاب"}`}
