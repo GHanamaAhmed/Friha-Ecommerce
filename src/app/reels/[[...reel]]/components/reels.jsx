@@ -3,7 +3,7 @@ import MobileReels from "./mobile/mobileReels";
 import DesktopReels from "./dektop/desktopReels";
 import { useWidth } from "../../../../../lib/hooks/useWidth";
 import { useContext, useEffect, useState } from "react";
-import { fetchReels } from "@@/lib/api/reels";
+import { fetchMore, fetchReels } from "@@/lib/api/reels";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfo } from "@/app/redux/accountReducer";
 import { useParams, useRouter } from "next/navigation";
@@ -40,14 +40,26 @@ export default function Reels() {
         router.replace("/");
       });
   }, []);
+  const fechMore = (length) => {
+    fetchMore(length)
+      .then((res) => {
+        if (res.data?.length) {
+          setReels([...reels, ...res.data]);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        router.replace("/");
+      });
+  };
   return isLoading ? (
     <h1 className="text-white">Loading</h1>
   ) : !isLoading && width <= 1024 ? (
-    <MobileReels reels={reels} />
+    <MobileReels reels={reels} onEnd={fechMore} />
   ) : (
     <ProductsContext>
       {" "}
-      <DesktopReels reels={reels} />
+      <DesktopReels reels={reels} onEnd={fechMore} />
     </ProductsContext>
   );
 }

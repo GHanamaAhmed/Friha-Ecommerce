@@ -1,13 +1,17 @@
 "use client";
 import { Button, useSelect } from "@material-tailwind/react";
 import Image from "next/image";
+import { useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useReducer, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getInfo } from "@/app/redux/accountReducer";
-
 export default function Page() {
-  const { user, isLoading } = useSelector((store) => store.account);
+  const { user, isLoading, isAuthenticated } = useSelector(
+    (store) => store.account
+  );
+  const router = useRouter();
+  useLayoutEffect(() => {
+    !isLoading && !isAuthenticated && router.replace("/");
+  }, [isAuthenticated, isLoading]);
   const changePicture = (e) => {
     e.preventDefault();
     let file = e.currentTarget.files[0];
@@ -17,8 +21,8 @@ export default function Page() {
   };
   return (
     <>
-      {isLoading && <AccountLoading />}
-      {!isLoading && (
+      {isLoading && isAuthenticated && <AccountLoading />}
+      {!isLoading && isAuthenticated && (
         <div className="flex h-screen w-screen items-center justify-center px-5 pr-4 pt-14 md:pr-0">
           <div className="flex w-full flex-col items-start md:w-9/12">
             <p className="mb-4  text-lg text-white md:text-3xl">
@@ -46,7 +50,7 @@ export default function Page() {
                 <Button
                   variant="filled"
                   size="md"
-                  disabled={ true}
+                  disabled={true}
                   className={`font-Hacen-Tunisia h-fit border-scandaryColor bg-scandaryColor py-2 text-white shadow-none hover:shadow-none md:w-full`}
                 >
                   حفظ التغييرات

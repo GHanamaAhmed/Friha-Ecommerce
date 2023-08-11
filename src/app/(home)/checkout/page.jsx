@@ -26,6 +26,7 @@ export default function Page({ params }) {
   const [wilaya, setWilaya] = useState();
   const [baladias, setBaladias] = useState([]);
   const [baladia, setBaladia] = useState();
+  const [delivery, setDelivery] = useState();
   const router = useRouter();
   useEffect(() => {
     if (order) {
@@ -57,7 +58,11 @@ export default function Page({ params }) {
     );
   }, [products]);
   const checkCode = (e) => {
-    if (!e?.currentTarget.value) return;
+    if (!e?.currentTarget.value) {
+      setDiscountPorcent(0);
+      setDiscountPrice(0);
+      return;
+    }
     setIsSend(true);
     customAxios
       .post("/coupon", { code: e?.currentTarget.value })
@@ -85,6 +90,8 @@ export default function Page({ params }) {
           });
         }
         setCoupon("");
+        setDiscountPorcent(0);
+        setDiscountPrice(0);
         console.error(err);
       })
       .finally((f) => setIsSend(false));
@@ -111,6 +118,7 @@ export default function Page({ params }) {
       phone: phone,
       city: wilaya && baladia ? `${wilaya?.name} ${baladia?.name}` : null,
       photo: user?.Photo,
+      delivery,
     };
     if (!isAuthenticated) {
       delete req?.userId;
@@ -125,6 +133,7 @@ export default function Page({ params }) {
         toasty("تم ارسال الطلب بنجاح", {
           toastId: "postOrder",
           type: "success",
+          autoClose: false,
         });
       })
       .catch((err) => {
@@ -154,9 +163,9 @@ export default function Page({ params }) {
             <div className="flex justify-between">
               <p className="text-lg text-white">المجموع</p>
               <p className="text-lg text-white">
-                {discountPorcent
-                  ? price * discountPorcent
-                  : price - discountPrice + shipping}
+                {(discountPorcent
+                  ? price * (1 - discountPorcent)
+                  : price - discountPrice) + shipping}
               </p>
             </div>
           </div>
@@ -166,11 +175,25 @@ export default function Page({ params }) {
         </div>
         <div className="flex w-5/6 flex-col items-center gap-3">
           <div className="grid w-full grid-flow-col justify-stretch gap-2">
-            <button className="rounded-md border border-gray-300 py-2 text-white">
-              Ship
+            <button
+              onClick={() => setDelivery("deleveryAgency")}
+              className={`rounded-md border py-2 ${
+                delivery != "deleveryAgency"
+                  ? "border-gray-300 text-white"
+                  : "border-none bg-white text-black"
+              }`}
+            >
+              التوصيل الى الوكالة
             </button>
-            <button className="rounded-md border border-gray-300 py-2 text-white">
-              Ship
+            <button
+              onClick={() => setDelivery("homeDelivery")}
+              className={`rounded-md border py-2 ${
+                delivery != "homeDelivery"
+                  ? "border-gray-300 text-white"
+                  : "border-none bg-white text-black"
+              }`}
+            >
+              التوصيل الى المنزل
             </button>
           </div>
           <div className="grid w-full grid-flow-col gap-2">

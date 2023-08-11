@@ -13,6 +13,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { remveByIdFromBasket, updateBasket } from "@/app/redux/basketReducer";
+import { toasty } from "../toasty/toast";
 export default function Card({ basket, index }) {
   const [openMenuColor, setOpenMenuColor] = useState(false);
   const [openMenuSize, setOpenMenuSize] = useState(false);
@@ -25,6 +26,21 @@ export default function Card({ basket, index }) {
   };
   const triggersSize = {
     onClick: () => setOpenMenuSize((prev) => !prev),
+  };
+  const triggerSize = () => {
+    if (openMenuSize == false) {
+      if (!basket?.color) {
+        toasty("اختر اللون اولا", {
+          toastId: "selectColor",
+          autoClose: 5000,
+          type: "warning",
+        });
+      } else {
+        return setOpenMenuSize((prev) => !prev);
+      }
+    } else {
+      return setOpenMenuSize((prev) => !prev);
+    }
   };
   return (
     <div className="flex justify-between px-2 py-5">
@@ -84,50 +100,49 @@ export default function Card({ basket, index }) {
                 ))}
               </MenuList>
             </Menu>
-            {basket?.color && (
-              <Menu open={openMenuSize} handler={setOpenMenuSize}>
-                <MenuHandler>
-                  <Button
-                    {...triggersSize}
-                    variant="filled"
-                    className="flex gap-2 rounded-sm px-3 py-2"
-                    color="blue-gray"
-                  >
-                    {basket?.size || "الحجم"}
-                    <ChevronDownIcon
-                      strokeWidth={2.5}
-                      className={`h-3.5 w-3.5 transition-transform ${
-                        openMenuSize ? "rotate-180" : ""
-                      }`}
-                    />
-                  </Button>
-                </MenuHandler>
-                <MenuList
+
+            <Menu open={openMenuSize} handler={triggerSize}>
+              <MenuHandler>
+                <Button
                   {...triggersSize}
-                  className="font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
+                  variant="filled"
+                  className="flex gap-2 rounded-sm px-3 py-2"
+                  color="blue-gray"
                 >
-                  {basket?.photos[
-                    basket?.photos.findIndex((e) => e?.color == basket?.color)
-                  ]?.sizes?.map((e, i) => {
-                    return (
-                      <MenuItem
-                        onClick={() =>
-                          dispatch(
-                            updateBasket({
-                              index,
-                              basket: { ...basket, size: e },
-                            })
-                          )
-                        }
-                        key={i}
-                      >
-                        {e}
-                      </MenuItem>
-                    );
-                  })}
-                </MenuList>
-              </Menu>
-            )}
+                  {basket?.size || "الحجم"}
+                  <ChevronDownIcon
+                    strokeWidth={2.5}
+                    className={`h-3.5 w-3.5 transition-transform ${
+                      openMenuSize ? "rotate-180" : ""
+                    }`}
+                  />
+                </Button>
+              </MenuHandler>
+              <MenuList
+                {...triggersSize}
+                className="font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
+              >
+                {basket?.photos[
+                  basket?.photos.findIndex((e) => e?.color == basket?.color)
+                ]?.sizes?.map((e, i) => {
+                  return (
+                    <MenuItem
+                      onClick={() =>
+                        dispatch(
+                          updateBasket({
+                            index,
+                            basket: { ...basket, size: e },
+                          })
+                        )
+                      }
+                      key={i}
+                    >
+                      {e}
+                    </MenuItem>
+                  );
+                })}
+              </MenuList>
+            </Menu>
           </div>
           <div className="flex w-full justify-between border-blue-500">
             <Button

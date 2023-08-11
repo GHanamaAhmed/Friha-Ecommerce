@@ -11,6 +11,17 @@ const getInfo = createAsyncThunk(
     }
   }
 );
+const logout = createAsyncThunk(
+  "account/logout",
+  async (req, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const res = await customAxios.get("/auth");
+      return fulfillWithValue(res.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 const accountSlice = createSlice({
   name: "account",
@@ -28,14 +39,13 @@ const accountSlice = createSlice({
       role: "",
       createAt: "",
     },
-    isLoading: null,
+    isLoading: true,
     error: null,
     isAuthenticated: false,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getInfo.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.user = { ...payload };
         state.isLoading = false;
         state.isAuthenticated = true;
@@ -47,8 +57,18 @@ const accountSlice = createSlice({
         state.error = error;
         state.isLoading = false;
         state.isAuthenticated = false;
-      });
+      }).addCase(logout.fulfilled, (state, { payload }) => {
+        for (const key of Object.keys(state.user)) {
+          state.user[key]=""
+        }
+        state.isLoading = false;
+        state.isAuthenticated = false;
+      })
+      .addCase(logout.rejected, (state, { error }) => {
+        state.error = error;
+        state.isLoading = false;
+      });;
   },
 });
-export { getInfo };
+export { getInfo,logout };
 export default accountSlice.reducer;

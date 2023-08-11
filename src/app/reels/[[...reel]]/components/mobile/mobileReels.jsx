@@ -8,19 +8,32 @@ import "swiper/css/navigation";
 import Video from "./video";
 import { useContext, useEffect, useRef, useState } from "react";
 import { reelUrl } from "@@/lib/genURL";
-import { useParams,usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { commentContext } from "@@/components/comments/comentContext";
 import { fetchCountComments } from "@@/lib/api/comment";
-export default function MobileReels({ reels }) {
+export default function MobileReels({ reels, onEnd }) {
   const { nComments, setNComments } = useContext(commentContext);
+  const [first, setFirst] = useState(true);
+  const [first2, setFirst2] = useState(true);
   const refSwiper = useRef();
   const [page, setPage] = useState(0);
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
-    window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
+    if (first) {
+      setFirst(false);
+      window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
+    }
   }, [reels]);
   const handle = (e) => {
+    if (!first && refSwiper.current.isEnd) {
+      if (first2) {
+        setFirst2(false);
+        onEnd(reels?.length - 1);
+      } else {
+        onEnd(reels?.length);
+      }
+    }
     window.history.replaceState(
       reels[e.activeIndex]?._id,
       "",
@@ -31,7 +44,7 @@ export default function MobileReels({ reels }) {
       postId: params?.product || window.history.state || params?.reel,
     })
       .then((res) => {
-        setNComments(res.data[0]?.count||0);
+        setNComments(res.data[0]?.count || 0);
       })
       .catch((err) => {
         console.error(err);

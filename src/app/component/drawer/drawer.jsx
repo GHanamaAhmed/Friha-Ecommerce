@@ -60,7 +60,7 @@ export default function DrawerComponent({ onClose, isOpen }) {
     onClose();
   };
   const closeBasket = () => {
-	setOpenBasket(false)
+    setOpenBasket(false);
     setOpen(true);
   };
   useEffect(() => {
@@ -170,7 +170,15 @@ export default function DrawerComponent({ onClose, isOpen }) {
           </List>
         </Drawer>
       </React.Fragment>
-      {<BasketDrawer isOpen={openBasket} onClose={closeBasket} />}
+      {
+        <BasketDrawer
+          isOpen={openBasket}
+          onClose={closeBasket}
+          onClose2={() => {
+            setOpenBasket(false);
+          }}
+        />
+      }
     </>
   );
 }

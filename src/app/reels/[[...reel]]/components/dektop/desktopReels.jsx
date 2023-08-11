@@ -18,23 +18,28 @@ import Link from "next/link";
 import { commentContext } from "@@/components/comments/comentContext";
 import { useSelector } from "react-redux";
 import Login from "@@/components/login/login";
-import { useParams,usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Details from "@/app/(home)/products/[...product]/components/desktop/details/details";
 import { productsContext } from "@/app/(home)/products/[...product]/components/productsContext";
 import { fetchCountComments } from "@@/lib/api/comment";
-export default function DesktopReels({ reels }) {
+export default function DesktopReels({ reels,onEnd }) {
   const [index, setIndex] = useState(0);
   const [like, setLike] = useState(Number(reels[index]?.isLike));
   const [nLike, setNLike] = useState(Number(reels[index]?.likes));
   const [showProduct, setShowProduct] = useState(0);
   const { nComments, setNComments } = useContext(commentContext);
   const { isAuthenticated } = useSelector((store) => store.account);
+  const [first, setFirst] = useState(true);
+  const [first2, setFirst2] = useState(true);
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
-    window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
-    setNLike(Number(reels[0]?.likes));
-    setLike(reels[0]?.isLike);
+    if (first) {
+      setFirst(false)
+      window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
+      setNLike(Number(reels[0]?.likes));
+      setLike(reels[0]?.isLike);
+    }
   }, [reels]);
   const hanldeClickLike = (e) => {
     e.preventDefault();
@@ -58,6 +63,15 @@ export default function DesktopReels({ reels }) {
   };
   const refSwiper = useRef();
   const handle = (e) => {
+    if (!first && refSwiper.current.isEnd) {
+      if (first2) {
+        setFirst2(false);
+        onEnd(reels?.length - 1);
+      } else {
+        console.log(3);
+        onEnd(reels?.length);
+      }
+    }
     window.history.replaceState(
       reels[e.activeIndex]?._id,
       "",

@@ -10,10 +10,11 @@ import "swiper/css/scrollbar";
 import { useEffect, useState } from "react";
 import Short from "./short";
 import SwiperLoading from "./swiperLoading";
-import { fetchReels } from "@@/lib/api/reels";
+import { fetchMore, fetchReels } from "@@/lib/api/reels";
 export default function Swipers() {
   const [isLoading, setIsLoading] = useState(true);
   const [reels, setReels] = useState([]);
+  const [first, setFirst] = useState(true);
   useEffect(() => {
     fetchReels("")
       .then((res) => {
@@ -25,6 +26,20 @@ export default function Swipers() {
         setIsLoading(false);
       });
   }, []);
+  const more = () => {
+    fetchMore(first ? reels.length - 1 : reels.length)
+      .then((res) => {
+        setReels([...reels, ...res.data]);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+    if (first) {
+      setFirst(false);
+    }
+  };
   return !isLoading ? (
     <Swiper
       modules={[A11y, Navigation, Pagination]}
@@ -32,9 +47,15 @@ export default function Swipers() {
       slidesPerView={1.5}
       scrollbar={{ draggable: true }}
       freeMode={true}
+      onSlideChange={(e) => {
+        e.isEnd && more();
+      }}
       navigation={{
         nextEl: ".nextEl",
         prevEl: ".prevEl",
+      }}
+      onSwiper={(e) => {
+        e.isEnd && more();
       }}
       watchOverflow={true}
       breakpoints={{
