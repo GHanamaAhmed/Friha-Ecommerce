@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "./card";
 import { useEffect, useMemo, useState } from "react";
 import { customAxios } from "@@/lib/api/axios";
 import { toasty } from "@/app/component/toasty/toast";
 import { Button, Option, Select } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
+import { emptyBasket } from "../../redux/basketReducer";
 export default function Page({ params }) {
   const { products, order } = useSelector((state) => state.basket);
   const { user, isAuthenticated } = useSelector((state) => state.account);
@@ -27,6 +28,7 @@ export default function Page({ params }) {
   const [baladias, setBaladias] = useState([]);
   const [baladia, setBaladia] = useState();
   const [delivery, setDelivery] = useState();
+  const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
     if (order) {
@@ -38,6 +40,10 @@ export default function Page({ params }) {
       .get("/cities/wilaya")
       .then((res) => setWilayas(res.data))
       .catch((err) => console.error(err));
+
+    return () => {
+      dispatch(emptyBasket());
+    };
   }, []);
   useEffect(() => {
     customAxios

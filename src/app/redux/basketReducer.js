@@ -31,6 +31,10 @@ const basketSlice = createSlice({
         payload?.index == i ? { ...payload?.basket } : e
       );
     },
+    emptyBasket: function (state) {
+      state.products = [];
+      state.order = false;
+    },
   },
 });
 const {
@@ -39,6 +43,7 @@ const {
   remveByIndexFromBasket,
   updateBasket,
   changeIsOrder,
+  emptyBasket
 } = basketSlice.actions;
 export {
   addToBasket,
@@ -46,5 +51,6 @@ export {
   remveByIndexFromBasket,
   changeIsOrder,
   updateBasket,
+  emptyBasket
 };
 export default basketSlice.reducer;
