@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.0.3",
     "@reduxjs/toolkit": "^1.9.5",
+    "@types/react": "^18.2.20",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "eslint": "8.42.0",
@@ -32,8 +33,10 @@
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
+    "@types/hoist-non-react-statics": "^3.3.1",
     "@types/node": "20.4.8",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "typescript": "5.1.6"
   }
 }
