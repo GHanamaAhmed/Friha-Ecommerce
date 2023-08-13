@@ -9,9 +9,9 @@ import { Button } from "@material-tailwind/react";
 import MenuAccount from "./menuAccount";
 import Login from "@@/components/login/login";
 import { useSelector } from "react-redux";
-import Image from 'next/image';
+import Image from "next/image";
 export default function Navbar() {
-  const { isAuthenticated } = useSelector((store) => store.account);
+  const { isAuthenticated, infoAdmin } = useSelector((store) => store.account);
   const [openMenu, setOpenMenu] = useState(false);
   const [positionScroll, setPositinScroll] = useState(
     globalThis.window?.scrollY
@@ -52,29 +52,31 @@ export default function Navbar() {
           {!isAuthenticated && (
             <Login>
               {" "}
-              <button
-                className="border border-white px-4 py-2 text-white transition-all duration-200 hover:bg-white hover:text-primaryColor"
-              >
+              <button className="border border-white px-4 py-2 text-white transition-all duration-200 hover:bg-white hover:text-primaryColor">
                 تسجيل الدخول{" "}
               </button>
             </Login>
           )}
           {isAuthenticated && <MenuAccount />}
-          <Link href={"#"} target="_blank">
-            {" "}
-            <FaInstagram color="white" />
-          </Link>
-          <Link href={"#"} target="_blank">
-            {" "}
-            <FaFacebookF color="white" />
-          </Link>
+          {infoAdmin?.instagram && (
+            <a href={infoAdmin?.instagram} target="_blank">
+              {" "}
+              <FaInstagram color="white" />
+            </a>
+          )}
+          {infoAdmin?.facebook && (
+            <a href={infoAdmin?.facebook} target="_blank">
+              {" "}
+              <FaFacebookF color="white" />
+            </a>
+          )}
         </div>
         <button className="md:hidden" onClick={toggleMenu}>
           <AiOutlineMenu size={25} className="md:hiden" color="white" />
         </button>
         <div className="flex items-center gap-2">
           <h1 className="font-sans font-semibold text-white">FRI7A</h1>
-          <Image  src="/res/Friha.png" width={50} height={50} alt="" />
+          <Image src="/res/Friha.png" width={50} height={50} alt="" />
         </div>
       </header>
       <DrawerComponent isOpen={openMenu} onClose={closeMenu} />

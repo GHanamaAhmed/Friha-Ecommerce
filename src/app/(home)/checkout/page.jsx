@@ -245,6 +245,7 @@ export default function Page({ params }) {
           </div>
           <Select
             label="الولاية"
+            labelProps={{className:"px-2"}}
             onChange={(e) => {
               setWilaya({ id: e?.id, name: e?.name });
               setBaladia(null);
@@ -258,6 +259,7 @@ export default function Page({ params }) {
           </Select>
           <Select
             label="البلدية"
+            labelProps={{className:"px-2"}}
             onChange={(e) => setBaladia({ id: e?.id, name: e?.name })}
           >
             {baladias.map((e, i) => (
