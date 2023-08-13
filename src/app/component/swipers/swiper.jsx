@@ -1,43 +1,101 @@
-"use client"
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { A11y, Navigation, Pagination, FreeMode } from "swiper"
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { useEffect, useState } from 'react';
-import Short from './short';
-import { selep } from '../../../../lib/sleep';
-function SwiperComponent() {
-    const [width, setWidth] = useState(globalThis.window?.innerWidth)
-    useEffect(() => {
-        setWidth(globalThis.window.innerWidth)
-        globalThis.window.addEventListener("resize", () => {
-            setWidth(globalThis.window.innerWidth)
-        })
-        return () => globalThis.window.innerWidth.removeEventListener("resize", () => { })
-    }, [])
-    return (
-        <Swiper
-            modules={[A11y, Navigation, Pagination, FreeMode]}
-            spaceBetween={50}
-            slidesPerView={width > 1280 ? 4.5 : width > 767 ? 3.5 : width < 640 ? 1.5 : 2.5}
-            scrollbar={{ draggable: true }}
-            freeMode={true}
-            navigation={
-                {
-                    nextEl: ".nextEl",
-                    prevEl: ".prevEl"
-                }
-            }
-        >
-            <SwiperSlide > <Short /></SwiperSlide>
-            <SwiperSlide > <Short /></SwiperSlide>
-        </Swiper>
-    )
-}
-export default async function Swipers() {
-   await selep()
-    return (
-        <SwiperComponent/>
-    )
+"use client";
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { useEffect, useState } from "react";
+import Short from "./short";
+import SwiperLoading from "./swiperLoading";
+import { fetchMore, fetchReels } from "@@/lib/api/reels";
+export default function Swipers() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [reels, setReels] = useState([]);
+  const [first, setFirst] = useState(true);
+  useEffect(() => {
+    fetchReels("")
+      .then((res) => {
+        setReels(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
+  const more = () => {
+    fetchMore(first ? reels.length - 1 : reels.length)
+      .then((res) => {
+        setReels([...reels, ...res.data]);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+    if (first) {
+      setFirst(false);
+    }
+  };
+  return !isLoading ? (
+    <Swiper
+      modules={[A11y, Navigation, Pagination]}
+      spaceBetween={50}
+      slidesPerView={1.5}
+      scrollbar={{ draggable: true }}
+      freeMode={true}
+      onSlideChange={(e) => {
+        e.isEnd && more();
+      }}
+      navigation={{
+        nextEl: ".nextEl",
+        prevEl: ".prevEl",
+      }}
+      onSwiper={(e) => {
+        e.isEnd && more();
+      }}
+      watchOverflow={true}
+      breakpoints={{
+        640: {
+          slidesPerView: 2.5,
+          spaceBetween: 20,
+        },
+        960: {
+          slidesPerView: 3.5,
+          spaceBetween: 40,
+        },
+        1160: {
+          slidesPerView: 4.5,
+          spaceBetween: 60,
+        },
+      }}
+    >
+      {reels.map((e, i) => (
+        <SwiperSlide key={i}>
+          {" "}
+          <Short reel={e} />
+        </SwiperSlide>
+      ))}
+      {reels.length == 0 && (
+        <SwiperSlide>
+          {" "}
+          <div
+            role="status"
+            className="relative space-y-8 p-0 md:flex md:items-center md:space-x-8 md:space-y-0"
+          >
+            <div className="m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-center  rounded-lg bg-gray-700 px-4 md:h-80 md:w-60">
+              <p className="-rotate-45 text-3xl text-primaryColor">
+                لا يوجد حاليا
+              </p>
+            </div>
+          </div>
+        </SwiperSlide>
+      )}
+    </Swiper>
+  ) : (
+    <SwiperLoading />
+  );
 }

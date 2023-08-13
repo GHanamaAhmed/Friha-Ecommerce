@@ -1,17 +1,17 @@
-import Image from 'next/image'
+import Image from "next/image";
 
-export default function Card({ img, title, subtitle}) {
-    return (
-        <div className='md:w-[275px] w-[250px] h-[250px] md:h-[275px] rounded-lg bg-card1 p-4 grid grid-cols-1 grid-rows-2'>
-            <div className='place-self-start relative'>
-                <div className='p-4 w-20 h-20 bg-lightSolid rounded-lg'>
-                    <Image src={img}  priority alt="" />
-                </div>
-            </div>
-            <div className='flex flex-col gap-2 justify-center'>
-                <p className='text-lightSolid text-xl'>{title}</p>
-                <p className='text-lightContent'>{subtitle}</p>
-            </div>
+export default function Card({ img, title, subtitle }) {
+  return (
+    <div className="grid h-[250px] w-[250px] grid-cols-1 grid-rows-2 rounded-lg bg-card1 p-4 md:h-[275px] md:w-[275px]">
+      <div className="relative place-self-start">
+        <div className="h-20 w-20 rounded-lg bg-lightSolid p-4">
+          <Image src={img} priority alt="" />
         </div>
-    )
+      </div>
+      <div className="flex flex-col justify-center gap-2">
+        <p className="text-xl text-lightSolid">{title}</p>
+        <p className="text-lightContent">{subtitle}</p>
+      </div>
+    </div>
+  );
 }
