@@ -34,9 +34,7 @@ export default function Page() {
                 <p className="text-lg text-white md:text-xl">
                   المعلومات العامة
                 </p>
-               
               </div>
-          
             </div>
             <div className="h-px w-full bg-gray-800"></div>
             <div className="flex w-full flex-col items-start justify-between py-6 md:flex-row md:items-center">
@@ -46,7 +44,8 @@ export default function Page() {
               <div className="flex gap-2">
                 <div className="relative h-11 w-full max-w-[200px]">
                   <input
-                    value={user?.firstName}
+                    disabled={true}
+                    defaultValue={user?.firstName}
                     className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                   />
@@ -56,7 +55,8 @@ export default function Page() {
                 </div>
                 <div className="relative h-11 w-full max-w-[200px]">
                   <input
-                    value={user.lastName}
+                    disabled={true}
+                    defaultValue={user.lastName}
                     className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                   />
@@ -68,7 +68,7 @@ export default function Page() {
             </div>
             <div className="h-px w-full bg-gray-800"></div>
             <div className="h-px w-full bg-gray-800"></div>
-            <div className="flex justify-between w-full py-6">
+            <div className="flex w-full justify-between py-6">
               <div>
                 <p className="text-lg text-white md:text-xl">الصورة الشخصية</p>
                 <p className="text-md text-lightContent">
@@ -76,11 +76,10 @@ export default function Page() {
                 </p>
               </div>
               <div className="">
-               <img height={50} width={50} src={user?.Photo} alt="" />
+                <img height={50} width={50} src={user?.Photo} alt="" />
               </div>
             </div>
             <div className="h-px w-full bg-gray-800"></div>
-            
           </div>
         </div>
       )}

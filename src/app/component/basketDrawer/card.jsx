@@ -42,6 +42,9 @@ export default function Card({ basket, index }) {
       return setOpenMenuSize((prev) => !prev);
     }
   };
+  useEffect(() => {
+    console.log(basket);
+  }, [basket]);
   return (
     <div className="flex justify-between px-2 py-5">
       <div className="flex flex-col justify-between">
@@ -89,6 +92,7 @@ export default function Card({ basket, index }) {
                             ...basket,
                             color: e?.color,
                             size: undefined,
+                            maxQuntity: e?.quntity,
                           },
                         })
                       )
@@ -147,6 +151,7 @@ export default function Card({ basket, index }) {
           <div className="flex w-full justify-between border-blue-500">
             <Button
               onClick={() =>
+                basket?.maxQuntity > basket?.quntity &&
                 dispatch(
                   updateBasket({
                     index,
@@ -163,6 +168,7 @@ export default function Card({ basket, index }) {
             <p className="px-2 py-0.5 text-white">{basket?.quntity}</p>
             <Button
               onClick={() =>
+                basket?.quntity > 0 &&
                 dispatch(
                   updateBasket({
                     index,
