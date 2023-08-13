@@ -14,11 +14,6 @@ const basketSlice = createSlice({
     },
     addToBasket: function (state, { payload }) {
       state.products = [...state.products, payload];
-      toasty("تم وضع المنتج في السلة", {
-        toastId: "addProduct",
-        autoClose: 5000,
-        type: "success",
-      });
     },
     remveByIndexFromBasket: function (state, { payload }) {
       state.products = state.products.filter((e, i) => i != payload);

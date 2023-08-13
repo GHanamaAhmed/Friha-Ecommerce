@@ -34,28 +34,9 @@ export default function Page() {
                 <p className="text-lg text-white md:text-xl">
                   المعلومات العامة
                 </p>
-                <p className="text-md text-lightContent">
-                  حدث معلوماتك الشخصية بحذر
-                </p>
+               
               </div>
-              <div className="flex w-full items-center gap-x-3 md:w-1/2">
-                <Button
-                  variant="outlined"
-                  size="md"
-                  disabled={true}
-                  className={`font-Hacen-Tunisia h-fit border-scandaryColor py-2 text-scandaryColor shadow-none outline-none ring-0 hover:shadow-none focus:outline-none focus:ring-0 md:w-full`}
-                >
-                  الغاء
-                </Button>
-                <Button
-                  variant="filled"
-                  size="md"
-                  disabled={true}
-                  className={`font-Hacen-Tunisia h-fit border-scandaryColor bg-scandaryColor py-2 text-white shadow-none hover:shadow-none md:w-full`}
-                >
-                  حفظ التغييرات
-                </Button>
-              </div>
+          
             </div>
             <div className="h-px w-full bg-gray-800"></div>
             <div className="flex w-full flex-col items-start justify-between py-6 md:flex-row md:items-center">
@@ -87,7 +68,7 @@ export default function Page() {
             </div>
             <div className="h-px w-full bg-gray-800"></div>
             <div className="h-px w-full bg-gray-800"></div>
-            <div className="flex justify-between py-6">
+            <div className="flex justify-between w-full py-6">
               <div>
                 <p className="text-lg text-white md:text-xl">الصورة الشخصية</p>
                 <p className="text-md text-lightContent">
@@ -95,39 +76,11 @@ export default function Page() {
                 </p>
               </div>
               <div className="">
-                <label htmlFor="image"></label>
-                <input hidden onChange={changePicture} type="file" id="image" />
+               <img height={50} width={50} src={user?.Photo} alt="" />
               </div>
             </div>
             <div className="h-px w-full bg-gray-800"></div>
-            <div className="flex w-full flex-col items-start justify-between py-6 md:flex-row md:items-center">
-              <div>
-                <p className="text-lg text-white md:text-xl">رقم الهاتف</p>
-              </div>
-              <div>
-                <div className="flex w-full max-w-[400px] md:min-w-[400px]">
-                  <div className="relative h-11 max-w-[250px] md:min-w-[250px]">
-                    <input
-                      value={user?.phone}
-                      className="peer h-full w-full rounded-md rounded-l-none border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-scandaryColor focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                      placeholder=" "
-                    />
-                    <label className="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:border-blue-gray-200 before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-scandaryColor peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-scandaryColor peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-scandaryColor peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                      رقم الهاتف{" "}
-                    </label>
-                  </div>
-                  <button className="flex min-h-full items-center gap-2 rounded-l-md border border-blue-gray-200 bg-gray-900 px-2 text-white">
-                    +213
-                    <Image
-                      src={"https://flagcdn.com/dz.svg"}
-                      height={20}
-                      width={20}
-                      alt={""}
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       )}

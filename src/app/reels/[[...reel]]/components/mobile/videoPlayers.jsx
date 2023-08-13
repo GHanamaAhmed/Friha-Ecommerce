@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
 import { useSwiperSlide } from "swiper/react";
-export default function VideoPlayers({ video }) {
+import { customAxios } from "../../../../../../lib/api/axios";
+export default function VideoPlayers({ video, reelId }) {
   const [isPlay, setIsPlay] = useState(true);
   const videoRef = useRef(null);
   const interval = useRef();
   const slide = useSwiperSlide();
   const [progress, setProgress] = useState(0);
+  const [first, setFirst] = useState(true);
   const checkSlide = useMemo(() => {
     return slide.isNext || slide.isPrev || slide.isActive;
   }, [slide]);
@@ -34,6 +36,21 @@ export default function VideoPlayers({ video }) {
       }
     }
   }, [slide]);
+  useEffect(() => {
+    if (progress < 75) {
+      setFirst(true);
+      return;
+    }
+    if (checkSlide) {
+      if (slide.isActive && progress >= 75 && first) {
+        setFirst(false);
+        customAxios
+          .post("/reels/addView", { reelId })
+          .then((res) => console.log(res))
+          .catch((err) => console.error(err));
+      }
+    }
+  }, [progress]);
   const videoHandler = (e) => {
     if (checkSlide) {
       e?.preventDefault();
@@ -81,7 +98,7 @@ export default function VideoPlayers({ video }) {
       </div>
       <input
         onChange={changeRange}
-        onClick={(e)=>e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         value={`${progress}`}
         className="h- absolute bottom-5 right-1/2 z-20 h-[2px] w-11/12 translate-x-1/2  overflow-hidden bg-gray-400"
         type="range"

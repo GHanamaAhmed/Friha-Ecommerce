@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { addToBasket, remveByIdFromBasket } from "@/app/redux/basketReducer";
 import { useDispatch } from "react-redux";
 import Login from "@@/components/login/login";
+import { toasty } from "../toasty/toast";
 export default function Card({
   id,
   name,
@@ -33,9 +34,6 @@ export default function Card({
   const { isAuthenticated } = useSelector((store) => store.account);
   const dispatch = useDispatch();
   const router = useRouter();
-  const togglepulse = () => {
-    setIsPulse((prev) => !prev);
-  };
   const toggleSave = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -49,6 +47,11 @@ export default function Card({
         photos,
       })
     );
+    toasty("تم وضع المنتج في السلة", {
+      toastId: "addProduct",
+      autoClose: 5000,
+      type: "success",
+    });
     setIsSave(true);
     setTimeout(() => {
       setIsSave(false);
@@ -91,12 +94,12 @@ export default function Card({
         <div className="row-span-2 flex flex-col items-start justify-center">
           <h1 className="text-sm text-white md:text-lg">{name}</h1>
           {isShowPrice && !isShowPromotion && (
-            <p className="text-sm text-scandaryColor">{price}</p>
+            <p className="text-sm text-scandaryColor">{price} دج</p>
           )}
           {isShowPrice && isShowPromotion && (
             <div className="">
-              <p className="text-sm text-scandaryColor">{price}</p>
-              <p className="text-xs text-white line-through">{promotion}</p>
+              <p className="text-sm text-scandaryColor">{price} دج</p>
+              <p className="text-xs text-white line-through">{promotion} دج</p>
             </div>
           )}
         </div>

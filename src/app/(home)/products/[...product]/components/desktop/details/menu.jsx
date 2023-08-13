@@ -74,6 +74,11 @@ export default function Menus({ product }) {
                 size,
               })
             );
+            toasty("تم وضع المنتج في السلة", {
+              toastId: "addProduct",
+              autoClose: 5000,
+              type: "success",
+            });
           } else {
             toasty("حدد اللون و الحجم", {
               toastId: "addProduct",

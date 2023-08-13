@@ -52,7 +52,6 @@ export default function Video({
     initialState(likes, nComments, isLike)
   );
   const { isAuthenticated } = useSelector((store) => store.account);
-  const pathName = usePathname();
   useEffect(() => {
     dispatch({
       type: "initialize",
@@ -101,7 +100,7 @@ export default function Video({
   const postComment = (text) => {};
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <VideoPlayers video={video} />
+      <VideoPlayers video={video} reelId={id} />
       {tools === true && (
         <>
           <div className="absolute bottom-8 right-5 grid h-full grid-rows-6 gap-10">
