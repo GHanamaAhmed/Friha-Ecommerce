@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import {
+  Button,
   Drawer,
   List,
   ListItem,
@@ -14,6 +15,8 @@ import Image from "next/image";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter, usePathname } from "next/navigation";
 import BasketDrawer from "../basketDrawer/basketDrawer";
+import { customAxios } from "@@/lib/api/axios";
+import Login from "@@/components/login/login";
 const account = [
   {
     path: "/account",
@@ -31,11 +34,11 @@ const savedOperation = [
     prefix: <LuShoppingCart />,
     text: "السلة",
   },
-  {
-    path: "/likes",
-    prefix: <AiFillHeart />,
-    text: "الملابس التي اعجبتك",
-  },
+  // {
+  //   path: "/likes",
+  //   prefix: <AiFillHeart />,
+  //   text: "الملابس التي اعجبتك",
+  // },
 ];
 const pub = [
   {
@@ -68,6 +71,15 @@ export default function DrawerComponent({ onClose, isOpen }) {
   }, [isOpen]);
   const changeRouter = (e, path) => {
     e.preventDefault();
+    if (path == "/logout") {
+      customAxios
+        .get("/auth")
+        .then((res) => {
+          closeDrawer();
+        })
+        .catch((err) => console.error(err));
+      return;
+    }
     router.push(path);
   };
   return (
@@ -151,22 +163,31 @@ export default function DrawerComponent({ onClose, isOpen }) {
               );
             })}
             <p className="mr-6 mt-1 text-lightSolid">الحساب</p>
-            {account.map((e, i) => {
-              return (
-                <ListItem
-                  onClick={(element) => changeRouter(element, e.path)}
-                  key={i}
-                  className={`gap-5 py-4 text-lightSolid ${
-                    pathName.includes(e.path)
-                      ? "bg-scandaryColor bg-opacity-30 text-scandaryColor"
-                      : "text-lightSolid"
-                  } hover:bg-scandaryColor hover:bg-opacity-30 hover:text-scandaryColor focus:bg-scandaryColor focus:bg-opacity-30 focus:text-scandaryColor active:bg-scandaryColor active:bg-opacity-30 active:text-scandaryColor`}
-                >
-                  <ListItemPrefix>{e.prefix}</ListItemPrefix>
-                  {e.text}
-                </ListItem>
-              );
-            })}
+            {isAuthenticated &&
+              account.map((e, i) => {
+                return (
+                  <ListItem
+                    onClick={(element) => changeRouter(element, e.path)}
+                    key={i}
+                    className={`gap-5 py-4 text-lightSolid ${
+                      pathName.includes(e.path)
+                        ? "bg-scandaryColor bg-opacity-30 text-scandaryColor"
+                        : "text-lightSolid"
+                    } hover:bg-scandaryColor hover:bg-opacity-30 hover:text-scandaryColor focus:bg-scandaryColor focus:bg-opacity-30 focus:text-scandaryColor active:bg-scandaryColor active:bg-opacity-30 active:text-scandaryColor`}
+                  >
+                    <ListItemPrefix>{e.prefix}</ListItemPrefix>
+                    {e.text}
+                  </ListItem>
+                );
+              })}
+            {!isAuthenticated && (
+              <Login>
+                {" "}
+                <button className="border w-full mt-3 border-white px-4 py-2 text-white transition-all duration-200 hover:bg-white hover:text-primaryColor">
+                  تسجيل الدخول{" "}
+                </button>
+              </Login>
+            )}
           </List>
         </Drawer>
       </React.Fragment>

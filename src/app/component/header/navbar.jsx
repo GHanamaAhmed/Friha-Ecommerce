@@ -71,9 +71,12 @@ export default function Navbar() {
             </a>
           )}
         </div>
-        <button className="md:hidden" onClick={toggleMenu}>
-          <AiOutlineMenu size={25} className="md:hiden" color="white" />
-        </button>
+        <div className="flex gap-5">
+          <button className="md:hidden" onClick={toggleMenu}>
+            <AiOutlineMenu size={25} className="md:hiden" color="white" />
+          </button>
+          {isAuthenticated && <MenuAccount />}
+        </div>
         <div className="flex items-center gap-2">
           <h1 className="font-sans font-semibold text-white">FRI7A</h1>
           <Image src="/res/Friha.png" width={50} height={50} alt="" />

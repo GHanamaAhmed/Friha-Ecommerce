@@ -67,8 +67,10 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
               طلب
             </Button>
           </div>
+          
         </List>
       </Drawer>
+      
     </React.Fragment>
   );
 }

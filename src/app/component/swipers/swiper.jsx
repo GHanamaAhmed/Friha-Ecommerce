@@ -27,7 +27,7 @@ export default function Swipers() {
       });
   }, []);
   const more = () => {
-    fetchMore(first ? reels.length - 1 : reels.length)
+    fetchMore(reels.length)
       .then((res) => {
         setReels([...reels, ...res.data]);
         setIsLoading(false);
