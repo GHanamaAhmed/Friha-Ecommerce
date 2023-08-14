@@ -22,7 +22,7 @@ import { useParams, usePathname } from "next/navigation";
 import Details from "@/app/(home)/products/[...product]/components/desktop/details/details";
 import { productsContext } from "@/app/(home)/products/[...product]/components/productsContext";
 import { fetchCountComments } from "@@/lib/api/comment";
-export default function DesktopReels({ reels,onEnd }) {
+export default function DesktopReels({ reels, onEnd }) {
   const [index, setIndex] = useState(0);
   const [like, setLike] = useState(Number(reels[index]?.isLike));
   const [nLike, setNLike] = useState(Number(reels[index]?.likes));
@@ -34,8 +34,8 @@ export default function DesktopReels({ reels,onEnd }) {
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
-    if (first) {
-      setFirst(false)
+    if (first && reels[0]?._id) {
+      setFirst(false);
       window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
       setNLike(Number(reels[0]?.likes));
       setLike(reels[0]?.isLike);

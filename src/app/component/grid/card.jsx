@@ -98,8 +98,8 @@ export default function Card({
           )}
           {isShowPrice && isShowPromotion && (
             <div className="">
-              <p className="text-sm text-scandaryColor">{price} دج</p>
-              <p className="text-xs text-white line-through">{promotion} دج</p>
+              <p className="text-sm text-scandaryColor">{promotion} دج</p>
+              <p className="text-xs text-white line-through">{price} دج</p>
             </div>
           )}
         </div>

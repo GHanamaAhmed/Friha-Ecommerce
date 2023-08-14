@@ -89,7 +89,10 @@ export default function Comment({
     e.preventDefault();
     sendComment({
       type: pathName.includes("reel") ? "reel" : "product",
-      postId: params?.product || window.history.state || params?.reel,
+      postId:
+        (typeof window.history.state == "string" && window.history.state) ||
+        params?.product ||
+        params?.reel,
       text,
       toUserCommentId: commentId,
     })
