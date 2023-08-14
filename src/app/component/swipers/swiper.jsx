@@ -87,7 +87,7 @@ export default function Swipers() {
             className="relative space-y-8 p-0 md:flex md:items-center md:space-x-8 md:space-y-0"
           >
             <div className="m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-center  rounded-lg bg-gray-700 px-4 md:h-80 md:w-60">
-              <p className="-rotate-45 text-3xl text-primaryColor">
+              <p className="-rotate-45 text-3xl text-white">
                 لا يوجد حاليا
               </p>
             </div>

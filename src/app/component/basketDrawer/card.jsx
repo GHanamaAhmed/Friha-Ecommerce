@@ -18,9 +18,6 @@ export default function Card({ basket, index }) {
   const [openMenuColor, setOpenMenuColor] = useState(false);
   const [openMenuSize, setOpenMenuSize] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(basket);
-  });
   const triggersColor = {
     onClick: () => setOpenMenuColor((prev) => !prev),
   };
