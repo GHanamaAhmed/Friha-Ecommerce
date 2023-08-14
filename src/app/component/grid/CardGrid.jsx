@@ -26,6 +26,10 @@ export default function CardGrid() {
         setProduct(res.data.products);
         setMin(res.data.products?.length);
         setTypes(res.data?.types);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
       });
   };
   const fetchCount = async () => {

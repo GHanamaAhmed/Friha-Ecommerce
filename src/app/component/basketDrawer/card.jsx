@@ -31,6 +31,7 @@ export default function Card({ basket, index }) {
     if (openMenuSize == false) {
       if (!basket?.color) {
         toasty("اختر اللون اولا", {
+          position:"top-left",
           toastId: "selectColor",
           autoClose: 5000,
           type: "warning",
@@ -42,9 +43,6 @@ export default function Card({ basket, index }) {
       return setOpenMenuSize((prev) => !prev);
     }
   };
-  useEffect(() => {
-    console.log(basket);
-  }, [basket]);
   return (
     <div className="flex justify-between px-2 py-5">
       <div className="flex flex-col justify-between">
@@ -150,14 +148,24 @@ export default function Card({ basket, index }) {
           </div>
           <div className="flex w-full justify-between border-blue-500">
             <Button
-              onClick={() =>
-                basket?.maxQuntity > basket?.quntity &&
-                dispatch(
-                  updateBasket({
-                    index,
-                    basket: { ...basket, quntity: basket?.quntity + 1 },
-                  })
-                )
+              onClick={() =>{
+                if(basket?.color){
+                  basket?.maxQuntity > basket?.quntity &&
+                  dispatch(
+                    updateBasket({
+                      index,
+                      basket: { ...basket, quntity: basket?.quntity + 1 },
+                    })
+                  )
+                }else{
+                  toasty("اختر اللون اولا", {
+                    position:"top-left",
+                    toastId: "selectColor",
+                    autoClose: 5000,
+                    type: "warning",
+                  });
+                }
+                }
               }
               className="rounded-none px-2 py-0.5"
               variant="filled"
@@ -167,18 +175,27 @@ export default function Card({ basket, index }) {
             </Button>
             <p className="px-2 py-0.5 text-white">{basket?.quntity}</p>
             <Button
-              onClick={() =>
-                basket?.quntity > 0 &&
-                dispatch(
-                  updateBasket({
-                    index,
-                    basket: {
-                      ...basket,
-                      quntity: !basket?.quntity ? 0 : basket?.quntity - 1,
-                    },
-                  })
-                )
-              }
+              onClick={() => {
+                if (basket?.color) {
+                  basket?.quntity > 1 &&
+                    dispatch(
+                      updateBasket({
+                        index,
+                        basket: {
+                          ...basket,
+                          quntity: !basket?.quntity ? 0 : basket?.quntity - 1,
+                        },
+                      })
+                    );
+                } else {
+                  toasty("اختر اللون اولا", {
+                    position:"top-left",
+                    toastId: "selectColor",
+                    autoClose: 5000,
+                    type: "warning",
+                  });
+                }
+              }}
               className="rounded-none px-2 py-0.5"
               variant="filled"
               color="blue-gray"
