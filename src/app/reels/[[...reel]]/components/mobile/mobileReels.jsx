@@ -20,7 +20,7 @@ export default function MobileReels({ reels, onEnd }) {
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
-    if (first) {
+    if (first && reels[0]?._id) {
       setFirst(false);
       window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
     }

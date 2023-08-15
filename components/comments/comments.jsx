@@ -26,9 +26,14 @@ export default function Comments() {
     setIsLoading(true);
     const req = {
       type: pathName.includes("reel") ? "reel" : "product",
-      postId: params?.product || window.history.state || params?.reel,
+      postId:
+        (typeof window.history.state == "string" && window.history.state) ||
+        params?.product ||
+        params?.reel,
     };
-    (window.history.state || params?.product || params?.reel) &&
+    ((typeof window.history.state == "string" && window.history.state) ||
+      params?.product ||
+      params?.reel) &&
       fetchComments(req)
         .then((res) => {
           setComments(res.data);
@@ -38,7 +43,7 @@ export default function Comments() {
           console.error(err);
           setIsLoading(false);
         });
-    
+
     !window.history.state && setIsLoading(false);
   }, [window.history.state]);
   return isLoading ? (

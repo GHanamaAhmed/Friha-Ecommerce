@@ -39,17 +39,20 @@ export default function ProductsContext({ children }) {
   }, [window.history.state]);
   useEffect(() => {
     if (product) {
-      product.photos.map((e, i) => {
-        if (e?.quntity > 0 || e?.quntity === null || e?.quntity === undefined) {
+      product.photos
+        ?.filter(
+          (e, i) =>
+            i == product?.photos?.findIndex((o) => e?.color === o?.color)
+        )
+        .map((e, i) => {
           setColors((prev) => [...prev, e.color]);
-        }
-      });   
+        });
     }
   }, [product]);
   useEffect(() => {
     setSizes(["الكل"]);
     product?.photos?.map((e, i) => {
-      e.color == color && setSizes(["الكل", ...e.sizes]);
+      e.color == color && setSizes((prev) => [...prev, ...e.sizes]);
     });
   }, [color, colors]);
   return (

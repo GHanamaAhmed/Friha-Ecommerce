@@ -9,7 +9,7 @@ export const metadata = {
   description: "Friha clothes",
 };
 export default function RootLayout({ children }) {
- customAxios.post("/statistique").catch((err) => console.error(err));
+  customAxios.post("/statistique").catch((err) => console.error(err));
   return (
     <html lang="en">
       <body className={"relative w-full bg-primaryColor"}>

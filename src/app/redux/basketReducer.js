@@ -38,7 +38,7 @@ const {
   remveByIndexFromBasket,
   updateBasket,
   changeIsOrder,
-  emptyBasket
+  emptyBasket,
 } = basketSlice.actions;
 export {
   addToBasket,
@@ -46,6 +46,6 @@ export {
   remveByIndexFromBasket,
   changeIsOrder,
   updateBasket,
-  emptyBasket
+  emptyBasket,
 };
 export default basketSlice.reducer;

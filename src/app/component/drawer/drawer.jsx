@@ -17,6 +17,7 @@ import { useRouter, usePathname } from "next/navigation";
 import BasketDrawer from "../basketDrawer/basketDrawer";
 import { customAxios } from "@@/lib/api/axios";
 import Login from "@@/components/login/login";
+import { useSelector } from "react-redux";
 const account = [
   {
     path: "/account",
@@ -54,7 +55,7 @@ const pub = [
 ];
 export default function DrawerComponent({ onClose, isOpen }) {
   const [open, setOpen] = React.useState(false);
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user } = useSelector(store=>store.account);
   const [openBasket, setOpenBasket] = React.useState(false);
   const pathName = usePathname();
   const router = useRouter();
@@ -95,18 +96,18 @@ export default function DrawerComponent({ onClose, isOpen }) {
             <div className="mb-2 flex items-center justify-start gap-3 bg-gray-900 px-6 py-8">
               <Image
                 className="rounded-full"
-                loader={() => user.picture}
-                src={user.picture}
+                loader={() => user?.Photo}
+                src={user?.Photo}
                 width={50}
                 height={50}
                 alt=""
               />
               <div className="flex gap-2">
                 <h1 className="font-Hacen-Tunisia text-2xl text-gray-300">
-                  {user.given_name}
+                  {user?.firstName}
                 </h1>
                 <h1 className="font-Hacen-Tunisia text-2xl text-gray-300">
-                  {user.family_name}
+                  {user?.lastName}
                 </h1>
               </div>
             </div>

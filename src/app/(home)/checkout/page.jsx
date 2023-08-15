@@ -52,6 +52,21 @@ export default function Page({ params }) {
       .catch((err) => console.error(err));
   }, [wilaya]);
   useEffect(() => {
+    console.log(wilaya);
+    try {
+      delivery &&
+        wilaya &&
+        customAxios
+          .get(
+            `cities/deliveryPrice?wilaya1=${wilaya?.name}&id=${wilaya?.id}&delivery=${delivery}`
+          )
+          .then((res) => setShipping(Number(res.data)))
+          .catch((err) => console.error(err));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [delivery, wilaya]);
+  useEffect(() => {
     setFirstName(user?.firstName);
     setLastName(user?.lastName);
     setEmail(user?.email);
@@ -125,6 +140,7 @@ export default function Page({ params }) {
       city: wilaya && baladia ? `${wilaya?.name} ${baladia?.name}` : null,
       photo: user?.Photo,
       delivery,
+      shipping,
     };
     if (!isAuthenticated) {
       delete req?.userId;
@@ -132,6 +148,9 @@ export default function Page({ params }) {
     }
     if (!coupon.trim()) {
       delete req.coupon;
+    }
+    if (!shipping) {
+      delete req.shipping;
     }
     customAxios
       .post("/orders", req)
@@ -245,7 +264,7 @@ export default function Page({ params }) {
           </div>
           <Select
             label="الولاية"
-            labelProps={{className:"px-2"}}
+            labelProps={{ className: "px-2" }}
             onChange={(e) => {
               setWilaya({ id: e?.id, name: e?.name });
               setBaladia(null);
@@ -259,7 +278,7 @@ export default function Page({ params }) {
           </Select>
           <Select
             label="البلدية"
-            labelProps={{className:"px-2"}}
+            labelProps={{ className: "px-2" }}
             onChange={(e) => setBaladia({ id: e?.id, name: e?.name })}
           >
             {baladias.map((e, i) => (

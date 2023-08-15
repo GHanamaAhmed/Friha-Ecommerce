@@ -75,7 +75,7 @@ export default function Navbar() {
           <button className="md:hidden" onClick={toggleMenu}>
             <AiOutlineMenu size={25} className="md:hiden" color="white" />
           </button>
-          {isAuthenticated && <MenuAccount />}
+          <div className="md:hidden">{isAuthenticated && <MenuAccount />}</div>
         </div>
         <div className="flex items-center gap-2">
           <h1 className="font-sans font-semibold text-white">FRI7A</h1>

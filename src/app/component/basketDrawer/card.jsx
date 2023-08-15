@@ -18,9 +18,6 @@ export default function Card({ basket, index }) {
   const [openMenuColor, setOpenMenuColor] = useState(false);
   const [openMenuSize, setOpenMenuSize] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(basket);
-  });
   const triggersColor = {
     onClick: () => setOpenMenuColor((prev) => !prev),
   };
@@ -31,6 +28,7 @@ export default function Card({ basket, index }) {
     if (openMenuSize == false) {
       if (!basket?.color) {
         toasty("اختر اللون اولا", {
+          position: "top-left",
           toastId: "selectColor",
           autoClose: 5000,
           type: "warning",
@@ -42,9 +40,6 @@ export default function Card({ basket, index }) {
       return setOpenMenuSize((prev) => !prev);
     }
   };
-  useEffect(() => {
-    console.log(basket);
-  }, [basket]);
   return (
     <div className="flex justify-between px-2 py-5">
       <div className="flex flex-col justify-between">
@@ -82,29 +77,34 @@ export default function Card({ basket, index }) {
                 {...triggersColor}
                 className=" font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
               >
-                {basket?.photos?.map((e, i) => (
-                  <MenuItem
-                    onClick={() =>
-                      dispatch(
-                        updateBasket({
-                          index,
-                          basket: {
-                            ...basket,
-                            color: e?.color,
-                            size: undefined,
-                            maxQuntity: e?.quntity,
-                          },
-                        })
-                      )
-                    }
-                    key={i}
-                  >
-                    {e?.color}
-                  </MenuItem>
-                ))}
+                {basket?.photos
+                  ?.filter(
+                    (e, i) =>
+                      i ==
+                      basket?.photos?.findIndex((o) => e?.color === o?.color)
+                  )
+                  .map((e, i) => (
+                    <MenuItem
+                      onClick={() =>
+                        dispatch(
+                          updateBasket({
+                            index,
+                            basket: {
+                              ...basket,
+                              color: e?.color,
+                              size: undefined,
+                              quntity: 0,
+                            },
+                          })
+                        )
+                      }
+                      key={i}
+                    >
+                      {e?.color}
+                    </MenuItem>
+                  ))}
               </MenuList>
             </Menu>
-
             <Menu open={openMenuSize} handler={triggerSize}>
               <MenuHandler>
                 <Button
@@ -126,39 +126,57 @@ export default function Card({ basket, index }) {
                 {...triggersSize}
                 className="font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
               >
-                {basket?.photos[
-                  basket?.photos.findIndex((e) => e?.color == basket?.color)
-                ]?.sizes?.map((e, i) => {
-                  return (
-                    <MenuItem
-                      onClick={() =>
-                        dispatch(
-                          updateBasket({
-                            index,
-                            basket: { ...basket, size: e },
-                          })
-                        )
-                      }
-                      key={i}
-                    >
-                      {e}
-                    </MenuItem>
-                  );
-                })}
+                {[
+                  ...basket?.photos
+                    .filter((e) => e.color == basket?.color )
+                    .map((e, i) => {
+                      return e.sizes.map((elm, ind) => {
+                        return (
+                          <MenuItem
+                            onClick={() =>
+                              dispatch(
+                                updateBasket({
+                                  index,
+                                  basket: {
+                                    ...basket,
+                                    size: elm,
+                                    quntity: 0,
+                                    maxQuntity: basket?.photos[i]?.quntity,
+                                  },
+                                })
+                              )
+                            }
+                            key={ind}
+                          >
+                            {elm}
+                          </MenuItem>
+                        );
+                      });
+                    }),
+                ]}
               </MenuList>
             </Menu>
           </div>
           <div className="flex w-full justify-between border-blue-500">
             <Button
-              onClick={() =>
-                basket?.maxQuntity > basket?.quntity &&
-                dispatch(
-                  updateBasket({
-                    index,
-                    basket: { ...basket, quntity: basket?.quntity + 1 },
-                  })
-                )
-              }
+              onClick={() => {
+                if (basket?.color) {
+                  basket?.maxQuntity - basket?.quntity > 0 &&
+                    dispatch(
+                      updateBasket({
+                        index,
+                        basket: { ...basket, quntity: basket?.quntity + 1 },
+                      })
+                    );
+                } else {
+                  toasty("اختر اللون اولا", {
+                    position: "top-left",
+                    toastId: "selectColor",
+                    autoClose: 5000,
+                    type: "warning",
+                  });
+                }
+              }}
               className="rounded-none px-2 py-0.5"
               variant="filled"
               color="blue-gray"
@@ -167,18 +185,27 @@ export default function Card({ basket, index }) {
             </Button>
             <p className="px-2 py-0.5 text-white">{basket?.quntity}</p>
             <Button
-              onClick={() =>
-                basket?.quntity > 0 &&
-                dispatch(
-                  updateBasket({
-                    index,
-                    basket: {
-                      ...basket,
-                      quntity: !basket?.quntity ? 0 : basket?.quntity - 1,
-                    },
-                  })
-                )
-              }
+              onClick={() => {
+                if (basket?.color) {
+                  basket?.quntity > 1 &&
+                    dispatch(
+                      updateBasket({
+                        index,
+                        basket: {
+                          ...basket,
+                          quntity: !basket?.quntity ? 0 : basket?.quntity - 1,
+                        },
+                      })
+                    );
+                } else {
+                  toasty("اختر اللون اولا", {
+                    position: "top-left",
+                    toastId: "selectColor",
+                    autoClose: 5000,
+                    type: "warning",
+                  });
+                }
+              }}
               className="rounded-none px-2 py-0.5"
               variant="filled"
               color="blue-gray"

@@ -31,7 +31,7 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
       <Drawer
         open={open}
         onClose={closeDrawer}
-        className="overflow-y-scroll bg-primaryColor"
+        className="overflow-y-scroll  bg-primaryColor"
         placement="right"
         size={400}
       >
@@ -54,7 +54,7 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
               <p className="text-white">{some}dz</p>
             </div>
             <Button
-              disabled={disable}
+              disabled={disable || products?.length == 0}
               onClick={() => {
                 dispatch(changeIsOrder(true));
                 onClose2(false);
@@ -67,10 +67,8 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
               طلب
             </Button>
           </div>
-          
         </List>
       </Drawer>
-      
     </React.Fragment>
   );
 }
