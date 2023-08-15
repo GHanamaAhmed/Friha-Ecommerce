@@ -28,7 +28,7 @@ export default function Card({ basket, index }) {
     if (openMenuSize == false) {
       if (!basket?.color) {
         toasty("اختر اللون اولا", {
-          position:"top-left",
+          position: "top-left",
           toastId: "selectColor",
           autoClose: 5000,
           type: "warning",
@@ -77,29 +77,34 @@ export default function Card({ basket, index }) {
                 {...triggersColor}
                 className=" font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
               >
-                {basket?.photos?.map((e, i) => (
-                  <MenuItem
-                    onClick={() =>
-                      dispatch(
-                        updateBasket({
-                          index,
-                          basket: {
-                            ...basket,
-                            color: e?.color,
-                            size: undefined,
-                            maxQuntity: e?.quntity,
-                          },
-                        })
-                      )
-                    }
-                    key={i}
-                  >
-                    {e?.color}
-                  </MenuItem>
-                ))}
+                {basket?.photos
+                  ?.filter(
+                    (e, i) =>
+                      i ==
+                      basket?.photos?.findIndex((o) => e?.color === o?.color)
+                  )
+                  .map((e, i) => (
+                    <MenuItem
+                      onClick={() =>
+                        dispatch(
+                          updateBasket({
+                            index,
+                            basket: {
+                              ...basket,
+                              color: e?.color,
+                              size: undefined,
+                              quntity: 0,
+                            },
+                          })
+                        )
+                      }
+                      key={i}
+                    >
+                      {e?.color}
+                    </MenuItem>
+                  ))}
               </MenuList>
             </Menu>
-
             <Menu open={openMenuSize} handler={triggerSize}>
               <MenuHandler>
                 <Button
@@ -121,49 +126,57 @@ export default function Card({ basket, index }) {
                 {...triggersSize}
                 className="font-Hacen-Tunisia z-[9999] bg-card1 text-lightContent shadow-sm shadow-black hover:shadow-none"
               >
-                {basket?.photos[
-                  basket?.photos.findIndex((e) => e?.color == basket?.color)
-                ]?.sizes?.map((e, i) => {
-                  return (
-                    <MenuItem
-                      onClick={() =>
-                        dispatch(
-                          updateBasket({
-                            index,
-                            basket: { ...basket, size: e },
-                          })
-                        )
-                      }
-                      key={i}
-                    >
-                      {e}
-                    </MenuItem>
-                  );
-                })}
+                {[
+                  ...basket?.photos
+                    .filter((e) => e.color == basket?.color )
+                    .map((e, i) => {
+                      return e.sizes.map((elm, ind) => {
+                        return (
+                          <MenuItem
+                            onClick={() =>
+                              dispatch(
+                                updateBasket({
+                                  index,
+                                  basket: {
+                                    ...basket,
+                                    size: elm,
+                                    quntity: 0,
+                                    maxQuntity: basket?.photos[i]?.quntity,
+                                  },
+                                })
+                              )
+                            }
+                            key={ind}
+                          >
+                            {elm}
+                          </MenuItem>
+                        );
+                      });
+                    }),
+                ]}
               </MenuList>
             </Menu>
           </div>
           <div className="flex w-full justify-between border-blue-500">
             <Button
-              onClick={() =>{
-                if(basket?.color){
-                  basket?.maxQuntity > basket?.quntity &&
-                  dispatch(
-                    updateBasket({
-                      index,
-                      basket: { ...basket, quntity: basket?.quntity + 1 },
-                    })
-                  )
-                }else{
+              onClick={() => {
+                if (basket?.color) {
+                  basket?.maxQuntity - basket?.quntity > 0 &&
+                    dispatch(
+                      updateBasket({
+                        index,
+                        basket: { ...basket, quntity: basket?.quntity + 1 },
+                      })
+                    );
+                } else {
                   toasty("اختر اللون اولا", {
-                    position:"top-left",
+                    position: "top-left",
                     toastId: "selectColor",
                     autoClose: 5000,
                     type: "warning",
                   });
                 }
-                }
-              }
+              }}
               className="rounded-none px-2 py-0.5"
               variant="filled"
               color="blue-gray"
@@ -186,7 +199,7 @@ export default function Card({ basket, index }) {
                     );
                 } else {
                   toasty("اختر اللون اولا", {
-                    position:"top-left",
+                    position: "top-left",
                     toastId: "selectColor",
                     autoClose: 5000,
                     type: "warning",
