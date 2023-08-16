@@ -48,7 +48,7 @@ export default function Login({ children }) {
                 <p className={"text-primaryColor"}>Friha clothes</p>
               </div>
             </div>
-            <ul className="-ml-2 mt-1 flex flex-col gap-1">
+            <ul className="-ml-2 mt-1 flex flex-col items-center gap-1">
               <MenuItem
                 className="flex items-center justify-center gap-3"
                 onClick={(e) =>
