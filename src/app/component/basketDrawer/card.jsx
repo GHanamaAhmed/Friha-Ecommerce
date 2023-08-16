@@ -10,7 +10,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { remveByIdFromBasket, updateBasket } from "@/app/redux/basketReducer";
 import { toasty } from "../toasty/toast";

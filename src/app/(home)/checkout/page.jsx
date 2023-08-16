@@ -8,7 +8,7 @@ import { customAxios } from "@@/lib/api/axios";
 import { toasty } from "@/app/component/toasty/toast";
 import { Button, Option, Select } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
-import { emptyBasket } from "../../redux/basketReducer";
+import { emptyBasket, multyUpdateBasket } from "../../redux/basketReducer";
 export default function Page({ params }) {
   const { products, order } = useSelector((state) => state.basket);
   const { user, isAuthenticated } = useSelector((state) => state.account);
@@ -155,11 +155,24 @@ export default function Page({ params }) {
     customAxios
       .post("/orders", req)
       .then((res) => {
-        toasty("تم ارسال الطلب بنجاح", {
-          toastId: "postOrder",
-          type: "success",
-          autoClose: false,
-        });
+        if (res.data.error) {
+          toasty(
+            "نعتذر عن الإزعاج، ولكن يبدو أن بعض المنتجات قد تكون أكبر من الكمية المتاحة حالياً. يرجى تعديل الكميات او حذفها لاستكمال الطلب.",
+            {
+              toastId: "postOrder",
+              type: "warning",
+              autoClose: false,
+            }
+          );
+          setIsSend(false);
+          dispatch(multyUpdateBasket(res.data.error));
+        } else {
+          toasty("تم ارسال الطلب بنجاح", {
+            toastId: "postOrder",
+            type: "success",
+            autoClose: false,
+          });
+        }
       })
       .catch((err) => {
         setIsSend(false);
@@ -170,6 +183,20 @@ export default function Page({ params }) {
         console.error(err);
       });
   };
+  const disable = useMemo(() => {
+    const c = products.every(
+      (e) =>
+        e?.color &&
+        e?.size &&
+        e?.color != "الكل" &&
+        e?.size != "الكل" &&
+        e?.quntity > 0
+    );
+    return c ? false : true;
+  }, [products]);
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
   return !isLading ? (
     <div className="flex flex-col items-center gap-3 pt-20">
       <p className="text-xl text-white">Checkout</p>
@@ -195,7 +222,7 @@ export default function Page({ params }) {
             </div>
           </div>
           {products?.map((e, i) => (
-            <Card basket={e} key={i} />
+            <Card basket={e} index={i} key={i} />
           ))}
         </div>
         <div className="flex w-5/6 flex-col items-center gap-3">
@@ -335,7 +362,7 @@ export default function Page({ params }) {
             </label>
           </div>
           <Button
-            disabled={isSend}
+            disabled={isSend || disable || products?.length <= 0}
             className="w-full text-center"
             onClick={postOrder}
           >

@@ -53,7 +53,7 @@ export default function Reels() {
       });
   };
   return isLoading ? (
-    <h1 className="text-white">Loading</h1>
+    <div ></div>
   ) : !isLoading && width <= 1024 ? (
     <MobileReels reels={reels} onEnd={fechMore} />
   ) : (
