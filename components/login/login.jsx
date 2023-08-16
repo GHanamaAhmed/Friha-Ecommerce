@@ -52,7 +52,7 @@ export default function Login({ children }) {
               <MenuItem
                 className="flex items-center justify-center gap-3"
                 onClick={(e) =>
-                  window.open("http://localhost:4000/auth/google", "_self")
+                  window.open("https://api.fri7a.com/auth/google", "_self")
                 }
               >
                 <Button
@@ -72,7 +72,7 @@ export default function Login({ children }) {
               <MenuItem
                 className="flex items-center gap-3"
                 onClick={(e) =>
-                  window.open("http://localhost:4000/auth/facebook", "_self")
+                  window.open("https://api.fri7a.com/auth/facebook", "_self")
                 }
               >
                 <Button
