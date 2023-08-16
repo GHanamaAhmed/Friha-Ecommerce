@@ -70,7 +70,7 @@ export default function Login({ children }) {
                 </Button>
               </MenuItem>
               <MenuItem
-                className="flex items-center gap-3"
+                className="flex items-center justify-center gap-3"
                 onClick={(e) =>
                   window.open("https://api.fri7a.com/auth/facebook", "_self")
                 }
