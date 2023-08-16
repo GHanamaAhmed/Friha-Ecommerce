@@ -19,7 +19,12 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
   }, [products]);
   const disable = useMemo(() => {
     const c = products.every(
-      (e) => e?.color && e?.size && e?.color != "الكل" && e?.size != "الكل"
+      (e) =>
+        e?.color &&
+        e?.size &&
+        e?.color != "الكل" &&
+        e?.size != "الكل" &&
+        e?.quntity > 0
     );
     return c ? false : true;
   }, [products]);

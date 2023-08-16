@@ -8,7 +8,7 @@ import ProductsContext from "./productsContext";
 export default function Product() {
   const { width, isLoading } = useWidth();
   return isLoading ? (
-    <h1>loading</h1>
+    <div></div>
   ) : (
     <ProductsContext>
       <CommentContext>

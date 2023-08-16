@@ -132,7 +132,7 @@ function Color() {
             onClick={(el) => {
               setColor(e);
               setSize("الكل");
-              setOpenMenu(false)
+              setOpenMenu(false);
             }}
             key={i}
           >
@@ -175,7 +175,7 @@ function Size() {
           <MenuItem
             onClick={() => {
               setSize(e);
-              setOpenMenu(false)
+              setOpenMenu(false);
             }}
             key={i}
           >

@@ -8,7 +8,7 @@ export default function Desktopprudact() {
       <div className="col-span-7 h-full overflow-auto">
         <Details onlyProduct={true} />
       </div>
-      <div className="col-span-5 h-full  overflow-auto">
+      <div className="col-span-5 h-full overflow-auto">
         <DesktopComments />
       </div>
     </div>
