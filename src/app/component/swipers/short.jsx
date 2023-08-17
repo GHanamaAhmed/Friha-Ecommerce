@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 export default function Short({ reel }) {
   const [play, setPlay] = useState(false);
   const router=useRouter()
-  useEffect(()=>{console.log(reel);})
   return (
     <div
       onMouseEnter={(e) => {
