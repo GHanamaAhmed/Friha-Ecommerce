@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 export default function Short({ reel }) {
   const [play, setPlay] = useState(false);
   const router=useRouter()
+  useEffect(()=>{console.log(reel);})
   return (
     <div
       onMouseEnter={(e) => {

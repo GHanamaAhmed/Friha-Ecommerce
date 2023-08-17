@@ -6,6 +6,7 @@ import {
   SpeedDialContent,
   SpeedDialAction,
   Typography,
+  Badge,
 } from "@material-tailwind/react";
 import {
   PlusIcon,
@@ -30,21 +31,20 @@ export default function SpeedDialWithTextInside() {
       <div className="sticky bottom-10 right-6 w-fit">
         <SpeedDial>
           <SpeedDialHandler>
-            <IconButton
-              onClick={(element) => {
-                setOpenBasket(true);
-              }}
-              size="lg"
-              className="relative rounded-full p-8"
-            >
-              <p className="absolute right-1/2 top-1/2 -translate-y-1/3 translate-x-1/2 text-white">
-                {products?.length}
-              </p>
-              <LiaShoppingBagSolid
-                className="h-10 w-10 stroke-white text-white"
-                stroke="white"
-              />
-            </IconButton>
+            <Badge content={products?.length} overlap="circular"  withBorder>
+              <IconButton
+                onClick={() => {
+                  setOpenBasket(true);
+                }}
+                size="lg"
+                className="rounded-full p-8"
+              >
+                <LiaShoppingBagSolid
+                  className="h-10 w-10 stroke-white text-white"
+                  stroke="white"
+                />
+              </IconButton>
+            </Badge>
           </SpeedDialHandler>
         </SpeedDial>
       </div>
