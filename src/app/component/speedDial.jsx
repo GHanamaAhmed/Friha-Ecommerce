@@ -31,7 +31,7 @@ export default function SpeedDialWithTextInside() {
       <div className="sticky bottom-10 right-6 w-fit">
         <SpeedDial>
           <SpeedDialHandler>
-            <Badge content={products?.length} overlap="circular"  withBorder>
+            <Badge content={products?.length} overlap="circular" color="green"  withBorder>
               <IconButton
                 onClick={() => {
                   setOpenBasket(true);
