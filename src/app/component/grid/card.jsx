@@ -42,7 +42,7 @@ export default function Card({
         id,
         name,
         price: promotion && isShowPromotion ? promotion : price,
-        quntity: 0,
+        quntity: 1,
         thumbanil,
         photos,
       })

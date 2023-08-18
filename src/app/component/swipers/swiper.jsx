@@ -42,10 +42,9 @@ export default function Swipers() {
   };
   return !isLoading ? (
     <Swiper
-      modules={[A11y, Navigation, Pagination]}
+      modules={[A11y, Pagination]}
       spaceBetween={50}
       slidesPerView={1.5}
-      scrollbar={{ draggable: true }}
       freeMode={true}
       onSlideChange={(e) => {
         e.isEnd && more();

@@ -57,3 +57,15 @@ a {
     background-color: #363636;
   }
 }
+
+.mySlider1 {
+  direction: ltr;
+  margin: 0 !important;
+}
+.mySlider2 {
+  margin: 0 !important;
+}
+p{
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

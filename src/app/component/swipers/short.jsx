@@ -4,9 +4,17 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 export default function Short({ reel }) {
   const [play, setPlay] = useState(false);
-  const router=useRouter()
+  const router = useRouter();
   return (
     <div
+      onTouchStart={(e) => {
+        e.preventDefault();
+        setPlay(true);
+      }}
+      onTouchCancel={(e) => {
+        e.preventDefault();
+        setPlay(false);
+      }}
       onMouseEnter={(e) => {
         e.preventDefault();
         setPlay(true);
@@ -15,9 +23,11 @@ export default function Short({ reel }) {
         e.preventDefault();
         setPlay(false);
       }}
-      onClick={(e)=>{router.push(`reels/${reel?._id}`)}}
+      onClick={(e) => {
+        router.push(`reels/${reel?._id}`);
+      }}
     >
-      <div className="relative overflow-hidden m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-start rounded-lg md:h-80 md:w-60">
+      <div className="relative m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-start overflow-hidden rounded-lg md:h-80 md:w-60">
         {!play && (
           <Image
             priority

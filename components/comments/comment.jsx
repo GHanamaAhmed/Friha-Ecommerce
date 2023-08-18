@@ -148,7 +148,7 @@ export default function Comment({
             <p className="text-xs text-lightSolid md:text-sm">{createAt}</p>
             {replyTo ? (
               <div className="flex items-center gap-1">
-                <p className=" overflow-hidden text-ellipsis text-xs md:text-sm">
+                <p className=" overflow-hidden text-ellipsis  text-white text-xs md:text-sm">
                   {nameUser}
                 </p>
                 <p className=" text-xs text-lightSolid md:text-sm">الى</p>
@@ -172,7 +172,7 @@ export default function Comment({
             {isShow ? textUser : textUser.substring(0, Math.floor(width / 3))}
           </p>
           {textUser && textUser.length > Math.floor(width / 3) && (
-            <button onClick={toggleShow}>
+            <button className="text-white" onClick={toggleShow}>
               {!isShow ? "عرض المذيد" : "عرض اقل"}
             </button>
           )}

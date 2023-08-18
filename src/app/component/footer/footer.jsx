@@ -15,13 +15,11 @@ export default function Footer() {
         <div className="flex flex-col gap-2 md:flex-row-reverse md:gap-7">
           <div className="flex flex-col gap-2 md:flex-row">
             {infoAdmin?.email && (
-              <a
-                href={infoAdmin?.email}
-                target="__balnk"
+              <p
                 className="text-lightContent"
               >
                 {infoAdmin?.email}
-              </a>
+              </p>
             )}
             {infoAdmin?.phone && (
               <p className="text-lightContent">{infoAdmin?.phone}</p>

@@ -40,15 +40,17 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
         placement="right"
         size={400}
       >
-        <List className="flex flex-col justify-between">
-          <div>
-            <button onClick={() => onClose()}>
-              <div className="mt-5 flex items-center justify-end gap-2">
+        <List className="flex w-full flex-col justify-between">
+          <div className="w-full">
+            <div className="mt-5 flex w-full items-center justify-between gap-2 pl-4">
+              <div className="flex gap-2">
                 <p className="text-red-500">({products?.length} عناصر)</p>
                 <p className="text-white"> المنتجات المحفوظة</p>{" "}
-                <AiOutlineLeft color="white" />
               </div>
-            </button>
+              <button className="p-2" onClick={() => onClose()}>
+                <AiOutlineLeft color="white" />
+              </button>
+            </div>
             {products?.map((e, i) => (
               <Card basket={e} index={i} key={i} />
             ))}

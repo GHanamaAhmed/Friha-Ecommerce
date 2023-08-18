@@ -77,10 +77,10 @@ export default function Navbar() {
           </button>
           <div className="md:hidden">{isAuthenticated && <MenuAccount />}</div>
         </div>
-        <div className="flex items-center gap-2">
+        <Link href={"https://fri7a.com"} className="flex items-center gap-2">
           <h1 className="font-sans font-semibold text-white">FRI7A</h1>
           <Image src="/res/Friha.png" width={50} height={50} alt="" />
-        </div>
+        </Link>
       </header>
       <DrawerComponent isOpen={openMenu} onClose={closeMenu} />
     </>

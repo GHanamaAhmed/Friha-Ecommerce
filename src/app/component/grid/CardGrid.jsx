@@ -40,7 +40,7 @@ export default function CardGrid() {
   useEffect(() => {
     fetch();
     fetchCount();
-  }, []);
+  }, [type]);
   const more = (e) => {
     e.preventDefault();
     const fetch = async () => {

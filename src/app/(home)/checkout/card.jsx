@@ -32,7 +32,13 @@ export default function Card({ basket, index }) {
           />
           <div className="flex flex-col items-start justify-between">
             <p className="text-white ">{basket?.name}</p>
-            <p className="text-sm text-lightContent">اللون: {basket?.color}</p>
+            <div className="flex gap-2">
+              <p className="text-sm text-lightContent">اللون: </p>
+              <div
+                className={`h-5 w-5 rounded-full border`}
+                style={{ backgroundColor: basket?.color }}
+              ></div>
+            </div>
             <p className="text-sm text-lightContent">الحجم: {basket?.size}</p>
             <p className="text-sm text-lightContent">
               الكمية: {basket?.quntity}

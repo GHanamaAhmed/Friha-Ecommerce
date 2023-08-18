@@ -7,11 +7,13 @@ import { fetchReel } from "@@/lib/api/reels";
 export const productsContext = createContext();
 export default function ProductsContext({ children }) {
   const [product, setProduct] = useState(null);
+  const [details, setDetails] = useState(null);
   const [isLoading, setIsLoadin] = useState(true);
   const [sizes, setSizes] = useState(["الكل"]);
   const [colors, setColors] = useState(["الكل"]);
   const [size, setSize] = useState("الكل");
   const [color, setColor] = useState("الكل");
+  const [quntity, setQuntity] = useState(1);
   const params = useParams();
   const router = useRouter();
   useEffect(() => {
@@ -21,7 +23,6 @@ export default function ProductsContext({ children }) {
           router.replace("/");
         } else {
           setIsLoadin(false);
-          console.log(res.data[0]);
           setProduct(res.data[0]);
         }
       })
@@ -31,7 +32,6 @@ export default function ProductsContext({ children }) {
         fetchProductReel(window.history.state || params?.reel)
           .then((res) => {
             setIsLoadin(false);
-            console.log(window.history.state, params?.reel);
             setProduct(res.data[0]);
           })
           .catch((err) => console.error(err));
@@ -66,6 +66,8 @@ export default function ProductsContext({ children }) {
         setSize,
         size,
         color,
+        quntity,
+        setQuntity,
       }}
     >
       {children}

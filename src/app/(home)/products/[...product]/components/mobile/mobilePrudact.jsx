@@ -33,8 +33,8 @@ export default function MobilePrudact() {
                   fill
                   className="h-full w-full object-cover"
                   src={
-                    product?.photos[currentPicture?.i||0]?.photos[
-                      currentPicture?.ind||0
+                    product?.photos[currentPicture?.i || 0]?.photos[
+                      currentPicture?.ind || 0
                     ] || product?.thumbanil
                   }
                   alt=""
@@ -109,8 +109,8 @@ export default function MobilePrudact() {
         </div>
         <Pictures onClick={changeCurrentPicture} />
         {!isLoading ? (
-          <div className="grid w-full grid-flow-col justify-stretch gap-2 px-4">
-            <Menus />
+          <div className="grid w-fit grid-rows-4 gap-3 px-5">
+            <Menus product={product}/>
           </div>
         ) : (
           <div className="flex w-full animate-pulse justify-between px-4">

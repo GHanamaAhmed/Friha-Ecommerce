@@ -19,7 +19,6 @@ export default function Pictures({ onClick, pictures, idPrudacts }) {
         product?.photos?.length > 0 && (
           <Swiper
             slidesPerView={3}
-            scrollbar={{ draggable: true }}
             className="MySwiper"
             freeMode={true}
             spaceBetween={50}

@@ -198,7 +198,7 @@ export default function Page({ params }) {
     console.log(products);
   }, [products]);
   return !isLading ? (
-    <div className="flex flex-col items-center gap-3 pt-20">
+    <div className="flex flex-col items-center gap-3 pb-10 pt-20">
       <p className="text-xl text-white">Checkout</p>
       <div className="grid w-full grid-cols-1 justify-items-center gap-3 md:grid-cols-2">
         <div className="row-start-2 flex w-5/6 flex-col justify-self-center md:row-start-auto">
