@@ -28,25 +28,32 @@ export default function SpeedDialWithTextInside() {
   };
   return (
     <>
-      <div className="sticky bottom-10 right-6 w-fit">
-        <SpeedDial>
-          <SpeedDialHandler>
-            <Badge content={products?.length} overlap="circular" color="green"  withBorder>
-              <IconButton
-                onClick={() => {
-                  setOpenBasket(true);
-                }}
-                size="lg"
-                className="rounded-full p-8"
+      <div className="sticky bottom-20 right-6 w-fit">
+        {products?.length > 0 && (
+          <SpeedDial>
+            <SpeedDialHandler>
+              <Badge
+                content={products?.length}
+                overlap="circular"
+                color="green"
+                withBorder
               >
-                <LiaShoppingBagSolid
-                  className="h-10 w-10 stroke-white text-white"
-                  stroke="white"
-                />
-              </IconButton>
-            </Badge>
-          </SpeedDialHandler>
-        </SpeedDial>
+                <IconButton
+                  onClick={() => {
+                    setOpenBasket(true);
+                  }}
+                  size="lg"
+                  className="rounded-full p-8"
+                >
+                  <LiaShoppingBagSolid
+                    className="h-10 w-10 stroke-white text-white"
+                    stroke="white"
+                  />
+                </IconButton>
+              </Badge>
+            </SpeedDialHandler>
+          </SpeedDial>
+        )}
       </div>
       {
         <BasketDrawer

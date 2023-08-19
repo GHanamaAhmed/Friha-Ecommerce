@@ -29,7 +29,7 @@ export default function Menus({ product }) {
   return (
     <>
       {colors?.length > 0 && <Color />}
-      {sizes?.length > 1 && <Size />}
+      {sizes?.length > 0 && <Size />}
       <div className="flex h-fit w-fit justify-between gap-2 border-blue-500">
         <Button
           onClick={() => {
@@ -161,72 +161,75 @@ function Color() {
   };
 
   return (
-    <Swiper
-      className="mySlider2 h-full w-full"
-      modules={[A11y, FreeMode]}
-      spaceBetween={20}
-      slidesPerView={5.5}
-      breakpoints={{
-        767: {
-          slidesPerView: 7.5,
-          spaceBetween: 10,
-        },
-        1024: {
-          slidesPerView: 8.5,
-          spaceBetween: 10,
-        },
-      }}
-      freeMode={true}
-    >
-      {colors.map((e, i) => (
-        <SwiperSlide
-          className="py-2"
-          onClick={(el) => {
-            setColor(e);
-            setSize("الكل");
-            setOpenMenu(false);
-          }}
-          key={i}
-        >
-          {e != "الكل" && (
-            <div
-              className={`h-5 w-5 rounded-full border ${
-                color == e ? "shadow-blue-900/20 ring-4" : ""
-              }`}
-              style={{ backgroundColor: e }}
-            ></div>
-          )}
-          {e == "الكل" && (
-            <Chip
-              variant={color != e ? `outlined` : "filled"}
-              color={
-                !product?.photos?.[
-                  product?.photos?.findIndex((el, ind) => el?.color == color)
-                ]?.quntity && e != "الكل"
-                  ? "blue-gray"
-                  : ""
-              }
-              className="h-fit w-fit"
-              value={
-                <p
-                  className={
-                    !product?.photos?.[
-                      product?.photos?.findIndex(
-                        (el, ind) => el?.color == color
-                      )
-                    ]?.quntity && e != "الكل"
-                      ? `line-through`
-                      : ""
-                  }
-                >
-                  {e}
-                </p>
-              }
-            />
-          )}
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="grid">
+      {" "}
+      <Swiper
+        className="mySlider2 h-full"
+        modules={[A11y, FreeMode]}
+        spaceBetween={10}
+        slidesPerView={5.5}
+        freeMode={true}
+        breakpoints={{
+          767: {
+            slidesPerView: 7.5,
+            spaceBetween: 50,
+          },
+          1024: {
+            slidesPerView: 8.5,
+            spaceBetween: 50,
+          },
+        }}
+      >
+        {colors.map((e, i) => (
+          <SwiperSlide
+            className="w-full py-2"
+            onClick={(el) => {
+              setColor(e);
+              setSize("الكل");
+              setOpenMenu(false);
+            }}
+            key={i}
+          >
+            {e != "الكل" && (
+              <div
+                className={`h-5 w-5 rounded-full border ${
+                  color == e ? "shadow-blue-900/20 ring-4" : ""
+                }`}
+                style={{ backgroundColor: e }}
+              ></div>
+            )}
+            {e == "الكل" && (
+              <Chip
+                variant={color != e ? `outlined` : "filled"}
+                color={
+                  !product?.photos?.[
+                    product?.photos?.findIndex((el, ind) => el?.color == color)
+                  ]?.quntity && e != "الكل"
+                    ? "blue-gray"
+                    : ""
+                }
+                className="h-fit w-fit"
+                value={
+                  <p
+                    className={
+                      !product?.photos?.[
+                        product?.photos?.findIndex(
+                          (el, ind) => el?.color == color
+                        )
+                      ]?.quntity && e != "الكل"
+                        ? `line-through`
+                        : ""
+                    }
+                  >
+                    {e}
+                  </p>
+                }
+              />
+            )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 }
 function Size() {

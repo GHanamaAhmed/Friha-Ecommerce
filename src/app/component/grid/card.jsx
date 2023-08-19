@@ -76,7 +76,7 @@ export default function Card({
   return (
     <div
       onClick={redirect}
-      className="relative flex h-56 w-36 cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60"
+      className="relative flex h-56 w-full md:max-w-none max-w-[144px] cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60"
     >
       <div className="relative h-full max-h-[75%]">
         <div className="aspect-w-3 aspect-h-4 relative flex h-full w-full items-center justify-center">

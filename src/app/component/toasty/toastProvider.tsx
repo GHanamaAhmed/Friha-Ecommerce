@@ -10,7 +10,7 @@ export default function ToastProvider({ children }: ToastProviderProps) {
   return (
     <>
       {children}
-      <ToastContainer style={{zIndex:99999999999}}/>
+      <ToastContainer style={{zIndex:99999999999}} position="top-left"/>
     </>
   );
 }

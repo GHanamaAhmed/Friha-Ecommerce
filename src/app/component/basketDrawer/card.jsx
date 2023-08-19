@@ -69,7 +69,7 @@ export default function Card({ basket, index }) {
               <Swiper
                 className="mySlider1 max-w-[170px]"
                 modules={[A11y, FreeMode]}
-                spaceBetween={20}
+                spaceBetween={5}
                 slidesPerView={4.5}
                 freeMode={true}
               >
@@ -112,7 +112,7 @@ export default function Card({ basket, index }) {
             <Swiper
               className="mySlider1 w-full max-w-[170px] p-0"
               modules={[A11y, FreeMode]}
-              spaceBetween={30}
+              spaceBetween={5}
               slidesPerView={2.5}
               freeMode={true}
             >
@@ -147,7 +147,7 @@ export default function Card({ basket, index }) {
                             color={
                               !basket?.photos[i]?.quntity ? "blue-gray" : ""
                             }
-                            className="m-0 h-fit w-fit"
+                            className="chip h-fit w-fit"
                             value={
                               <p
                                 className={

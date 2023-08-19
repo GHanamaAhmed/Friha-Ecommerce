@@ -12,7 +12,7 @@ export default function CardGridLoading() {
 }
 function Card() {
   return (
-    <div className="h-56 w-36 overflow-hidden rounded-lg bg-card1 p-0 md:h-80 md:w-60">
+    <div className="h-56 w-full max-w-[144px] animate-pulse overflow-hidden rounded-lg bg-card1 p-0 md:h-80 md:w-60 md:max-w-none">
       <div className="h-full w-full rounded-lg bg-gray-700 dark:bg-gray-600" />
     </div>
   );

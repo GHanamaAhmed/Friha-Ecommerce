@@ -4,7 +4,7 @@ import Details from "@/app/(home)/products/[...product]/components/desktop/detai
 
 export default function Desktopprudact() {
   return (
-    <div className="grid grid-cols-12 pt-14 pb-24 h-full overflow-auto">
+    <div className="grid grid-cols-12 h-full pt-14 pb-24 overflow-auto">
       <div className="col-span-7 h-full overflow-auto">
         <Details onlyProduct={true} />
       </div>

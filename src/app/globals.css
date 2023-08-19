@@ -69,3 +69,6 @@ p{
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
+.chip{
+  margin: 0 !important;
+}

@@ -23,8 +23,10 @@ export default function MobilePrudact() {
     setCurrentPicture({ i, ind });
   };
   return (
-    <div className="relative overflow-hidden">
-      <div className="mb-10 flex h-screen  flex-col items-center justify-center overflow-y-auto pt-20">
+    <div
+      className={`relative overflow-hidden  pt-20`}
+    >
+      <div className="mb-10 flex h-screen  flex-col items-center overflow-y-auto">
         <div className="relative flex w-full flex-col gap-3">
           <div className="min-[550px]:h-[400px] relative h-80 w-full">
             {!isLoading ? (
@@ -64,16 +66,16 @@ export default function MobilePrudact() {
                       <div className="row-span-2 flex flex-col items-start justify-center">
                         {product?.showPrice && !product?.showPromotion && (
                           <p className="text-lg text-scandaryColor">
-                            {product?.price}
+                            {product?.price} دج
                           </p>
                         )}
                         {product?.showPrice && product?.showPromotion && (
                           <div className="">
                             <p className="text-lg text-scandaryColor">
-                              {product?.price}
+                              {product?.price}دج
                             </p>
                             <p className="text-base text-white line-through">
-                              {product?.promotion}
+                              {product?.promotion}دج
                             </p>
                           </div>
                         )}
@@ -110,7 +112,7 @@ export default function MobilePrudact() {
         <Pictures onClick={changeCurrentPicture} />
         {!isLoading ? (
           <div className="grid w-fit grid-rows-4 gap-3 px-5">
-            <Menus product={product}/>
+            <Menus product={product} />
           </div>
         ) : (
           <div className="flex w-full animate-pulse justify-between px-4">

@@ -31,11 +31,11 @@ export default function Details({ onlyProduct }) {
                     <Menus product={product}/>
                   </div>
                   {product?.description && (
-                    <div className="px-5">
+                    <div className="px-5 w-full">
                       <p className="font-Hacen-Tunisia text-xl text-scandaryColor">
                         الوصف
                       </p>
-                      <p className="text-justify text-white">
+                      <p className="text-justify w-full text-white">
                         {product?.description}
                       </p>
                     </div>
