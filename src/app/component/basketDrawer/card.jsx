@@ -67,7 +67,7 @@ export default function Card({ basket, index }) {
           <div className="z-[99999] flex w-full flex-col items-end gap-2">
             <div className="relative">
               <Swiper
-                className="mySlider1 max-w-[170px]"
+                className="mySlider1 w-full max-w-[170px]"
                 modules={[A11y, FreeMode]}
                 spaceBetween={5}
                 slidesPerView={4.5}

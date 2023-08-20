@@ -164,7 +164,7 @@ function Color() {
     <div className="grid">
       {" "}
       <Swiper
-        className="mySlider2 h-full"
+        className="mySlider2 w-full h-full"
         modules={[A11y, FreeMode]}
         spaceBetween={10}
         slidesPerView={5.5}
@@ -241,7 +241,7 @@ function Size() {
   };
   return (
     <Swiper
-      className="mySlider2 h-full max-w-xs"
+      className="mySlider2 w-full h-full max-w-xs"
       modules={[A11y, FreeMode]}
       spaceBetween={50}
       slidesPerView={7.5}
