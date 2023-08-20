@@ -61,54 +61,52 @@ export default function Card({ basket, index }) {
           />
         </button>
       </div>
-      <div className="flex gap-5">
-        <div className="flex flex-col items-end justify-between">
+      <div className="flex w-full gap-5">
+        <div className="flex w-full flex-col items-end justify-between">
           <p className="text-white">{basket?.name}</p>
           <div className="z-[99999] flex w-full flex-col items-end gap-2">
-            <div className="relative">
-              <Swiper
-                className="mySlider1 w-full max-w-[170px]"
-                modules={[A11y, FreeMode]}
-                spaceBetween={5}
-                slidesPerView={4.5}
-                freeMode={true}
-              >
-                {basket?.photos
-                  ?.filter(
-                    (e, i) =>
-                      i ==
-                      basket?.photos?.findIndex((o) => e?.color === o?.color)
-                  )
-                  .map((e, i) => (
-                    <SwiperSlide
-                      className="m-0 cursor-pointer p-2"
-                      onClick={() =>
-                        dispatch(
-                          updateBasket({
-                            index,
-                            basket: {
-                              ...basket,
-                              color: e?.color,
-                              size: undefined,
-                              quntity: 1,
-                            },
-                          })
-                        )
-                      }
-                      key={i}
-                    >
-                      <div
-                        className={`h-5 w-5 rounded-full border ${
-                          basket?.color == e.color
-                            ? "shadow-blue-900/20 ring-4"
-                            : ""
-                        }`}
-                        style={{ backgroundColor: e.color }}
-                      ></div>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
-            </div>
+            <Swiper
+              className="mySlider1 w-full max-w-[170px]"
+              modules={[A11y, FreeMode]}
+              spaceBetween={5}
+              slidesPerView={4.5}
+              freeMode={true}
+            >
+              {basket?.photos
+                ?.filter(
+                  (e, i) =>
+                    i == basket?.photos?.findIndex((o) => e?.color === o?.color)
+                )
+                .map((e, i) => (
+                  <SwiperSlide
+                    className="m-0 cursor-pointer p-2"
+                    onClick={() =>
+                      dispatch(
+                        updateBasket({
+                          index,
+                          basket: {
+                            ...basket,
+                            color: e?.color,
+                            size: undefined,
+                            quntity: 1,
+                          },
+                        })
+                      )
+                    }
+                    key={i}
+                  >
+                    <div
+                      className={`h-5 w-5 rounded-full border ${
+                        basket?.color == e.color
+                          ? "shadow-blue-900/20 ring-4"
+                          : ""
+                      }`}
+                      style={{ backgroundColor: e.color }}
+                    ></div>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+
             <Swiper
               className="mySlider1 w-full max-w-[170px] p-0"
               modules={[A11y, FreeMode]}
