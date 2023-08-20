@@ -111,7 +111,7 @@ export default function MobilePrudact() {
         </div>
         <Pictures onClick={changeCurrentPicture} />
         {!isLoading ? (
-          <div className="grid w-fit grid-rows-4 gap-3 px-5">
+          <div className="grid w-full grid-rows-4 gap-3 px-5">
             <Menus product={product} />
           </div>
         ) : (
