@@ -58,16 +58,6 @@ export default function MenuAccount() {
             الملف الشخصي
           </Typography>
         </MenuItem>
-
-        <MenuItem className="flex items-center gap-2 hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-800">
-          <LifebuoyIcon strokeWidth={2} className="h-4 w-4 stroke-lightSolid" />
-          <Typography
-            variant="small"
-            className="font-Hacen-Tunisia text-lightSolid"
-          >
-            مساعدة
-          </Typography>
-        </MenuItem>
         <hr className="my-2 border-lightSolid" />
         <MenuItem
           onClick={() => {
