@@ -8,19 +8,18 @@ export default function Short({ reel }) {
   return (
     <div
       onTouchStart={(e) => {
-        e.preventDefault();
         setPlay(true);
       }}
       onTouchCancel={(e) => {
-        e.preventDefault();
+        setPlay(false);
+      }}
+      onTouchEnd={(e) => {
         setPlay(false);
       }}
       onMouseEnter={(e) => {
-        e.preventDefault();
         setPlay(true);
       }}
       onMouseLeave={(e) => {
-        e.preventDefault();
         setPlay(false);
       }}
       onClick={(e) => {
