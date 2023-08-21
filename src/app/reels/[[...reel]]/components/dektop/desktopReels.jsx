@@ -23,6 +23,7 @@ import Details from "@/app/(home)/products/[...product]/components/desktop/detai
 import { productsContext } from "@/app/(home)/products/[...product]/components/productsContext";
 import { fetchCountComments } from "@@/lib/api/comment";
 export default function DesktopReels({ reels, onEnd }) {
+  const { isLoading, product } = useContext(productsContext);
   const [index, setIndex] = useState(0);
   const [like, setLike] = useState(Number(reels[index]?.isLike));
   const [nLike, setNLike] = useState(Number(reels[index]?.likes));
@@ -31,16 +32,22 @@ export default function DesktopReels({ reels, onEnd }) {
   const { isAuthenticated } = useSelector((store) => store.account);
   const [first, setFirst] = useState(true);
   const [first2, setFirst2] = useState(true);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
   const params = useParams();
   const pathName = usePathname();
   useEffect(() => {
-    if (first && reels[0]?._id) {
+    if (first && reels?.[0]?._id) {
       setFirst(false);
       window.history.replaceState(reels[0]?._id, "", "/reels/" + reels[0]?._id);
       setNLike(Number(reels[0]?.likes));
       setLike(reels[0]?.isLike);
+      setName(reels[0]?.name);
     }
   }, [reels]);
+  useEffect(() => {
+    setPrice(product?.price || "");
+  }, [product]);
   const hanldeClickLike = (e) => {
     e.preventDefault();
     const req = { type: "reel", postId: reels[index]._id };
@@ -77,6 +84,8 @@ export default function DesktopReels({ reels, onEnd }) {
       "",
       "/reels/" + reels[e.activeIndex]?._id
     );
+    setName(reels[e.activeIndex]?.name);
+    setName(reels[e.activeIndex]?.price);
     setNLike(Number(reels[e.activeIndex]?.likes));
     setLike(reels[e.activeIndex]?.isLike);
     setIndex(e.activeIndex);
@@ -115,7 +124,7 @@ export default function DesktopReels({ reels, onEnd }) {
         <div className="flex flex-col items-center gap-2">
           {" "}
           <div className={`w-11/12`}>
-            <TitleSection title={"حذاء"} subtitle={"200DA"} />
+            <TitleSection title={name} subtitle={price} />
           </div>
           <div className="flex w-full flex-row items-center justify-center py-3">
             <div className="flex w-11/12 flex-row-reverse justify-evenly rounded-md bg-card1 px-10">
