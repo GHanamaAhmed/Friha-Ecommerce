@@ -69,7 +69,7 @@ export default function Login({ children }) {
                   Continue with Google
                 </Button>
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 className="flex items-center justify-center gap-3"
                 onClick={(e) =>
                   window.open("https://api.fri7a.com/auth/facebook", "_self")
@@ -84,7 +84,7 @@ export default function Login({ children }) {
                   <GrFacebookOption size={25} />
                   Continue with facebook
                 </Button>
-              </MenuItem>
+              </MenuItem> */}
             </ul>
           </div>
         </DialogBody>
