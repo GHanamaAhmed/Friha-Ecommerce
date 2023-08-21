@@ -85,7 +85,6 @@ export default function DesktopReels({ reels, onEnd }) {
       "/reels/" + reels[e.activeIndex]?._id
     );
     setName(reels[e.activeIndex]?.name);
-    setName(reels[e.activeIndex]?.price);
     setNLike(Number(reels[e.activeIndex]?.likes));
     setLike(reels[e.activeIndex]?.isLike);
     setIndex(e.activeIndex);
