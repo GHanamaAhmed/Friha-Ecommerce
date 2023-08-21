@@ -7,13 +7,13 @@ export default function Short({ reel }) {
   const router = useRouter();
   return (
     <div
-      onTouchStart={(e) => {
+      onPointerEnter={(e) => {
         setPlay(true);
       }}
-      onTouchCancel={(e) => {
+      onPointerOut={()=>{
         setPlay(false);
       }}
-      onTouchEnd={(e) => {
+      onPointerUp={()=>{
         setPlay(false);
       }}
       onMouseEnter={(e) => {

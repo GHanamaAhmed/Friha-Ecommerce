@@ -75,6 +75,16 @@ export default function Navbar() {
           <button className="md:hidden" onClick={toggleMenu}>
             <AiOutlineMenu size={25} className="md:hiden" color="white" />
           </button>
+          {!isAuthenticated && (
+            <div className="md:hidden">
+              <Login>
+                {" "}
+                <button className="border border-white px-4 py-2 text-white transition-all duration-200 hover:bg-white hover:text-primaryColor">
+                  تسجيل الدخول{" "}
+                </button>
+              </Login>
+            </div>
+          )}
           <div className="md:hidden">{isAuthenticated && <MenuAccount />}</div>
         </div>
         <Link href={"https://fri7a.com"} className="flex items-center gap-2">
