@@ -24,7 +24,7 @@ export default function CardGrid() {
         )
         .then((res) => {
           setIsLoading(false);
-          setProduct((prev) => [...prev, ...res.data.products]);
+          setProduct((prev) => [...res.data.products]);
           setMin(res.data.products?.length);
           setTypes(res.data?.types);
           setCount(res.data?.count);
@@ -65,7 +65,7 @@ export default function CardGrid() {
       <>
         <Search
           onClick={() => {
-            fetch();
+            fetch(true);
           }}
           types={types}
           type={type}
