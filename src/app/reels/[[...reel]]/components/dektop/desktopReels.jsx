@@ -123,7 +123,7 @@ export default function DesktopReels({ reels, onEnd }) {
         <div className="flex flex-col items-center gap-2">
           {" "}
           <div className={`w-11/12`}>
-            <TitleSection title={name} subtitle={price} />
+            <TitleSection title={name} subtitle={price ? price + " دج" : ""} />
           </div>
           <div className="flex w-full flex-row items-center justify-center py-3">
             <div className="flex w-11/12 flex-row-reverse justify-evenly rounded-md bg-card1 px-10">

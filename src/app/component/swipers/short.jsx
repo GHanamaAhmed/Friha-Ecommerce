@@ -1,23 +1,26 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";;
 export default function Short({ reel }) {
   const [play, setPlay] = useState(false);
   const router = useRouter();
+  const timeout = () => {
+    setTimeout(() => {
+      setPlay(false);
+    }, 3000);
+  };
   return (
     <div
-      onPointerEnter={(e) => {
+      onTouchStart={(e) => {
+        if (play) return;
         setPlay(true);
-      }}
-      onPointerOut={()=>{
-        setPlay(false);
-      }}
-      onPointerUp={()=>{
-        setPlay(false);
+        timeout();
       }}
       onMouseEnter={(e) => {
+        if (play) return;
         setPlay(true);
+        timeout();
       }}
       onMouseLeave={(e) => {
         setPlay(false);

@@ -84,7 +84,7 @@ export default function Video({
       navigator
         .share({
           title: "FrihaClothes",
-          url: "http://localhost:3000/reels/" + window.history.state,
+          url: "https://fri7a.com/reels/" + window.history.state,
         })
         .then(() => {
           console.log("Thanks for sharing!");
