@@ -48,7 +48,7 @@ export default function Search({
                 {type}{" "}
               </Button>
             </MenuHandler>
-            <MenuList className="font-Hacen-Tunisia bg-card1 text-lightSolid max-h-72">
+            <MenuList className="font-Hacen-Tunisia bg-card1 text-lightSolid max-h-72 overflow-auto">
               {["الكل", ...types]?.map((e, i) => (
                 <MenuItem
                   onClick={() => {
