@@ -15,11 +15,7 @@ export default function Footer() {
         <div className="flex flex-col gap-2 md:flex-row-reverse md:gap-7">
           <div className="flex flex-col gap-2 md:flex-row">
             {infoAdmin?.email && (
-              <p
-                className="text-lightContent"
-              >
-                {infoAdmin?.email}
-              </p>
+              <p className="text-lightContent">{infoAdmin?.email}</p>
             )}
             {infoAdmin?.phone && (
               <p className="text-lightContent">{infoAdmin?.phone}</p>
@@ -47,15 +43,7 @@ export default function Footer() {
           <h2 className="font-semibold text-lightContent">
             Designed and built by{" "}
             <p className="inline bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text font-extrabold text-transparent">
-              Pavan MG
-            </p>{" "}
-            with{" "}
-            <p className="inline bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text font-extrabold text-transparent">
-              Love
-            </p>{" "}
-            &{" "}
-            <p className="inline bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text font-extrabold text-transparent">
-              Coffee
+              Crow
             </p>
           </h2>
         </div>

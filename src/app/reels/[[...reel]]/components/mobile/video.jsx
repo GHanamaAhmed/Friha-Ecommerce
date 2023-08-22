@@ -66,14 +66,11 @@ export default function Video({
     e.preventDefault();
     const req = { type: "reel", postId: id };
     if (state.isClickLike) {
-      unLikePost(req)
-        .then((res) => dispatch({ type: "toggleClickLike" }))
-        .catch((err) => console.error(err));
+      unLikePost(req).catch((err) => console.error(err));
     } else {
-      likePost(req)
-        .then((res) => dispatch({ type: "toggleClickLike" }))
-        .catch((err) => console.error(err));
+      likePost(req).catch((err) => console.error(err));
     }
+    dispatch({ type: "toggleClickLike" });
   };
   const closeComments = (value) => {
     !value ? swiper.current.enable() : swiper.current.disable();
