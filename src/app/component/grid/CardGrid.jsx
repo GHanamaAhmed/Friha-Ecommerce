@@ -14,27 +14,47 @@ export default function CardGrid() {
   const [types, setTypes] = useState([]);
   const [type, setType] = useState("الكل");
   const [input, setInput] = useState("");
-  const fetch = async () => {
-    await customAxios
-      .get(
-        `/products?min=${min}&max=${min + 8}${
-          input.length > 0 ? `&name=${input}` : ""
-        }${type != "الكل" ? `&type=${type}` : ""}`
-      )
-      .then((res) => {
-        setIsLoading(false);
-        setProduct((prev) => [...prev, ...res.data.products]);
-        setMin(res.data.products?.length + min);
-        setTypes(res.data?.types);
-        setCount(res.data?.count);
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsLoading(false);
-      });
+  const fetch = async (e) => {
+    if (e) {
+      await customAxios
+        .get(
+          `/products?min=${0}&max=${8}${
+            input.length > 0 ? `&name=${input}` : ""
+          }${type != "الكل" ? `&type=${type}` : ""}`
+        )
+        .then((res) => {
+          setIsLoading(false);
+          setProduct((prev) => [...prev, ...res.data.products]);
+          setMin(res.data.products?.length);
+          setTypes(res.data?.types);
+          setCount(res.data?.count);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
+    } else {
+      await customAxios
+        .get(
+          `/products?min=${min}&max=${min + 8}${
+            input.length > 0 ? `&name=${input}` : ""
+          }${type != "الكل" ? `&type=${type}` : ""}`
+        )
+        .then((res) => {
+          setIsLoading(false);
+          setProduct((prev) => [...prev, ...res.data.products]);
+          setMin(res.data.products?.length + min);
+          setTypes(res.data?.types);
+          setCount(res.data?.count);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
+    }
   };
   useEffect(() => {
-    fetch();
+    fetch(true);
   }, [type]);
   const more = (e) => {
     e.preventDefault();
