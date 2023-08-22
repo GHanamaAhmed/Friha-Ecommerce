@@ -17,9 +17,9 @@ export default function CardGrid() {
   const fetch = async () => {
     await customAxios
       .get(
-        `/products?${input.length > 0 ? `&name=${input}` : ""}${
-          type != "الكل" ? `&type=${type}` : ""
-        }`
+        `/products?min=${min}&max=${min + 8}${
+          input.length > 0 ? `&name=${input}` : ""
+        }${type != "الكل" ? `&type=${type}` : ""}`
       )
       .then((res) => {
         setIsLoading(false);
@@ -43,10 +43,10 @@ export default function CardGrid() {
   }, [type]);
   const more = (e) => {
     e.preventDefault();
-    const fetch = async () => {
+    const fetch2 = async () => {
       await customAxios
         .get(
-          `/products?min=${min}&max=${min + 15}${
+          `/products?min=${min}&max=${min + 8}${
             input.length > 0 ? `&name=${input}` : ""
           }${type != "الكل" ? `&type=${type}` : ""}`
         )
@@ -55,7 +55,7 @@ export default function CardGrid() {
           setMin(res.data.products?.length + min);
         });
     };
-    fetch();
+    fetch2();
   };
   const content = () => {
     return (
