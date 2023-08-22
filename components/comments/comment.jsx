@@ -10,6 +10,7 @@ import { useParams, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { commentContext } from "./comentContext";
 import { AiFillDelete } from "react-icons/ai";
+import Login from "../login/login";
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString("en-us", {
     year: "numeric",
@@ -30,6 +31,7 @@ export default function Comment({
   isRoot,
   userId,
 }) {
+  const { user, isAuthenticated } = useSelector((store) => store.account);
   const { width } = useWidth();
   const [isShow, setIsShow] = useState(false);
   const [repliesHook, setRepliesHoos] = useState([]);
@@ -37,7 +39,6 @@ export default function Comment({
   const [replies, setReplies] = useState([]);
   const [nreplies, setnReplies] = useState(nReplies);
   const [isShowReponde, setIsShowReponde] = useState(false);
-  const { user } = useSelector((store) => store.account);
   const { setComments, comments, setNComments } = useContext(commentContext);
   const [text, setText] = useState("");
   const params = useParams();
@@ -148,7 +149,7 @@ export default function Comment({
             <p className="text-xs text-lightSolid md:text-sm">{createAt}</p>
             {replyTo ? (
               <div className="flex items-center gap-1">
-                <p className=" overflow-hidden text-ellipsis  text-white text-xs md:text-sm">
+                <p className=" overflow-hidden text-ellipsis  text-xs text-white md:text-sm">
                   {nameUser}
                 </p>
                 <p className=" text-xs text-lightSolid md:text-sm">الى</p>
@@ -207,12 +208,21 @@ export default function Comment({
               {`الرد على ${nameUser}`}{" "}
             </label>
           </div>
-          <button
-            onClick={postComment}
-            className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            ارسال
-          </button>
+          {isAuthenticated && (
+            <button
+              onClick={postComment}
+              className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            >
+              ارسال
+            </button>
+          )}
+          {!isAuthenticated && (
+            <Login>
+              <button className="none center mb-1.5 h-fit rounded-lg border border-lightContent px-4 py-2.5 font-sans text-xs font-bold uppercase text-lightContent transition-all active:border-scandaryColor active:text-scandaryColor disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                نشر
+              </button>
+            </Login>
+          )}
         </div>
       )}
       {isShowReplies > 0 &&
