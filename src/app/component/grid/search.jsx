@@ -55,7 +55,7 @@ export default function Search({
                     setSelected(e);
                     onChangeType(e);
                   }}
-                  className={selected == e ? "bg-lightContent" : ""}
+                  className={selected == e ? "bg-lightContent text-card1" : ""}
                   key={i}
                 >
                   {e}
