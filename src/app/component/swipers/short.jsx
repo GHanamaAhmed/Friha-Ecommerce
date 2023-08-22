@@ -18,9 +18,7 @@ export default function Short({ reel }) {
         timeout();
       }}
       onMouseEnter={(e) => {
-        if (play) return;
         setPlay(true);
-        timeout();
       }}
       onMouseLeave={(e) => {
         setPlay(false);
