@@ -8,7 +8,7 @@ import {
   Button,
   Input as Input2,
 } from "../imports";
-import { ChevronDownIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
+
 import { useState } from "react";
 import TitleSection from "../../../../components/titleSection/titleSection";
 export default function Search({
@@ -19,6 +19,7 @@ export default function Search({
   onClick,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [selected,setSelected] = useState();
   const handleMenu = () => {
     setIsOpen((prev) => !prev);
   };
@@ -50,7 +51,7 @@ export default function Search({
             <MenuList className="font-Hacen-Tunisia bg-card1 text-lightSolid">
               <MenuItem onClick={() => onChangeType("الكل")}>الكل</MenuItem>
               {types?.map((e, i) => (
-                <MenuItem onClick={() => onChangeType(e)} key={i}>
+                <MenuItem  onClick={() => {setSelected(e) ;onChangeType(e)}} className={selected==e?"bg-lightContent":""} key={i}>
                   {e}
                 </MenuItem>
               ))}
