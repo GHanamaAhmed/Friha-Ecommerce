@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Menu as Menu2,
   MenuHandler,
@@ -19,7 +19,7 @@ export default function Search({
   onClick,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected,setSelected] = useState();
+  const [selected, setSelected] = useState("الكل");
   const handleMenu = () => {
     setIsOpen((prev) => !prev);
   };
@@ -49,9 +49,15 @@ export default function Search({
               </Button>
             </MenuHandler>
             <MenuList className="font-Hacen-Tunisia bg-card1 text-lightSolid">
-              <MenuItem onClick={() => onChangeType("الكل")}>الكل</MenuItem>
-              {types?.map((e, i) => (
-                <MenuItem  onClick={() => {setSelected(e) ;onChangeType(e)}} className={selected==e?"bg-lightContent":""} key={i}>
+              {["الكل", ...types]?.map((e, i) => (
+                <MenuItem
+                  onClick={() => {
+                    setSelected(e);
+                    onChangeType(e);
+                  }}
+                  className={selected == e ? "bg-lightContent" : ""}
+                  key={i}
+                >
                   {e}
                 </MenuItem>
               ))}
