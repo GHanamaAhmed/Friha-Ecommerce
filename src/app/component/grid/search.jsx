@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 import {
   Menu as Menu2,
   MenuHandler,
@@ -20,6 +20,7 @@ export default function Search({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("الكل");
+  const [isPending, startTransition] = useTransition();
   const handleMenu = () => {
     setIsOpen((prev) => !prev);
   };
@@ -48,12 +49,14 @@ export default function Search({
                 {type}{" "}
               </Button>
             </MenuHandler>
-            <MenuList className="font-Hacen-Tunisia bg-card1 text-lightSolid max-h-72 overflow-auto">
+            <MenuList className="font-Hacen-Tunisia max-h-72 overflow-auto bg-card1 text-lightSolid">
               {["الكل", ...types]?.map((e, i) => (
                 <MenuItem
                   onClick={() => {
                     setSelected(e);
-                    onChangeType(e);
+                    startTransition(() => {
+                      onChangeType(e);
+                    });
                   }}
                   className={selected == e ? "bg-lightContent text-black" : ""}
                   key={i}
@@ -76,7 +79,9 @@ export default function Search({
         </div>
         <Button
           onClick={() => {
-            onClick();
+            startTransition(() => {
+              onClick();
+            });
           }}
           variant="outlined"
           size="md"
