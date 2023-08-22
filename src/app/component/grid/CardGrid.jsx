@@ -23,40 +23,22 @@ export default function CardGrid() {
       )
       .then((res) => {
         setIsLoading(false);
-        setProduct(res.data.products);
+        setProduct((prev) => [...prev, ...res.data.products]);
         setMin(res.data.products?.length);
         setTypes(res.data?.types);
+        setCount(res.data?.count);
       })
       .catch((err) => {
         console.error(err);
         setIsLoading(false);
       });
   };
-  const fetchCount = async () => {
-    await customAxios.get(`/products/count`).then((res) => {
-      setCount(res.data?.count - 1);
-    });
-  };
   useEffect(() => {
     fetch();
-    fetchCount();
   }, [type]);
   const more = (e) => {
     e.preventDefault();
-    const fetch2 = async () => {
-      await customAxios
-        .get(
-          `/products?min=${min}&max=${min + 8}${
-            input.length > 0 ? `&name=${input}` : ""
-          }${type != "الكل" ? `&type=${type}` : ""}`
-        )
-        .then((res) => {
-          setProduct((prev) => [...prev, ...res.data.products]);
-          setCount(res.data?.count)
-          setMin(res.data.products?.length + min);
-        });
-    };
-    fetch2();
+    fetch();
   };
   const content = () => {
     return (
@@ -64,7 +46,6 @@ export default function CardGrid() {
         <Search
           onClick={() => {
             fetch();
-            fetchCount();
           }}
           types={types}
           type={type}
@@ -96,7 +77,7 @@ export default function CardGrid() {
               })}
             </div>
             <div className="flex w-full justify-center py-3">
-              {min <= count && (
+              {min < count && (
                 <Button
                   onClick={more}
                   variant="outlined"
