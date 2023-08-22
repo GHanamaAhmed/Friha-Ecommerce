@@ -55,7 +55,7 @@ const pub = [
 ];
 export default function DrawerComponent({ onClose, isOpen }) {
   const [open, setOpen] = React.useState(false);
-  const { isAuthenticated, user } = useSelector(store=>store.account);
+  const { isAuthenticated, user } = useSelector((store) => store.account);
   const [openBasket, setOpenBasket] = React.useState(false);
   const pathName = usePathname();
   const router = useRouter();
@@ -77,6 +77,9 @@ export default function DrawerComponent({ onClose, isOpen }) {
         .get("/auth")
         .then((res) => {
           closeDrawer();
+        })
+        .then((res) => {
+          router.refresh();
         })
         .catch((err) => console.error(err));
       return;
@@ -184,7 +187,7 @@ export default function DrawerComponent({ onClose, isOpen }) {
             {!isAuthenticated && (
               <Login>
                 {" "}
-                <button className="border w-full mt-3 border-white px-4 py-2 text-white transition-all duration-200 hover:bg-white hover:text-primaryColor">
+                <button className="mt-3 w-full border border-white px-4 py-2 text-white transition-all duration-200 hover:bg-white hover:text-primaryColor">
                   تسجيل الدخول{" "}
                 </button>
               </Login>
