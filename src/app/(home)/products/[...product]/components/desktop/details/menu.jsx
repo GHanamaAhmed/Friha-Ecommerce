@@ -243,14 +243,25 @@ function Size() {
     <Swiper
       className="mySlider2 w-full h-full max-w-xs"
       modules={[A11y, FreeMode]}
-      spaceBetween={50}
-      slidesPerView={7.5}
+      spaceBetween={10}
+      slidesPerView={5.5}
       freeMode={true}
+      breakpoints={{
+        767: {
+          slidesPerView: 7.5,
+          spaceBetween: 50,
+        },
+        1024: {
+          slidesPerView: 8.5,
+          spaceBetween: 50,
+        },
+      }}
     >
       {sizes
         .filter((e) => e != "الكل")
         .map((e, i) => (
           <SwiperSlide
+          className="p-0 m-0"
             onClick={() => {
               if (
                 product?.photos?.[
