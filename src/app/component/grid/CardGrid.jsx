@@ -52,6 +52,7 @@ export default function CardGrid() {
         )
         .then((res) => {
           setProduct((prev) => [...prev, ...res.data.products]);
+          setCount(res.data?.count)
           setMin(res.data.products?.length + min);
         });
     };
