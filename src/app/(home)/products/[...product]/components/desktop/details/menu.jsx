@@ -164,7 +164,7 @@ function Color() {
     <div className="grid">
       {" "}
       <Swiper
-        className="mySlider2 w-full h-full"
+        className="mySlider2 h-full w-full"
         modules={[A11y, FreeMode]}
         spaceBetween={10}
         slidesPerView={5.5}
@@ -240,73 +240,75 @@ function Size() {
     onClick: () => setOpenMenu((prev) => !prev),
   };
   return (
-    <Swiper
-      className="mySlider2 w-full h-full max-w-xs"
-      modules={[A11y, FreeMode]}
-      spaceBetween={10}
-      slidesPerView={5.5}
-      freeMode={true}
-      breakpoints={{
-        767: {
-          slidesPerView: 7.5,
-          spaceBetween: 50,
-        },
-        1024: {
-          slidesPerView: 8.5,
-          spaceBetween: 50,
-        },
-      }}
-    >
-      {sizes
-        .filter((e) => e != "الكل")
-        .map((e, i) => (
-          <SwiperSlide
-          className="p-0 m-0"
-            onClick={() => {
-              if (
-                product?.photos?.[
-                  product?.photos?.findIndex(
-                    (el, ind) => el?.color == color && el?.sizes?.includes(e)
-                  )
-                ]?.quntity
-              ) {
-                setSize(e);
-                setQuntity(1);
-              }
-            }}
-            key={i}
-          >
-            <Chip
-              variant={size != e ? `outlined` : "filled"}
-              color={
-                !product?.photos?.[
-                  product?.photos?.findIndex(
-                    (el, ind) => el?.color == color && el?.sizes?.includes(e)
-                  )
-                ]?.quntity && e != "الكل"
-                  ? "blue-gray"
-                  : ""
-              }
-              className="m-0 h-fit w-fit"
-              value={
-                <p
-                  className={
-                    !product?.photos?.[
-                      product?.photos?.findIndex(
-                        (el, ind) =>
-                          el?.color == color && el?.sizes?.includes(e)
-                      )
-                    ]?.quntity && e != "الكل"
-                      ? `line-through`
-                      : ""
-                  }
-                >
-                  {e}
-                </p>
-              }
-            />
-          </SwiperSlide>
-        ))}
-    </Swiper>
+    <div className="grid">
+      <Swiper
+        className="mySlider2 h-full w-full"
+        modules={[A11y, FreeMode]}
+        spaceBetween={10}
+        slidesPerView={5.5}
+        freeMode={true}
+        breakpoints={{
+          767: {
+            slidesPerView: 7.5,
+            spaceBetween: 50,
+          },
+          1024: {
+            slidesPerView: 8.5,
+            spaceBetween: 50,
+          },
+        }}
+      >
+        {sizes
+          .filter((e) => e != "الكل")
+          .map((e, i) => (
+            <SwiperSlide
+              className="m-0 p-0"
+              onClick={() => {
+                if (
+                  product?.photos?.[
+                    product?.photos?.findIndex(
+                      (el, ind) => el?.color == color && el?.sizes?.includes(e)
+                    )
+                  ]?.quntity
+                ) {
+                  setSize(e);
+                  setQuntity(1);
+                }
+              }}
+              key={i}
+            >
+              <Chip
+                variant={size != e ? `outlined` : "filled"}
+                color={
+                  !product?.photos?.[
+                    product?.photos?.findIndex(
+                      (el, ind) => el?.color == color && el?.sizes?.includes(e)
+                    )
+                  ]?.quntity && e != "الكل"
+                    ? "blue-gray"
+                    : ""
+                }
+                className="m-0 h-fit w-fit"
+                value={
+                  <p
+                    className={
+                      !product?.photos?.[
+                        product?.photos?.findIndex(
+                          (el, ind) =>
+                            el?.color == color && el?.sizes?.includes(e)
+                        )
+                      ]?.quntity && e != "الكل"
+                        ? `line-through`
+                        : ""
+                    }
+                  >
+                    {e}
+                  </p>
+                }
+              />
+            </SwiperSlide>
+          ))}
+      </Swiper>
+    </div>
   );
 }
