@@ -61,6 +61,7 @@ export default function Comment({
       (window.history.state || params?.product || params?.reel) &&
         fetchReplies(req)
           .then((res) => {
+            setIsShowReponde(false);
             setReplies(res.data);
           })
           .catch((err) => console.error(err));
@@ -141,8 +142,14 @@ export default function Comment({
               onClick={toggleShowReponde}
               className="flex items-center gap-1"
             >
-              <p className="text-xs text-white md:text-sm">رد</p>
-              <BsFillReplyFill color="white" />
+              <p
+                className={`text-xs ${
+                  !isShowReponde ? "text-white" : "text-blue-700"
+                } md:text-sm`}
+              >
+                رد
+              </p>
+              <BsFillReplyFill color={`${!isShowReponde ? "white" : "blue"}`} />
             </button>
           </div>
           <div className="flex items-center gap-2">
