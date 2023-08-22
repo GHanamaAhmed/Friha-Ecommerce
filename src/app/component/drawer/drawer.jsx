@@ -17,7 +17,8 @@ import { useRouter, usePathname } from "next/navigation";
 import BasketDrawer from "../basketDrawer/basketDrawer";
 import { customAxios } from "@@/lib/api/axios";
 import Login from "@@/components/login/login";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/app/redux/accountReducer";
 const account = [
   {
     path: "/account",
@@ -59,6 +60,7 @@ export default function DrawerComponent({ onClose, isOpen }) {
   const [openBasket, setOpenBasket] = React.useState(false);
   const pathName = usePathname();
   const router = useRouter();
+  const dispatch = useDispatch();
   const closeDrawer = () => {
     setOpen(false);
     onClose();
@@ -73,15 +75,7 @@ export default function DrawerComponent({ onClose, isOpen }) {
   const changeRouter = (e, path) => {
     e.preventDefault();
     if (path == "/logout") {
-      customAxios
-        .get("/auth")
-        .then((res) => {
-          closeDrawer();
-        })
-        .then((res) => {
-          router.refresh();
-        })
-        .catch((err) => console.error(err));
+      dispatch(logout());
       return;
     }
     router.push(path);
