@@ -24,7 +24,7 @@ export default function CardGrid() {
       .then((res) => {
         setIsLoading(false);
         setProduct((prev) => [...prev, ...res.data.products]);
-        setMin(res.data.products?.length);
+        setMin(res.data.products?.length + min);
         setTypes(res.data?.types);
         setCount(res.data?.count);
       })
