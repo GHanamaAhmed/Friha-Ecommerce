@@ -137,6 +137,7 @@ export default function Page({ params }) {
       coupon: coupon,
       adress: adress,
       phone: phone,
+      email,
       city: wilaya && baladia ? `${wilaya?.name} ${baladia?.name}` : null,
       photo: user?.Photo,
       delivery,

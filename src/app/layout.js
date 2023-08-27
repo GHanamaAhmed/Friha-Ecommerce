@@ -4,9 +4,17 @@ const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "./redux/provider";
 import ToastProvider from "./component/toasty/toastProvider";
 import { customAxios } from "@@/lib/api/axios";
+import icon from "@@/public/res/fri7.ico";
 export const metadata = {
   title: "FRI7A",
   description: "Friha clothes",
+  // icons: {
+  //   icon: {
+  //     url: "/res/Friha.png",
+  //     type: "image/png",
+  //   },
+  //   shortcut: { url: "/res/Friha.png", type: "image/png" },
+  // },
 };
 export default function RootLayout({ children }) {
   customAxios.post("/statistique").catch((err) => console.error(err));
