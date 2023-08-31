@@ -1,6 +1,4 @@
 "use client";
-import { Button, useSelect } from "@material-tailwind/react";
-import Image from "next/image";
 import { useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
