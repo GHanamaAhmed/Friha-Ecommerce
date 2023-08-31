@@ -8,13 +8,7 @@ import icon from "@@/public/res/fri7.ico";
 export const metadata = {
   title: "FRI7A",
   description: "Friha clothes",
- icons: {
-  icon: {
-     url: "/res/Fri7.ico",
-     type: "image/ico",
-    },
-   shortcut: { url: "/res/Fri7.ico", type: "image/ico" },
-  },
+
 };
 export default function RootLayout({ children }) {
   customAxios.post("/statistique").catch((err) => console.error(err));
