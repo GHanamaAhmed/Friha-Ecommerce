@@ -1,7 +1,12 @@
 module.exports = {
 	apps: [
 		{
+			name: 'client-side',
 			script: "npm start",
+			watch: true,
+			env :{
+				NODE_ENV : 'production'
+			}
 
 		},
 
@@ -14,10 +19,9 @@ module.exports = {
 			ref: "origin/ahmed",
 			repo: "git@github.com:0asaca0rum0/ecommerce123.git",
 			path: "/home/test01",
-			"pre-deploy-local": "",
 			"post-deploy":
 				"source ~/.nvm/nvm.sh && npm install && npm run build && pm2 reload ecosystem.config.js --env production",
-			"pre-setup": "",
+
 		},
 	},
 };
