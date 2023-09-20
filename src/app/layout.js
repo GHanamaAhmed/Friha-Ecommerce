@@ -4,6 +4,7 @@ const inter = Inter({ subsets: ["latin"] });
 import ReduxProvider from "./redux/provider";
 import ToastProvider from "./component/toasty/toastProvider";
 import { customAxios } from "@@/lib/api/axios";
+import GoogleAnalytics from "../../lib/gtag";
 export const metadata = {
   title: "FRI7A",
   description: "Friha clothes",
