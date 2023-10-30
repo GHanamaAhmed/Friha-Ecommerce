@@ -60,7 +60,7 @@ export default function Page({ params }) {
           .get(
             `cities/deliveryPrice?wilaya1=${wilaya?.name}&id=${wilaya?.id}&delivery=${delivery}`
           )
-          .then((res) => setShipping(Number(res.data)))
+          .then((res) => setShipping(0))
           .catch((err) => console.error(err));
     } catch (e) {
       console.error(e);
@@ -209,16 +209,18 @@ export default function Page({ params }) {
               <p className="text-lg text-white">المجموع الفرعي</p>
               <p className="text-lg text-white">{price}</p>
             </div>
+            {/*
             <div className="flex justify-between">
               <p className="text-lg text-white">الشحن</p>
               <p className="text-lg text-white">{shipping}</p>
-            </div>
+  </div>*/}
             <div className="flex justify-between">
               <p className="text-lg text-white">المجموع</p>
               <p className="text-lg text-white">
-                {(discountPorcent
+                {discountPorcent
                   ? price * (1 - discountPorcent)
-                  : price - discountPrice) + shipping}
+                  : price - discountPrice}{" "}
+                + الشحن
               </p>
             </div>
           </div>

@@ -123,7 +123,7 @@ export default function Video({
               </div>
               {productId && (
                 <div className="flex flex-col items-center gap-3">
-                  <Link href={`http://localhost:3000/products/${productId}`}>
+                  <Link href={`http://fri7a.com/products/${productId}`}>
                     {" "}
                     <FaShoppingCart size={40} className={"fill-white"} />
                   </Link>
@@ -152,10 +152,8 @@ export default function Video({
           <div className="absolute bottom-8 left-5">
             <div>
               <div>
-                <Link href={link}>
-                  {" "}
-                  <p className="text-40 text-white">{name}</p>
-                </Link>
+                {" "}
+                <p className="text-40 text-white">{name}</p>
                 {price > 0 && (
                   <p className="text-end text-2xl text-white">{price}DA</p>
                 )}
