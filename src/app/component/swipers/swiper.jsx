@@ -7,11 +7,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Short from "./short";
 import SwiperLoading from "./swiperLoading";
 import { fetchMore, fetchReels } from "@@/lib/api/reels";
-export default function Swipers() {
+export default memo(function Swipers() {
   const [isLoading, setIsLoading] = useState(true);
   const [reels, setReels] = useState([]);
   const [first, setFirst] = useState(true);
@@ -86,9 +86,7 @@ export default function Swipers() {
             className="relative space-y-8 p-0 md:flex md:items-center md:space-x-8 md:space-y-0"
           >
             <div className="m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-center  rounded-lg bg-gray-700 px-4 md:h-80 md:w-60">
-              <p className="-rotate-45 text-3xl text-white">
-                لا يوجد حاليا
-              </p>
+              <p className="-rotate-45 text-3xl text-white">لا يوجد حاليا</p>
             </div>
           </div>
         </SwiperSlide>
@@ -97,4 +95,4 @@ export default function Swipers() {
   ) : (
     <SwiperLoading />
   );
-}
+});

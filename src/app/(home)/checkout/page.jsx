@@ -52,7 +52,6 @@ export default function Page({ params }) {
       .catch((err) => console.error(err));
   }, [wilaya]);
   useEffect(() => {
-    console.log(wilaya);
     try {
       delivery &&
         wilaya &&
@@ -194,9 +193,6 @@ export default function Page({ params }) {
         e?.quntity > 0
     );
     return c ? false : true;
-  }, [products]);
-  useEffect(() => {
-    console.log(products);
   }, [products]);
   return !isLading ? (
     <div className="flex flex-col items-center gap-3 pb-10 pt-20">

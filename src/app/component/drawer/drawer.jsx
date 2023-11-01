@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import {
   Button,
   Drawer,
@@ -54,7 +54,7 @@ const pub = [
     text: "ريلز",
   },
 ];
-export default function DrawerComponent({ onClose, isOpen }) {
+export default memo(function DrawerComponent({ onClose, isOpen }) {
   const [open, setOpen] = React.useState(false);
   const { isAuthenticated, user } = useSelector((store) => store.account);
   const [openBasket, setOpenBasket] = React.useState(false);
@@ -118,7 +118,6 @@ export default function DrawerComponent({ onClose, isOpen }) {
           <List>
             <p className="mr-6 mt-1 text-lightSolid">العامة</p>
             {pub.map((e, i) => {
-              console.log(pathName);
               return (
                 <ListItem
                   onClick={(element) => changeRouter(element, e.path)}
@@ -200,4 +199,4 @@ export default function DrawerComponent({ onClose, isOpen }) {
       }
     </>
   );
-}
+});

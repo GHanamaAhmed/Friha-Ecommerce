@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";;
-export default function Short({ reel }) {
+import { useEffect, useState, memo } from "react";
+import { useRouter } from "next/navigation";
+export default memo(function Short({ reel }) {
   const [play, setPlay] = useState(false);
   const router = useRouter();
   const timeout = () => {
@@ -55,4 +55,4 @@ export default function Short({ reel }) {
       </div>
     </div>
   );
-}
+});
