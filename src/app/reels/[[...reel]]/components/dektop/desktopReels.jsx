@@ -104,7 +104,7 @@ export default function DesktopReels({ reels, onEnd }) {
       navigator
         .share({
           title: "FrihaClothes",
-          url: "http://localhost:3000/reels/" + window.history.state,
+          url: "http://fri7a.com/reels/" + window.history.state,
         })
         .then(() => {
           console.log("Thanks for sharing!");
