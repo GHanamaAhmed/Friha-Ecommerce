@@ -128,7 +128,6 @@ export default memo(function Card({
         </div>
       </div>
       <div className="hidden w-full items-center justify-between border-t-[1px] border-card2 px-2 py-px md:flex md:py-2">
-        <p className="text-sm text-white md:text-lg">الكمية: {quntity}</p>
         <Tooltip
           content={`${!isLike ? "اعجاب" : "تم الاعجاب"}`}
           placement="top"
