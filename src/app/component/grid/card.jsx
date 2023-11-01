@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { memo, useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useWidth } from "../../../../lib/hooks/useWidth";
@@ -81,9 +82,9 @@ export default memo(function Card({
       <div className="relative h-full max-h-[75%]">
         <div className="aspect-w-3 aspect-h-4 relative flex h-full w-full items-center justify-center">
           <div className="absolute flex h-full w-full items-center justify-center">
-            <img
-              crossOrigin="anonymous"
+            <Image
               className="max-h-full w-full object-cover"
+              fill
               src={thumbanil}
               alt=""
             />
