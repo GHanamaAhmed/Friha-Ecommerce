@@ -27,7 +27,7 @@ export default function Navbar() {
       setPositinScroll(globalThis.window.scrollY);
     };
     window.addEventListener("scroll", handlePosition);
-    return () => window.removeEventListener("scroll", () => {});
+    return () => window.removeEventListener("scroll", handlePosition);
   }, [positionScroll]);
   const toggleMenu = (e) => {
     e.preventDefault();

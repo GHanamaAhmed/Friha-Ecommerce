@@ -1,12 +1,12 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Drawer, List } from "@material-tailwind/react";
 import { AiOutlineLeft } from "react-icons/ai";
 import Card from "./card";
 import { useDispatch, useSelector } from "react-redux";
 import { changeIsOrder } from "@/app/redux/basketReducer";
 import { useRouter } from "next/navigation";
-export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
+export default memo(function BasketDrawer({ onClose, isOpen, onClose2 }) {
   const [open, setOpen] = React.useState(false);
   const { products } = useSelector((state) => state.basket);
   const router = useRouter();
@@ -78,4 +78,4 @@ export default function BasketDrawer({ onClose, isOpen, onClose2 }) {
       </Drawer>
     </React.Fragment>
   );
-}
+});

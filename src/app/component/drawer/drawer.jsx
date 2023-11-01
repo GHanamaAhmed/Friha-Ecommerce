@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   Button,
   Drawer,
@@ -65,10 +65,10 @@ export default function DrawerComponent({ onClose, isOpen }) {
     setOpen(false);
     onClose();
   };
-  const closeBasket = () => {
+  const closeBasket = useCallback(() => {
     setOpenBasket(false);
     setOpen(true);
-  };
+  });
   useEffect(() => {
     setOpen(isOpen);
   }, [isOpen]);

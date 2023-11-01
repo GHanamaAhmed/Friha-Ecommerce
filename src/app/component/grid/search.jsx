@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useTransition } from "react";
+import React, { memo, useEffect, useTransition } from "react";
 import {
   Menu as Menu2,
   MenuHandler,
@@ -11,7 +11,7 @@ import {
 
 import { useState } from "react";
 import TitleSection from "../../../../components/titleSection/titleSection";
-export default function Search({
+export default memo(function Search({
   types,
   onChangeType,
   type,
@@ -92,4 +92,4 @@ export default function Search({
       </div>
     </TitleSection>
   );
-}
+});

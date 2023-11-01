@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useWidth } from "../../../../lib/hooks/useWidth";
 import { LuShoppingCart } from "react-icons/lu";
@@ -13,7 +13,7 @@ import { addToBasket, remveByIdFromBasket } from "@/app/redux/basketReducer";
 import { useDispatch } from "react-redux";
 import Login from "@@/components/login/login";
 import { toasty } from "../toasty/toast";
-export default function Card({
+export default memo(function Card({
   id,
   name,
   price,
@@ -76,7 +76,7 @@ export default function Card({
   return (
     <div
       onClick={redirect}
-      className="relative flex h-56 w-full md:max-w-none max-w-[144px] cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60"
+      className="relative flex h-56 w-full max-w-[144px] cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-gray-900 p-0 md:h-80 md:w-60 md:max-w-none"
     >
       <div className="relative h-full max-h-[75%]">
         <div className="aspect-w-3 aspect-h-4 relative flex h-full w-full items-center justify-center">
@@ -179,4 +179,4 @@ export default function Card({
       )}
     </div>
   );
-}
+});
