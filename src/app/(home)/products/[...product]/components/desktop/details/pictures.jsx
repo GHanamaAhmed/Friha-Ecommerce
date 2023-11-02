@@ -22,7 +22,7 @@ export default function Pictures({ direction }) {
                 ] || product.thumbanil
               }
               alt=""
-              className="h-full w-full rounded-md object-cover"
+              className="h-full w-full rounded-md object-contain"
             />
           </div>
         </div>
