@@ -33,7 +33,7 @@ export default memo(function Short({ reel }) {
             priority
             crossOrigin="anonymous"
             fill
-            className="object-cover"
+            className="object-contain"
             src={reel?.thumbanil}
             alt="reel"
           />
