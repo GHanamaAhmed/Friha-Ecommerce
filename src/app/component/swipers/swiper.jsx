@@ -1,12 +1,13 @@
 "use client";
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Pagination, Scrollbar, A11y,FreeMode } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import 'swiper/css/free-mode';
 import { useEffect, useState, memo } from "react";
 import Short from "./short";
 import SwiperLoading from "./swiperLoading";
@@ -42,7 +43,7 @@ export default memo(function Swipers() {
   };
   return !isLoading ? (
     <Swiper
-      modules={[A11y, Pagination]}
+      modules={[A11y, Pagination,FreeMode]}
       spaceBetween={50}
       slidesPerView={1.5}
       freeMode={true}
