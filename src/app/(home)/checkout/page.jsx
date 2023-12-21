@@ -27,7 +27,7 @@ export default function Page({ params }) {
   const [wilaya, setWilaya] = useState();
   const [baladias, setBaladias] = useState([]);
   const [baladia, setBaladia] = useState();
-  const [delivery, setDelivery] = useState();
+  const [delivery, setDelivery] = useState("deleveryAgency");
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
